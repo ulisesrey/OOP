@@ -6,7 +6,6 @@ public class PAC1Ex1 {
         // Base cases
         if (n == 0 || n == 1) return 1;
         // Other cases
-        // double my_result  = ((2.0 * n + 1) * motzkinNMinus1) / (n + 2) + ((3.0 * n - 3) * motzkinNMinus2) / (n + 2);
         return ((2.0 * n + 1) * motzkinNMinus1) / (n + 2) + ((3.0 * n - 3) * motzkinNMinus2) / (n + 2);
     }
 
