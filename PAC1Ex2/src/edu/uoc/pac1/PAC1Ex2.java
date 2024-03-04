@@ -18,18 +18,24 @@ public class PAC1Ex2 {
 
     public static double getMultiplierByDifficulty(byte difficulty) {
         // Multiply difficulty variable by the corresponding variable in DIFICULTY_MULTIPLIER array
-        return DIFFICULTY_MULTIPLIER[difficulty];
+        return DIFFICULTY_MULTIPLIER[difficulty-1];
     }
 
     public static double calculateGold(byte level, byte difficulty) {
         // Add Goldbase and multiply it by the level and the difficulty multiplier
-        return (GOLD_BASE + (level * LEVEL_MULTIPLIER)) * getMultiplierByDifficulty(difficulty);
+        return GOLD_BASE + level * LEVEL_MULTIPLIER * getMultiplierByDifficulty(difficulty);
     }
 
     public static void getAchievementsGold(byte level, byte[] difficulties) {
         // Return the sum of the gold for each difficulty
         double totalGold = 0;
         int invalidDifficulties = 0;
+
+        // Return error if level is 0
+        if (!isValidLevel(level)) {
+            System.out.println(ERR_LEVEL);
+            return;
+        }
 
         for (byte difficulty : difficulties) {
             if (isValidDifficulty(difficulty)) {
