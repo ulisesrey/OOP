@@ -12,7 +12,7 @@ public class PAC1Ex2 {
     }
 
     public static boolean isValidDifficulty(byte difficulty) {
-        return difficulty >= 0 && difficulty <= 4;
+        return difficulty > 0 && difficulty <= 4;
     }
 
 
@@ -44,8 +44,10 @@ public class PAC1Ex2 {
                 invalidDifficulties++;
             }
         }
+        int validDifficulties = difficulties.length-invalidDifficulties;
+
         // print the sum of the gold and the number of invalid difficulties
-        System.out.println("You have obtained a total of " + totalGold + " gold from " + difficulties.length + " achievements.");
+        System.out.println("You have obtained a total of " + totalGold + " gold from " + validDifficulties + " achievements.");
         // print the number of invalid difficulties
         System.out.println(invalidDifficulties + " achievements with invalid difficulties have been detected.");
     }
