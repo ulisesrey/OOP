@@ -1,5 +1,5 @@
 class improved_fibonacci {
-    static final int MAX_INDEX = 100;
+    static final int MAX_INDEX = 50;
     /*
      * Print out the first few Fibonacci numbers.
      * Mark the evens with a *
