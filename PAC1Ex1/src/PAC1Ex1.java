@@ -2,15 +2,15 @@ import java.util.Scanner;
 
 public class PAC1Ex1 {
 
-    private static double motzkin(int n, double motzkinNMinus1, double motzkinNMinus2) {
+    private static int motzkin(int n, int motzkinNMinus1, int motzkinNMinus2) {
         // Base cases
         if (n == 0 || n == 1) return 1;
         // Other cases
-        return ((2.0 * n + 1) * motzkinNMinus1) / (n + 2) + ((3.0 * n - 3) * motzkinNMinus2) / (n + 2);
+        return (int)(((2.0 * n + 1) * motzkinNMinus1) / (n + 2) + ((3.0 * n - 3) * motzkinNMinus2) / (n + 2));
     }
 
     public static void printMotzkin(int n) {
-        double motzkin, motzkinNMinus1 = 1, motzkinNMinus2 = 1;
+        int motzkin, motzkinNMinus1 = 1, motzkinNMinus2 = 1;
 
         for (int i = 0; i <= n; i++) {
 
