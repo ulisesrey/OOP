@@ -26,6 +26,11 @@ public class PointTest {
         // Output the distance
         System.out.println("Euclidean distance is " + distance);
 
+        // Move the loweleft point to the  middle point
+        lowerLeft.move(middlePoint.x, middlePoint.y);
+
+        System.out.println("The loweleft point has been moved to the middle point coords: " + lowerLeft.x + ", " + lowerLeft.y);
+
     }
 }
 
@@ -39,6 +44,11 @@ class Point {
         double xdiff = x - that.x;
         double ydiff = y - that.y;
         return Math.sqrt(xdiff * xdiff + ydiff * ydiff);
+    }
+
+    public void move(double x, double y) {
+        this.x = x;
+        this.y = y;
     }
 
 }
