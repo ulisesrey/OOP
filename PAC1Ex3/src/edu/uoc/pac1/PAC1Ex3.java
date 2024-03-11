@@ -25,11 +25,30 @@ public class PAC1Ex3 {
     }
 
     public static boolean isValidSeat(int x, int y) {
-        //TODO
+        // return false if x or y are out of range, return true otherwise
+        if (x < 0 || x > 13 || y < 0 || y > 13) {
+            return false;
+        }
+        else {
+            return true;
+        }
     }
 
     public static double calculatePrice(int[][] selectedSeats) {
-        //TODO
+
+        double total_price = 0;
+        // loop through every seat
+        for (int i = 0; i < selectedSeats.length; i++) {
+            // check if seat is valid
+            if (isValidSeat(selectedSeats[i][0], selectedSeats[i][1])) {
+                // calculate price of seat and add it to total price
+                total_price += CINEMA_SEATS_PRICE[selectedSeats[i][0]][selectedSeats[i][1]];
+            }
+            else {
+                return -1;
+            }
+        }
+        return twoDecimals(total_price);
     }
 
     public static double calculateDiscount(double totalPrice, int numberOfSeats) {
