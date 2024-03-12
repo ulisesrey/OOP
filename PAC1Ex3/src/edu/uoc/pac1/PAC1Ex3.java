@@ -35,14 +35,20 @@ public class PAC1Ex3 {
     }
 
     public static double calculatePrice(int[][] selectedSeats) {
-
+        /*
+        Return the price for the selected seats. Return -1 if there are non-valid seats
+         */
+        // initialize total_price variable
         double total_price = 0;
         // loop through every seat
         for (int i = 0; i < selectedSeats.length; i++) {
+            // convert seats coordinates to matrix coords
+            int x = selectedSeats[i][0]-1;
+            int y = selectedSeats[i][1]-1;
             // check if seat is valid
-            if (isValidSeat(selectedSeats[i][0], selectedSeats[i][1])) {
+            if (isValidSeat(x, y)){
                 // calculate price of seat and add it to total price
-                total_price += CINEMA_SEATS_PRICE[selectedSeats[i][0]][selectedSeats[i][1]];
+                total_price += CINEMA_SEATS_PRICE[x][y];
             }
             else {
                 return -1;
@@ -52,11 +58,34 @@ public class PAC1Ex3 {
     }
 
     public static double calculateDiscount(double totalPrice, int numberOfSeats) {
-        //TODO
+        // check discount to apply
+        double discountRate = 0.0;
+        if (numberOfSeats >= 3 && numberOfSeats <= 4) {
+            discountRate = 0.05; // 5% discount
+        } else if (numberOfSeats >= 5 && numberOfSeats <= 9) {
+            discountRate = 0.10; // 10% discount
+        } else if (numberOfSeats >= 10) {
+            discountRate = 0.15; // 15% discount
+        }
+        double discount = totalPrice * discountRate;
+        return twoDecimals(discount);
     }
 
     public static double calculateTotalPrice(int[][] selectedSeats, int session) {
-        //TODO
+
+        // calculate price of selected seats
+        double totalPrice = calculatePrice(selectedSeats);
+
+        // check if price is valid
+        if (totalPrice == -1) {
+            return -1;
+        }
+
+        // calculate discount
+        double discount = calculateDiscount(totalPrice, selectedSeats.length);
+
+        // calculate total price
+        return twoDecimals((totalPrice - discount) * CINEMA_MULTIPLIER_PER_SESSION[session-1]);
     }
 
 }
