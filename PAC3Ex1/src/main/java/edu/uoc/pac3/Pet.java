@@ -32,11 +32,20 @@ public class Pet {
     }
 
     private void setName(String name) {
-        if (name == null || name.trim().isEmpty() || name.length() < MIN_NAME_LENGTH || name.length() > MAX_NAME_LENGTH) {
+        // Check if name is null, its trimmed form is empty, or it does not meet the length requirements
+        if (name == null) {
             throw new IllegalArgumentException(INVALID_NAME);
         }
-        this.name = name.trim();
+
+        String trimmedName = name.trim();
+        if (trimmedName.isEmpty() || trimmedName.length() < MIN_NAME_LENGTH || trimmedName.length() > MAX_NAME_LENGTH) {
+            throw new IllegalArgumentException(INVALID_NAME);
+        }
+
+        this.name = trimmedName;
     }
+
+
 
     public int getLevel() {
         return level;
