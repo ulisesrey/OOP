@@ -31,18 +31,18 @@ public class Pet {
         return name;
     }
 
-    public void setName(String name) {
-        if (name == null || name.length() < MIN_NAME_LENGTH || name.length() > MAX_NAME_LENGTH) {
+    private void setName(String name) {
+        if (name == null || name.trim().isEmpty() || name.length() < MIN_NAME_LENGTH || name.length() > MAX_NAME_LENGTH) {
             throw new IllegalArgumentException(INVALID_NAME);
         }
-        this.name = name;
+        this.name = name.trim();
     }
 
     public int getLevel() {
         return level;
     }
 
-    public void setLevel(int level) {
+    private void setLevel(int level) {
         if (level < 1 || level > MAX_LEVEL) {
             throw new IllegalArgumentException(INVALID_LEVEL);
         }
@@ -53,7 +53,7 @@ public class Pet {
         return birthdate;
     }
 
-    public void setBirthdate(LocalDate birthdate) {
+    private void setBirthdate(LocalDate birthdate) {
         if (birthdate == null || birthdate.isAfter(LocalDate.now())) {
             throw new IllegalArgumentException(INVALID_BIRTHDATE);
         }
@@ -64,7 +64,7 @@ public class Pet {
         return loyalty;
     }
 
-    public void setLoyalty(int loyalty) {
+    private void setLoyalty(int loyalty) {
         if (loyalty < 0 || loyalty > 100) {
             throw new IllegalArgumentException(INVALID_LOYALTY);
         }
@@ -75,7 +75,7 @@ public class Pet {
         return stamina;
     }
 
-    public void setStamina(int stamina) {
+    private void setStamina(int stamina) {
         if (stamina < 0 || stamina > 100) {
             throw new IllegalArgumentException(INVALID_STAMINA);
         }
@@ -86,7 +86,7 @@ public class Pet {
         return aggressive;
     }
 
-    public void setAggressive(boolean aggressive) {
+    private void setAggressive(boolean aggressive) {
         this.aggressive = aggressive;
     }
 }
