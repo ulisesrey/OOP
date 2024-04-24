@@ -19,10 +19,20 @@ public class Guild {
     private static final int MAX_NAME_LENGTH = 25;
     private static final int MAX_LEVEL = 20;
     private static final int MAX_DESCRIPTION_LENGTH = 100;
-
-    private static int nextId = 1;
+    private final int NUM_MAX_MEMBERS;
 
     private int id;
+
+    private static int nextId = 1;
+    private String name;
+    private int level;
+    private String description;
+    private LocalDate creationDate;
+    private boolean recruiting;
+    private int numMembers;
+    private int sumLevels;
+
+    private Player[] members;
 
     private void setId() {
         this.id = nextId++;
@@ -35,14 +45,8 @@ public class Guild {
     private static void incNextId() {
         nextId++;
     }
-    private String name;
-    private int level;
-    private String description;
-    private LocalDate creationDate;
-    private boolean recruiting;
-    private int numMembers;
-    private int sumLevels;
-    private Player[] members;
+
+
 
     public Guild(String name, int level, String description, LocalDate creationDate, boolean recruiting, int numMaxMembers) {
         setId();
@@ -51,6 +55,7 @@ public class Guild {
         setDescription(description);
         setCreationDate(creationDate);
         setRecruiting(recruiting);
+        this.NUM_MAX_MEMBERS = numMaxMembers; // Initialize NUM_MAX_MEMBERS
         this.members = new Player[numMaxMembers];
     }
 
