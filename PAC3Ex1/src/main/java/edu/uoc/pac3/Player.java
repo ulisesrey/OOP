@@ -42,6 +42,11 @@ public class Player {
         setHonorTitle(honorTitle);
     }
 
+    public Player(String name, int level, LocalDate creationDate, int experience, int gold, double healthRegenPerSec, double criticalPct, double dodgePct, String honorTitle, String petName, int petLevel, LocalDate petBirthdate, int petLoyalty, int petStamina, boolean petIsAggressive) {
+        this(name, level, creationDate, experience, gold, healthRegenPerSec, criticalPct, dodgePct, honorTitle);
+        setPet(petName, petLevel, petBirthdate, petLoyalty, petStamina, petIsAggressive);
+    }
+
     // Getters and setters
     public String getName() {
         return name;
@@ -146,7 +151,7 @@ public class Player {
         return pet;
     }
 
-    public void setPet(Pet pet) {
-        this.pet = pet;
+    public void setPet(String name, int level, LocalDate birthdate, int loyalty, int stamina, boolean aggressive) {
+        this.pet = new Pet(name, level, birthdate, loyalty, stamina, aggressive);
     }
 }
