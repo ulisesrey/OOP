@@ -23,6 +23,18 @@ public class Guild {
     private static int nextId = 1;
 
     private int id;
+
+    private void setId() {
+        this.id = nextId++;
+    }
+
+    public static int getNextId() {
+        return nextId;
+    }
+
+    private static void incNextId() {
+        nextId++;
+    }
     private String name;
     private int level;
     private String description;
@@ -46,10 +58,6 @@ public class Guild {
 
     public int getId() {
         return id;
-    }
-
-    private void setId() {
-        this.id = nextId++;
     }
 
     public String getName() {
@@ -138,7 +146,7 @@ public class Guild {
         return -1;
     }
 
-    private boolean containsMember(Player member) {
+    public boolean containsMember(Player member) {
         return Arrays.asList(members).contains(member);
     }
 
