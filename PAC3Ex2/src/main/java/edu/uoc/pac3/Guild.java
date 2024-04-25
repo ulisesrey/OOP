@@ -57,6 +57,8 @@ public class Guild {
         setRecruiting(recruiting);
         this.NUM_MAX_MEMBERS = numMaxMembers; // Initialize NUM_MAX_MEMBERS
         this.members = new Player[numMaxMembers];
+        this.numMembers = 0; // Initialize numMembers to 0
+        this.sumLevels = 0; // Initialize sumLevels to 0
     }
 
     // getters and setters
@@ -193,6 +195,9 @@ public class Guild {
     }
 
     public double getAverageLevel() {
+        if (numMembers == 0) {
+            return 0.0;
+        }
         return (double) sumLevels / numMembers;
     }
 }
