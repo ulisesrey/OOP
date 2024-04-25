@@ -161,6 +161,9 @@ public class Guild {
         return Arrays.asList(members).contains(member);
     }
     public void addMember(Player member) {
+        if (getNumMembers() >= NUM_MAX_MEMBERS) {
+            throw new IllegalStateException("Number of members exceeds the maximum limit");
+        }
         if (member == null) {
             throw new NullPointerException(MEMBER_NULL);
         }
