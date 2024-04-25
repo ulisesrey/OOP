@@ -162,7 +162,7 @@ public class Guild {
     }
     public void addMember(Player member) {
         if (member == null) {
-            throw new IllegalArgumentException(MEMBER_NULL);
+            throw new NullPointerException(MEMBER_NULL);
         }
         if (containsMember(member)) {
             throw new IllegalArgumentException(MEMBER_ALREADY_EXISTS);
