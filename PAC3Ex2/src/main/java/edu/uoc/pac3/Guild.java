@@ -152,9 +152,11 @@ public class Guild {
     }
 
     public boolean containsMember(Player member) {
+        if (member == null) {
+            throw new NullPointerException(MEMBER_NULL);
+        }
         return Arrays.asList(members).contains(member);
     }
-
     public void addMember(Player member) {
         if (member == null) {
             throw new IllegalArgumentException(MEMBER_NULL);
