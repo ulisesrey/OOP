@@ -141,7 +141,7 @@ public class Player {
     }
 
     private void setHonorTitle(String honorTitle) {
-        if (honorTitle == null || honorTitle.trim().isEmpty() || honorTitle.length() > MAX_HONOR_TITLE_LENGTH) {
+        if (honorTitle == null || honorTitle.trim().isEmpty() || honorTitle.length() > MAX_HONOR_TITLE_LENGTH || !honorTitle.matches("[A-Za-z ]*")) {
             throw new IllegalArgumentException(INVALID_HONOR_TITLE);
         }
         this.honorTitle = honorTitle.trim();
