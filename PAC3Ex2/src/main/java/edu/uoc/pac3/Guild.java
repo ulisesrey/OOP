@@ -162,7 +162,7 @@ public class Guild {
     }
     public void addMember(Player member) {
         if (getNumMembers() >= NUM_MAX_MEMBERS) {
-            throw new IllegalStateException("Number of members exceeds the maximum limit");
+            throw new IllegalStateException(INVALID_MAX_MEMBERS);
         }
         if (member == null) {
             throw new NullPointerException(MEMBER_NULL);
