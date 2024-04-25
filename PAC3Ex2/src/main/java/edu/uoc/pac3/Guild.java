@@ -181,7 +181,7 @@ public class Guild {
 
     public void removeMember(Player member) {
         if (member == null) {
-            throw new IllegalArgumentException(MEMBER_NULL);
+            throw new NullPointerException(MEMBER_NULL);
         }
         int memberIndex = Arrays.asList(members).indexOf(member);
         if (memberIndex == -1) {
