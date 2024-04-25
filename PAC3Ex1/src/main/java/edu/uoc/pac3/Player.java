@@ -151,7 +151,7 @@ public class Player {
         return pet;
     }
 
-    public void setPet(String name, int level, LocalDate birthdate, int loyalty, int stamina, boolean aggressive) {
+    private void setPet(String name, int level, LocalDate birthdate, int loyalty, int stamina, boolean aggressive) {
         try {
             this.pet = new Pet(name, level, birthdate, loyalty, stamina, aggressive);
         } catch (IllegalArgumentException e) {
