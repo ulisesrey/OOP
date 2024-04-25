@@ -155,6 +155,9 @@ public class Guild {
         if (member == null) {
             throw new NullPointerException(MEMBER_NULL);
         }
+        if (member.getPet() == null) {
+            throw new NullPointerException(MEMBER_NO_PET);
+        }
         return Arrays.asList(members).contains(member);
     }
     public void addMember(Player member) {
