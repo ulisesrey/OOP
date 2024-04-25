@@ -22,7 +22,6 @@ public class Guild {
     private final int NUM_MAX_MEMBERS;
 
     private int id;
-
     private static int nextId = 1;
     private String name;
     private int level;
@@ -35,7 +34,8 @@ public class Guild {
     private Player[] members;
 
     private void setId() {
-        this.id = nextId++;
+        this.id = nextId;
+        incNextId();
     }
 
     public static int getNextId() {
