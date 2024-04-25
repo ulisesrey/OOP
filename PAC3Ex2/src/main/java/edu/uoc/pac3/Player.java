@@ -141,7 +141,7 @@ public class Player {
     }
 
     private void setHonorTitle(String honorTitle) {
-        if (honorTitle == null || honorTitle.trim().isEmpty() || honorTitle.length() > MAX_HONOR_TITLE_LENGTH) {
+        if (honorTitle == null || honorTitle.trim().isEmpty() || honorTitle.length() > MAX_HONOR_TITLE_LENGTH || !honorTitle.matches("[A-Za-z ]*")) {
             throw new IllegalArgumentException(INVALID_HONOR_TITLE);
         }
         this.honorTitle = honorTitle.trim();
@@ -151,7 +151,7 @@ public class Player {
         return pet;
     }
 
-    public void setPet(String name, int level, LocalDate birthdate, int loyalty, int stamina, boolean aggressive) {
+    private void setPet(String name, int level, LocalDate birthdate, int loyalty, int stamina, boolean aggressive) {
         try {
             this.pet = new Pet(name, level, birthdate, loyalty, stamina, aggressive);
         } catch (IllegalArgumentException e) {
