@@ -69,7 +69,7 @@ public class Guild {
         return name;
     }
 
-    public void setName(String name) {
+    private void setName(String name) {
         if (name == null || name.trim().length() < MIN_NAME_LENGTH || name.trim().length() > MAX_NAME_LENGTH) {
             throw new IllegalArgumentException(INVALID_NAME);
         }
@@ -80,7 +80,7 @@ public class Guild {
         return level;
     }
 
-    public void setLevel(int level) {
+    private void setLevel(int level) {
         if (level < 1 || level > MAX_LEVEL) {
             throw new IllegalArgumentException(INVALID_LEVEL);
         }
@@ -102,7 +102,7 @@ public class Guild {
         return creationDate;
     }
 
-    public void setCreationDate(LocalDate creationDate) {
+    private void setCreationDate(LocalDate creationDate) {
         if (creationDate == null || creationDate.isAfter(LocalDate.now())) {
             throw new IllegalArgumentException(INVALID_CREATION_DATE);
         }
@@ -113,7 +113,7 @@ public class Guild {
         return recruiting;
     }
 
-    public void setRecruiting(boolean recruiting) {
+    private void setRecruiting(boolean recruiting) {
         this.recruiting = recruiting;
     }
 
