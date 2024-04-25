@@ -387,8 +387,6 @@ public class GuildTest {
     @DisplayName("Sanity - Methods definition")
     void checkMethodsSanity() {
         //check methods, parameters and return types
-        // print the public methods
-        System.out.println(Arrays.stream(Guild.class.getDeclaredMethods()).filter(m -> Modifier.isPublic(m.getModifiers())).toList());
         assertEquals(15, Arrays.stream(Guild.class.getDeclaredMethods()).filter(m -> Modifier.isPublic(m.getModifiers())).toList().size());
 
         try {
