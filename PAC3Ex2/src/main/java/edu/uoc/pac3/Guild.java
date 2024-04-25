@@ -91,7 +91,7 @@ public class Guild {
         return description;
     }
 
-    public void setDescription(String description) {
+    private void setDescription(String description) {
         if (description == null || description.length() > MAX_DESCRIPTION_LENGTH) {
             throw new IllegalArgumentException(INVALID_DESCRIPTION);
         }
