@@ -169,6 +169,9 @@ public class Guild {
         if (member == null) {
             throw new NullPointerException(MEMBER_NULL);
         }
+        if (member.getPet() == null) {
+            throw new NullPointerException(MEMBER_NO_PET);
+        }
         if (containsMember(member)) {
             throw new IllegalArgumentException(MEMBER_ALREADY_EXISTS);
         }
