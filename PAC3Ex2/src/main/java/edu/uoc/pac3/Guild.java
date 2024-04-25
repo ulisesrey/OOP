@@ -70,7 +70,7 @@ public class Guild {
     }
 
     private void setName(String name) {
-        if (name == null || name.trim().length() < MIN_NAME_LENGTH || name.trim().length() > MAX_NAME_LENGTH) {
+        if (name == null || name.trim().isEmpty() || name.length() < MIN_NAME_LENGTH || name.length() > MAX_NAME_LENGTH) {
             throw new IllegalArgumentException(INVALID_NAME);
         }
         this.name = name;
