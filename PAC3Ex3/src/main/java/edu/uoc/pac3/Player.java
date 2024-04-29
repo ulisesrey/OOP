@@ -12,6 +12,7 @@ public class Player {
     public static final String INVALID_CRITICAL_PCT = "[ERROR] The critical percentage must be between 0.0 and 100.0.";
     public static final String INVALID_DODGE_PCT = "[ERROR] The dodge percentage must be between 0.0 and 100.0.";
     public static final String INVALID_HONOR_TITLE = "[ERROR] The honor title cannot be null, empty, consist solely of spaces, cannot exceed the predefined maximum character limit, and can only contain characters from the English alphabet and whitespaces.";
+    public static final String INVALID_PLAYER_RACE = "[ERROR] The player race cannot be null.";
 
     private static final int MIN_NAME_LENGTH = 5;
     private static final int MAX_NAME_LENGTH = 50;
@@ -29,8 +30,9 @@ public class Player {
     private double dodgePct;
     private String honorTitle;
     private Pet pet;
+    private PlayerRace playerRace;
 
-    public Player(String name, int level, LocalDate creationDate, int experience, int gold, double healthRegenPerSec, double criticalPct, double dodgePct, String honorTitle) {
+    public Player(String name, int level, LocalDate creationDate, int experience, int gold, double healthRegenPerSec, double criticalPct, double dodgePct, String honorTitle, PlayerRace playerRace) {
         setName(name);
         setLevel(level);
         setCreationDate(creationDate);
@@ -40,10 +42,11 @@ public class Player {
         setCriticalPct(criticalPct);
         setDodgePct(dodgePct);
         setHonorTitle(honorTitle);
+        setPlayerRace(playerRace);
     }
 
     public Player(String name, int level, LocalDate creationDate, int experience, int gold, double healthRegenPerSec, double criticalPct, double dodgePct, String honorTitle, String petName, int petLevel, LocalDate petBirthdate, int petLoyalty, int petStamina, boolean petIsAggressive) {
-        this(name, level, creationDate, experience, gold, healthRegenPerSec, criticalPct, dodgePct, honorTitle);
+        this(name, level, creationDate, experience, gold, healthRegenPerSec, criticalPct, dodgePct, honorTitle, playerRace);
         setPet(petName, petLevel, petBirthdate, petLoyalty, petStamina, petIsAggressive);
     }
 
@@ -157,5 +160,16 @@ public class Player {
         } catch (IllegalArgumentException e) {
             this.pet = null;
         }
+    }
+
+    public PlayerRace getPlayerRace() {
+        return playerRace;
+    }
+
+    private void setPlayerRace(PlayerRace playerRace) {
+        if (playerRace == null) {
+            throw new IllegalArgumentException(INVALID_PLAYER_RACE);
+        }
+        this.playerRace = playerRace;
     }
 }
