@@ -55,17 +55,7 @@ public enum PlayerRace {
     }
 
     public PlayerRace getBestPartner() {
-        switch (this) {
-            case WARRIOR:
-                return SHAMAN;
-            case SHAMAN:
-                return WARRIOR;
-            case NINJA:
-                return DARK_MAGE;
-            case DARK_MAGE:
-                return NINJA;
-            default:
-                return null;
-        }
+        int partnerOrdinal = (this.ordinal() + 2) % PlayerRace.values().length;
+        return PlayerRace.values()[partnerOrdinal];
     }
 }
