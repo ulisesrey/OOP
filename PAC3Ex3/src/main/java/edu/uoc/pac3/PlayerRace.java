@@ -4,7 +4,7 @@ public enum PlayerRace {
     WARRIOR("Warrior", 150, 18, 6, 20, 10),
     NINJA("Ninja", 120, 12, 14, 15, 18),
     SHAMAN("Shaman", 110, 10, 20, 10, 12),
-    DARK_MAGE("DarkMage", 130, 15, 15, 18, 10);
+    DARK_MAGE("Dark Mage", 130, 15, 15, 18, 10);
     private final String name;
     private final int maxHP;
     private final int vitality;
