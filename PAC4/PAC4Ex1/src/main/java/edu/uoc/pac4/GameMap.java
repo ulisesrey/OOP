@@ -1,5 +1,7 @@
 package edu.uoc.pac4;
 
+import edu.uoc.pac4.exception.GameMapException;
+
 public class GameMap {
     private int gameMapId;
     private String name;
@@ -93,13 +95,6 @@ public class GameMap {
 
     @Override
     public String toString() {
-        return "GameMap{" +
-                "gameMapId=" + gameMapId +
-                ", name='" + name + '\'' +
-                ", width=" + width +
-                ", height=" + height +
-                ", depth=" + depth +
-                ", gameMapType=" + gameMapType +
-                '}';
+        return gameMapId + " | " + name + " (" + width + "x" + height + "x" + depth + ") | " + gameMapType;
     }
 }
