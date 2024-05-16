@@ -55,7 +55,7 @@ public class PositionEqualsToStringTest {
             fail("[ERROR] There is some problem with the creation of the Position object: " + e.getMessage());
         }
 
-        assertEquals("1 | Area Joan (1024x1536x512) | City | Position: (100, 50, 10)", position.toString());
+        assertEquals("1 | Area Joan (1024x1536x512) | City | Position (100, 50, 10)", position.toString());
     }
 
 }
