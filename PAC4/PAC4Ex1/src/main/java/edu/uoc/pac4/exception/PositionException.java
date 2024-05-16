@@ -1,4 +1,4 @@
-package edu.uoc.pac4;
+package edu.uoc.pac4.exception;
 
 public class PositionException extends Exception {
     public static final String INVALID_X = "The x coordinate must be greater than or equal to 0";
@@ -13,3 +13,4 @@ public class PositionException extends Exception {
         super(message);
     }
 }
+

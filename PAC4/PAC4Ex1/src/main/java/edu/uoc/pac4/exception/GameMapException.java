@@ -1,4 +1,4 @@
-package edu.uoc.pac4;
+package edu.uoc.pac4.exception;
 
 public class GameMapException extends Exception {
     public static final String INVALID_GAME_MAP_ID = "Game map ID cannot be negative or zero";
