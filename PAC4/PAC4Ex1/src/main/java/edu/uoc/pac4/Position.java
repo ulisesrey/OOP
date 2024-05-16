@@ -1,5 +1,7 @@
 package edu.uoc.pac4;
 
+import edu.uoc.pac4.exception.PositionException;
+
 public class Position {
     private GameMap gameMap;
     private int x;
@@ -80,11 +82,6 @@ public class Position {
 
     @Override
     public String toString() {
-        return "Position{" +
-                "gameMap=" + gameMap +
-                ", x=" + x +
-                ", y=" + y +
-                ", z=" + z +
-                '}';
+        return gameMap.getGameMapId() + " | " + gameMap.getName() + " (" + gameMap.getWidth() + "x" + gameMap.getHeight() + "x" + gameMap.getDepth() + ") | " + gameMap.getGameMapType() + " | Position (" + x + ", " + y + ", " + z + ")";
     }
 }
