@@ -1,14 +1,19 @@
 package edu.uoc.pac4;
 
 import edu.uoc.pac4.exception.GameMapException;
+import java.util.Hashtable;
+import java.util.Map;
 
 public class GameMap {
+    public static final int MAX_ENTITIES = 1000;
+
     private int gameMapId;
     private String name;
     private int width;
     private int height;
     private int depth;
     private GameMapType gameMapType;
+    private Map<Integer, Entity> entities;
 
     public GameMap(int gameMapId, String name, int width, int height, int depth, GameMapType gameMapType) throws GameMapException {
         setGameMapId(gameMapId);
@@ -17,6 +22,7 @@ public class GameMap {
         setHeight(height);
         setDepth(depth);
         setGameMapType(gameMapType);
+        this.entities = new Hashtable<>();
     }
 
     public int getGameMapId() {
@@ -83,6 +89,18 @@ public class GameMap {
             throw new GameMapException(GameMapException.MAP_TYPE_NULL);
         }
         this.gameMapType = gameMapType;
+    }
+
+    public void addEntity(Entity entity) {
+        entities.put(entity.getVid(), entity);
+    }
+
+    public Entity getEntity(Integer vid) {
+        return entities.get(vid);
+    }
+
+    public void removeEntity(Integer vid) {
+        entities.remove(vid);
     }
 
     @Override
