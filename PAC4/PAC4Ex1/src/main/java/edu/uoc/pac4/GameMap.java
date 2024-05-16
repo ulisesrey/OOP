@@ -23,7 +23,7 @@ public class GameMap {
         return gameMapId;
     }
 
-    public void setGameMapId(int gameMapId) throws GameMapException {
+    private void setGameMapId(int gameMapId) throws GameMapException {
         if (gameMapId <= 0) {
             throw new GameMapException(GameMapException.INVALID_GAME_MAP_ID);
         }
