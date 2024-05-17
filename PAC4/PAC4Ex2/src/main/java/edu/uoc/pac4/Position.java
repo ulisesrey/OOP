@@ -33,8 +33,7 @@ public class Position {
     public void setX(int x) throws PositionException {
         if (x < 0) {
             throw new PositionException(PositionException.INVALID_X);
-        }
-        if (x >= gameMap.getWidth()) {
+        } else if (x >= gameMap.getWidth()) {
             throw new PositionException(PositionException.OUT_OF_BOUNDS_X);
         }
         this.x = x;
@@ -47,8 +46,7 @@ public class Position {
     public void setY(int y) throws PositionException {
         if (y < 0) {
             throw new PositionException(PositionException.INVALID_Y);
-        }
-        if (y >= gameMap.getHeight()) {
+        } else if (y >= gameMap.getHeight()) {
             throw new PositionException(PositionException.OUT_OF_BOUNDS_Y);
         }
         this.y = y;
@@ -61,15 +59,14 @@ public class Position {
     public void setZ(int z) throws PositionException {
         if (z < 0) {
             throw new PositionException(PositionException.INVALID_Z);
-        }
-        if (z >= gameMap.getDepth()) {
+        } else if (z >= gameMap.getDepth()) {
             throw new PositionException(PositionException.OUT_OF_BOUNDS_Z);
         }
         this.z = z;
     }
 
     public double euclideanDistance(Position position) {
-        return Math.sqrt(Math.pow(this.x - position.x, 2) + Math.pow(this.y - position.y, 2) + Math.pow(this.z - position.z, 2));
+        return Math.sqrt(Math.pow(x - position.getX(), 2) + Math.pow(y - position.getY(), 2) + Math.pow(z - position.getZ(), 2));
     }
 
     @Override
@@ -82,6 +79,6 @@ public class Position {
 
     @Override
     public String toString() {
-        return gameMap.getGameMapId() + " | " + gameMap.getName() + " (" + gameMap.getWidth() + "x" + gameMap.getHeight() + "x" + gameMap.getDepth() + ") | " + gameMap.getGameMapType() + " | Position (" + x + ", " + y + ", " + z + ")";
+        return gameMap + " | Position: (" + x + ", " + y + ", " + z + ")";
     }
 }
