@@ -3,7 +3,7 @@ package edu.uoc.pac4;
 import edu.uoc.pac4.exception.EntityException;
 
 public abstract class Enemy extends Entity {
-    public static final double MAX_GROUP_LEADER_DISTANCE = 50.0;
+    private static final double MAX_GROUP_LEADER_DISTANCE = 50.0;
     private int id;
     private int minGold;
     private int maxGold;
@@ -12,9 +12,15 @@ public abstract class Enemy extends Entity {
     private int maxDamage;
     private Enemy groupLeader;
 
-    public Enemy(String name, int level, int maxHP, Position position, GameMap gameMap, int id) throws EntityException {
+    public Enemy(String name, int level, int maxHP, Position position, int id, int minGold, int maxGold, int experience, int minDamage, int maxDamage, Enemy groupLeader) throws EntityException {
         super(name, level, maxHP, position);
         this.id = id;
+        this.minGold = minGold;
+        this.maxGold = maxGold;
+        this.experience = experience;
+        this.minDamage = minDamage;
+        this.maxDamage = maxDamage;
+        this.groupLeader = groupLeader;
     }
 
     public int getId() {
