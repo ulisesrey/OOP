@@ -85,14 +85,4 @@ public abstract class Entity implements Movable {
             this.currentHP = Math.min(currentHP, maxHP);
         }
     }
-
-    @Override
-    public boolean move(Position position) {
-        try {
-            setPosition(position);
-            return true;
-        } catch (EntityException e) {
-            return false;
-        }
-    }
 }
