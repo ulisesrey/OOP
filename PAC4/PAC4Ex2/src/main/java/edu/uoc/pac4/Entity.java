@@ -13,7 +13,7 @@ public abstract class Entity implements Movable {
     private Position position;
 
     protected Entity(String name, int level, int maxHP, Position position) throws EntityException {
-        this.vid = nextVid++;
+        setVid();
         setName(name);
         setLevel(level);
         setMaxHP(maxHP);
@@ -29,8 +29,8 @@ public abstract class Entity implements Movable {
         return vid;
     }
 
-    private void setVid(Integer vid) {
-        this.vid = vid;
+    private void setVid() {
+        this.vid = nextVid++;
     }
 
     public String getName() {
