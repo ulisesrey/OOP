@@ -12,7 +12,7 @@ public class OrcReborn extends Enemy {
     public static final int EXPERIENCE = 874;
     public static final int MIN_DAMAGE = 40;
     public static final int MAX_DAMAGE = 55;
-    public static final double MAX_STEP = 10.0; // Defined MAX_STEP
+    public static final double MAX_STEP = 10.0;
 
     public OrcReborn(Position position, Enemy groupLeader) throws EntityException {
         super(NAME, LEVEL, MAX_HP, position, position.getGameMap(), ID);
@@ -23,7 +23,7 @@ public class OrcReborn extends Enemy {
     }
 
     @Override
-    public boolean move(Position position) {
+    public boolean move(Position position) throws EntityException {
         if (getPosition().euclideanDistance(position) <= MAX_STEP) {
             setPosition(position);
             return true;

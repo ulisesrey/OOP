@@ -23,7 +23,7 @@ public class DarkMage extends Player {
     }
 
     @Override
-    public boolean move(Position position) {
+    public boolean move(Position position) throws EntityException {
         if (getPosition().euclideanDistance(position) <= MAX_STEP) {
             setPosition(position);
             return true;

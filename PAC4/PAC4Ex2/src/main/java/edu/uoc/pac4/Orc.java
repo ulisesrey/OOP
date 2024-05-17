@@ -12,7 +12,7 @@ public class Orc extends Enemy implements TransCloneable, Cloneable {
     public static final int EXPERIENCE = 488;
     public static final int MIN_DAMAGE = 10;
     public static final int MAX_DAMAGE = 15;
-    public static final double MAX_STEP = 7.0; // Defined MAX_STEP
+    public static final double MAX_STEP = 7.0;
 
     public Orc(Position position, Enemy groupLeader) throws EntityException {
         super(NAME, LEVEL, MAX_HP, position, position.getGameMap(), ID);
@@ -23,7 +23,7 @@ public class Orc extends Enemy implements TransCloneable, Cloneable {
     }
 
     @Override
-    public boolean move(Position position) {
+    public boolean move(Position position) throws EntityException {
         if (getPosition().euclideanDistance(position) <= MAX_STEP) {
             setPosition(position);
             return true;

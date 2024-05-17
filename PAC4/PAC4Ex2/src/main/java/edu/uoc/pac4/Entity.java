@@ -4,23 +4,25 @@ import edu.uoc.pac4.exception.EntityException;
 
 public abstract class Entity implements Movable {
     public static final int MAX_LEVEL = 99;
-
-    private static int vidCounter = 0;
-
-    private final int vid;
+    private static int nextVid = 1;
+    private int vid;
     private String name;
     private int level;
-    private Position position;
     private int maxHP;
     private int currentHP;
+    private Position position;
 
-    public Entity(String name, int level, Position position, int maxHP) throws EntityException {
-        this.vid = ++vidCounter;
+    public Entity(String name, int level, int maxHP, Position position) throws EntityException {
+        this.vid = nextVid++;
         setName(name);
         setLevel(level);
-        setPosition(position);
         setMaxHP(maxHP);
-        setCurrentHP(maxHP);
+        setCurrentHP(maxHP); // Initial HP is max HP
+        setPosition(position);
+    }
+
+    public static int getNextVid() {
+        return nextVid;
     }
 
     public int getVid() {
@@ -55,7 +57,7 @@ public abstract class Entity implements Movable {
 
     public void setPosition(Position position) throws EntityException {
         if (position == null) {
-            throw new EntityException(EntityException.INVALID_POSITION);
+            throw new EntityException(EntityException.POSITION_NULL);
         }
         this.position = position;
     }
@@ -65,7 +67,7 @@ public abstract class Entity implements Movable {
     }
 
     public void setMaxHP(int maxHP) {
-        this.maxHP = Math.max(maxHP, 1);
+        this.maxHP = Math.max(1, maxHP);
     }
 
     public int getCurrentHP() {
@@ -75,30 +77,14 @@ public abstract class Entity implements Movable {
     public void setCurrentHP(int currentHP) {
         if (currentHP < 0) {
             this.currentHP = 0;
-        } else if (currentHP > maxHP) {
-            this.currentHP = maxHP;
         } else {
-            this.currentHP = currentHP;
+            this.currentHP = Math.min(currentHP, maxHP);
         }
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (this == obj) return true;
-        if (obj == null || getClass() != obj.getClass()) return false;
-        Entity entity = (Entity) obj;
-        return vid == entity.vid;
-    }
-
-    @Override
-    public String toString() {
-        return "Entity{" +
-                "vid=" + vid +
-                ", name='" + name + '\'' +
-                ", level=" + level +
-                ", position=" + position +
-                ", maxHP=" + maxHP +
-                ", currentHP=" + currentHP +
-                '}';
+    public boolean move(Position position) throws EntityException {
+        setPosition(position);
+        return true;
     }
 }
