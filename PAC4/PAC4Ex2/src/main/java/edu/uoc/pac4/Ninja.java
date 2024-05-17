@@ -4,14 +4,22 @@ import edu.uoc.pac4.exception.EntityException;
 import edu.uoc.pac4.exception.PlayerException;
 
 public class Ninja extends Player {
-    public static final int VITALITY = 5;
-    public static final int INTELLIGENCE = 3;
-    public static final int STRENGTH = 5;
-    public static final int AGILITY = 7;
-    public static final int MAX_STEP = 3;
+    public static final double MAX_STEP = 10.0;
+    public static final int VITALITY = 4;
+    public static final int INTELLIGENCE = 6;
+    public static final int STRENGTH = 3;
+    public static final int AGILITY = 3;
+    public static final int MAX_HP = 180;
 
-    public Ninja(String name, int level, Position position, int maxHP, Empire empire) throws EntityException, PlayerException {
-        super(name, level, position, maxHP, VITALITY, INTELLIGENCE, STRENGTH, AGILITY, empire);
+    public Ninja(String name, Position position, Empire empire) throws EntityException, PlayerException {
+        this(name, 1, MAX_HP, position, 0, 0, VITALITY, INTELLIGENCE, STRENGTH, AGILITY, empire);
+    }
+
+    public Ninja(String name, int level, int maxHP, Position position, int currentGold, int currentExperience,
+                 int vitality, int intelligence, int strength, int agility, Empire empire) throws EntityException, PlayerException {
+        super(name, level, maxHP, position, null, vitality, intelligence, strength, agility, empire);
+        setCurrentGold(currentGold);
+        setCurrentExperience(currentExperience);
     }
 
     @Override
