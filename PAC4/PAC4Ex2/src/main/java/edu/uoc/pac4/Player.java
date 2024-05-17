@@ -13,7 +13,7 @@ public abstract class Player extends Entity implements Speakable {
     private int agility;
     private Empire empire;
 
-    public Player(String name, int level, int maxHP, Position position,
+    protected Player(String name, int level, int maxHP, Position position,
                   int currentGold, int currentExperience, int vitality,
                   int intelligence, int strength, int agility, Empire empire) throws EntityException, PlayerException {
         super(name, level, maxHP, position);
