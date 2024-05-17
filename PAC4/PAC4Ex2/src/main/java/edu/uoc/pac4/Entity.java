@@ -83,8 +83,12 @@ public abstract class Entity implements Movable {
     }
 
     @Override
-    public boolean move(Position position) throws EntityException {
-        setPosition(position);
-        return true;
+    public boolean move(Position position) {
+        try {
+            setPosition(position);
+            return true;
+        } catch (EntityException e) {
+            return false;
+        }
     }
 }
