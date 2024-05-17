@@ -33,7 +33,7 @@ public class Orc extends Enemy implements TransCloneable, Cloneable {
     }
 
     @Override
-    public Object clone() throws CloneNotSupportedException {
+    public Enemy clone() throws CloneNotSupportedException {
         Orc clonedOrc = (Orc) super.clone();
         try {
             Position newPosition = new Position(getPosition().getGameMap(), getPosition().getX(), getPosition().getY(), getPosition().getZ());
@@ -49,7 +49,13 @@ public class Orc extends Enemy implements TransCloneable, Cloneable {
         try {
             Orc clonedOrc = (Orc) this.clone();
             Position newPosition = new Position(clonedOrc.getPosition().getGameMap(), clonedOrc.getPosition().getX(), clonedOrc.getPosition().getY(), clonedOrc.getPosition().getZ());
-            return new OrcReborn(newPosition, clonedOrc);
+            OrcReborn orcReborn = new OrcReborn(newPosition, clonedOrc);
+            if (clonedOrc.getGroupLeader() == null) {
+                orcReborn.setGroupLeader(this);
+            } else {
+                orcReborn.setGroupLeader(clonedOrc.getGroupLeader());
+            }
+            return orcReborn;
         } catch (CloneNotSupportedException | EntityException | PositionException e) {
             e.printStackTrace();
             return null;
