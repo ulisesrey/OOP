@@ -4,7 +4,7 @@ import edu.uoc.pac4.exception.EntityException;
 import edu.uoc.pac4.exception.PlayerException;
 
 public class Ninja extends Player {
-    public static final double MAX_STEP = 10.0;
+    private static final double MAX_STEP = 10.0;
     public static final int VITALITY = 4;
     public static final int INTELLIGENCE = 6;
     public static final int STRENGTH = 3;
