@@ -16,11 +16,7 @@ public class Orc extends Enemy implements TransCloneable, Cloneable {
     private static final double MAX_STEP = 7.0;
 
     public Orc(Position position, Enemy groupLeader) throws EntityException {
-        super(NAME, LEVEL, MAX_HP, position, position.getGameMap(), ID);
-        setGold(MIN_GOLD, MAX_GOLD);
-        setExperience(EXPERIENCE);
-        setDamage(MIN_DAMAGE, MAX_DAMAGE);
-        setGroupLeader(groupLeader);
+        super(NAME, LEVEL, MAX_HP, position, ID, MIN_GOLD, MAX_GOLD, EXPERIENCE, MIN_DAMAGE, MAX_DAMAGE, groupLeader);
     }
 
     @Override

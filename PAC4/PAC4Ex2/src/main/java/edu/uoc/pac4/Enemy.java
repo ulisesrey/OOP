@@ -12,7 +12,7 @@ public abstract class Enemy extends Entity {
     private int maxDamage;
     private Enemy groupLeader;
 
-    public Enemy(String name, int level, int maxHP, Position position, int id, int minGold, int maxGold, int experience, int minDamage, int maxDamage, Enemy groupLeader) throws EntityException {
+    protected Enemy(String name, int level, int maxHP, Position position, int id, int minGold, int maxGold, int experience, int minDamage, int maxDamage, Enemy groupLeader) throws EntityException {
         super(name, level, maxHP, position);
         this.id = id;
         this.minGold = minGold;
@@ -27,7 +27,7 @@ public abstract class Enemy extends Entity {
         return id;
     }
 
-    public void setId(int id) {
+    protected void setId(int id) {
         this.id = id;
     }
 

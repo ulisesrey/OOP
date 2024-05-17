@@ -4,15 +4,15 @@ import edu.uoc.pac4.exception.EntityException;
 
 public abstract class Entity implements Movable {
     public static final int MAX_LEVEL = 99;
-    private static int nextVid = 1;
-    private int vid;
+    private static Integer nextVid = 1;
+    private Integer vid;
     private String name;
     private int level;
     private int maxHP;
     private int currentHP;
     private Position position;
 
-    public Entity(String name, int level, int maxHP, Position position) throws EntityException {
+    protected Entity(String name, int level, int maxHP, Position position) throws EntityException {
         this.vid = nextVid++;
         setName(name);
         setLevel(level);
@@ -21,12 +21,16 @@ public abstract class Entity implements Movable {
         setPosition(position);
     }
 
-    public static int getNextVid() {
+    public static Integer getNextVid() {
         return nextVid;
     }
 
-    public int getVid() {
+    public Integer getVid() {
         return vid;
+    }
+
+    private void setVid(Integer vid) {
+        this.vid = vid;
     }
 
     public String getName() {

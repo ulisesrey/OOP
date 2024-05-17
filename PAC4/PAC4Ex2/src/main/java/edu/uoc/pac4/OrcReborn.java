@@ -17,11 +17,7 @@ public class OrcReborn extends Enemy {
     private static final double MAX_STEP = 10.0;
 
     public OrcReborn(Position position, Enemy groupLeader) throws EntityException {
-        super(NAME, LEVEL, MAX_HP, position, position.getGameMap(), ID);
-        setGold(MIN_GOLD, MAX_GOLD);
-        setExperience(EXPERIENCE);
-        setDamage(MIN_DAMAGE, MAX_DAMAGE);
-        setGroupLeader(groupLeader);
+        super(NAME, LEVEL, MAX_HP, position, ID, MIN_GOLD, MAX_GOLD, EXPERIENCE, MIN_DAMAGE, MAX_DAMAGE, groupLeader);
     }
 
     @Override
