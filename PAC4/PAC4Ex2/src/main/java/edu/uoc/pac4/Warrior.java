@@ -23,10 +23,14 @@ public class Warrior extends Player {
     }
 
     @Override
-    public boolean move(Position position) throws EntityException {
+    public boolean move(Position position) {
         if (getPosition().euclideanDistance(position) <= MAX_STEP) {
-            setPosition(position);
-            return true;
+            try {
+                setPosition(position);
+                return true;
+            } catch (EntityException e) {
+                return false;
+            }
         }
         return false;
     }

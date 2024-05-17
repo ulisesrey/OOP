@@ -23,10 +23,14 @@ public class Orc extends Enemy implements TransCloneable, Cloneable {
     }
 
     @Override
-    public boolean move(Position position) throws EntityException {
+    public boolean move(Position position) {
         if (getPosition().euclideanDistance(position) <= MAX_STEP) {
-            setPosition(position);
-            return true;
+            try {
+                setPosition(position);
+                return true;
+            } catch (EntityException e) {
+                return false;
+            }
         }
         return false;
     }
@@ -35,7 +39,11 @@ public class Orc extends Enemy implements TransCloneable, Cloneable {
     protected Object clone() throws CloneNotSupportedException {
         Orc clonedOrc = (Orc) super.clone();
         Position newPosition = new Position(getPosition().getGameMap(), getPosition().getX(), getPosition().getY(), getPosition().getZ());
-        clonedOrc.setPosition(newPosition);
+        try {
+            clonedOrc.setPosition(newPosition);
+        } catch (EntityException e) {
+            e.printStackTrace();
+        }
         return clonedOrc;
     }
 
