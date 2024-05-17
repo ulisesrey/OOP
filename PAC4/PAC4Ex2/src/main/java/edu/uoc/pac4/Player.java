@@ -4,8 +4,7 @@ import edu.uoc.pac4.exception.EntityException;
 import edu.uoc.pac4.exception.PlayerException;
 
 public abstract class Player extends Entity implements Speakable {
-    public static final int MAX_STAT = 30;
-
+    private static final int MAX_STAT = 90;
     private int currentGold;
     private int currentExperience;
     private int vitality;
@@ -14,15 +13,16 @@ public abstract class Player extends Entity implements Speakable {
     private int agility;
     private Empire empire;
 
-    public Player(String name, int level, Position position, int maxHP, int vitality, int intelligence, int strength, int agility, Empire empire) throws EntityException, PlayerException {
-        super(name, level, position, maxHP);
+    public Player(String name, int level, int maxHP, Position position, Integer vid,
+                  int vitality, int intelligence, int strength, int agility, Empire empire) throws EntityException, PlayerException {
+        super(name, level, maxHP, position);
+        setCurrentGold(0);
+        setCurrentExperience(0);
         setVitality(vitality);
         setIntelligence(intelligence);
         setStrength(strength);
         setAgility(agility);
         setEmpire(empire);
-        setCurrentGold(0);
-        setCurrentExperience(0);
     }
 
     public int getCurrentGold() {
@@ -30,7 +30,7 @@ public abstract class Player extends Entity implements Speakable {
     }
 
     public void setCurrentGold(int currentGold) {
-        this.currentGold = Math.max(currentGold, 0);
+        this.currentGold = Math.max(0, currentGold);
     }
 
     public int getCurrentExperience() {
@@ -38,7 +38,7 @@ public abstract class Player extends Entity implements Speakable {
     }
 
     public void setCurrentExperience(int currentExperience) {
-        this.currentExperience = Math.max(currentExperience, 0);
+        this.currentExperience = Math.max(0, currentExperience);
     }
 
     public int getVitality() {
@@ -46,13 +46,7 @@ public abstract class Player extends Entity implements Speakable {
     }
 
     public void setVitality(int vitality) {
-        if (vitality < 0) {
-            this.vitality = 0;
-        } else if (vitality > MAX_STAT) {
-            this.vitality = MAX_STAT;
-        } else {
-            this.vitality = vitality;
-        }
+        this.vitality = Math.max(0, Math.min(vitality, MAX_STAT));
     }
 
     public int getIntelligence() {
@@ -60,13 +54,7 @@ public abstract class Player extends Entity implements Speakable {
     }
 
     public void setIntelligence(int intelligence) {
-        if (intelligence < 0) {
-            this.intelligence = 0;
-        } else if (intelligence > MAX_STAT) {
-            this.intelligence = MAX_STAT;
-        } else {
-            this.intelligence = intelligence;
-        }
+        this.intelligence = Math.max(0, Math.min(intelligence, MAX_STAT));
     }
 
     public int getStrength() {
@@ -74,13 +62,7 @@ public abstract class Player extends Entity implements Speakable {
     }
 
     public void setStrength(int strength) {
-        if (strength < 0) {
-            this.strength = 0;
-        } else if (strength > MAX_STAT) {
-            this.strength = MAX_STAT;
-        } else {
-            this.strength = strength;
-        }
+        this.strength = Math.max(0, Math.min(strength, MAX_STAT));
     }
 
     public int getAgility() {
@@ -88,13 +70,7 @@ public abstract class Player extends Entity implements Speakable {
     }
 
     public void setAgility(int agility) {
-        if (agility < 0) {
-            this.agility = 0;
-        } else if (agility > MAX_STAT) {
-            this.agility = MAX_STAT;
-        } else {
-            this.agility = agility;
-        }
+        this.agility = Math.max(0, Math.min(agility, MAX_STAT));
     }
 
     public Empire getEmpire() {
@@ -113,7 +89,6 @@ public abstract class Player extends Entity implements Speakable {
         return getName() + ": ";
     }
 
-    // Note: The implementation of battleCry and deathCry should be done in the subclasses
     @Override
     public abstract String battleCry();
 
