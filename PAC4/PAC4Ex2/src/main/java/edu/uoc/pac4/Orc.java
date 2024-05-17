@@ -1,6 +1,7 @@
 package edu.uoc.pac4;
 
 import edu.uoc.pac4.exception.EntityException;
+import edu.uoc.pac4.exception.PositionException;
 
 public class Orc extends Enemy implements TransCloneable, Cloneable {
     public static final int ID = 101;
@@ -12,7 +13,7 @@ public class Orc extends Enemy implements TransCloneable, Cloneable {
     public static final int EXPERIENCE = 488;
     public static final int MIN_DAMAGE = 10;
     public static final int MAX_DAMAGE = 15;
-    public static final double MAX_STEP = 7.0;
+    private static final double MAX_STEP = = 7.0;
 
     public Orc(Position position, Enemy groupLeader) throws EntityException {
         super(NAME, LEVEL, MAX_HP, position, position.getGameMap(), ID);
@@ -38,10 +39,10 @@ public class Orc extends Enemy implements TransCloneable, Cloneable {
     @Override
     protected Object clone() throws CloneNotSupportedException {
         Orc clonedOrc = (Orc) super.clone();
-        Position newPosition = new Position(getPosition().getGameMap(), getPosition().getX(), getPosition().getY(), getPosition().getZ());
         try {
+            Position newPosition = new Position(getPosition().getGameMap(), getPosition().getX(), getPosition().getY(), getPosition().getZ());
             clonedOrc.setPosition(newPosition);
-        } catch (EntityException e) {
+        } catch (EntityException | PositionException e) {
             e.printStackTrace();
         }
         return clonedOrc;
@@ -53,7 +54,7 @@ public class Orc extends Enemy implements TransCloneable, Cloneable {
             Orc clonedOrc = (Orc) this.clone();
             Position newPosition = new Position(clonedOrc.getPosition().getGameMap(), clonedOrc.getPosition().getX(), clonedOrc.getPosition().getY(), clonedOrc.getPosition().getZ());
             return new OrcReborn(newPosition, clonedOrc);
-        } catch (CloneNotSupportedException | EntityException e) {
+        } catch (CloneNotSupportedException | EntityException | PositionException e) {
             e.printStackTrace();
             return null;
         }

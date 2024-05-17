@@ -1,6 +1,8 @@
 package edu.uoc.pac4;
 
 import edu.uoc.pac4.exception.EntityException;
+import edu.uoc.pac4.exception.PositionException;
+
 
 public class OrcReborn extends Enemy {
     public static final int ID = 102;
@@ -12,7 +14,7 @@ public class OrcReborn extends Enemy {
     public static final int EXPERIENCE = 874;
     public static final int MIN_DAMAGE = 40;
     public static final int MAX_DAMAGE = 55;
-    public static final double MAX_STEP = 10.0;
+    private static final double MAX_STEP = 10.0;
 
     public OrcReborn(Position position, Enemy groupLeader) throws EntityException {
         super(NAME, LEVEL, MAX_HP, position, position.getGameMap(), ID);

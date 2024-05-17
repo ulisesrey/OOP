@@ -4,7 +4,6 @@ import edu.uoc.pac4.exception.EntityException;
 
 public abstract class Enemy extends Entity {
     public static final double MAX_GROUP_LEADER_DISTANCE = 50.0;
-
     private int id;
     private int minGold;
     private int maxGold;
@@ -14,8 +13,8 @@ public abstract class Enemy extends Entity {
     private Enemy groupLeader;
 
     public Enemy(String name, int level, int maxHP, Position position, GameMap gameMap, int id) throws EntityException {
-        super(name, level, maxHP, position, gameMap);
-        setId(id);
+        super(name, level, maxHP, position);
+        this.id = id;
     }
 
     public int getId() {
@@ -35,17 +34,8 @@ public abstract class Enemy extends Entity {
     }
 
     public void setGold(int minGold, int maxGold) {
-        if (minGold < 0) {
-            this.minGold = 0;
-        } else {
-            this.minGold = minGold;
-        }
-
-        if (maxGold < minGold) {
-            this.maxGold = this.minGold;
-        } else {
-            this.maxGold = maxGold;
-        }
+        this.minGold = Math.max(0, minGold);
+        this.maxGold = Math.max(this.minGold, maxGold);
     }
 
     public int getExperience() {
@@ -53,11 +43,7 @@ public abstract class Enemy extends Entity {
     }
 
     public void setExperience(int experience) {
-        if (experience < 0) {
-            this.experience = 0;
-        } else {
-            this.experience = experience;
-        }
+        this.experience = Math.max(0, experience);
     }
 
     public int getMinDamage() {
@@ -69,17 +55,8 @@ public abstract class Enemy extends Entity {
     }
 
     public void setDamage(int minDamage, int maxDamage) {
-        if (minDamage < 0) {
-            this.minDamage = 0;
-        } else {
-            this.minDamage = minDamage;
-        }
-
-        if (maxDamage < minDamage) {
-            this.maxDamage = this.minDamage;
-        } else {
-            this.maxDamage = maxDamage;
-        }
+        this.minDamage = Math.max(0, minDamage);
+        this.maxDamage = Math.max(this.minDamage, maxDamage);
     }
 
     public Enemy getGroupLeader() {
@@ -91,12 +68,9 @@ public abstract class Enemy extends Entity {
     }
 
     public boolean isFarFromGroupLeader() {
-        if (groupLeader == null) {
+        if (this.groupLeader == null) {
             return false;
         }
-        return getPosition().euclideanDistance(groupLeader.getPosition()) > MAX_GROUP_LEADER_DISTANCE;
+        return getPosition().euclideanDistance(this.groupLeader.getPosition()) > MAX_GROUP_LEADER_DISTANCE;
     }
-
-    @Override
-    public abstract boolean move(Position position);
 }

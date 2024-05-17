@@ -4,7 +4,7 @@ import edu.uoc.pac4.exception.EntityException;
 import edu.uoc.pac4.exception.PlayerException;
 
 public class Warrior extends Player {
-    public static final double MAX_STEP = 20.0;
+    private static final double MAX_STEP = 20.0;
     public static final int VITALITY = 4;
     public static final int INTELLIGENCE = 3;
     public static final int STRENGTH = 6;

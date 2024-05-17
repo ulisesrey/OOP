@@ -4,7 +4,7 @@ import edu.uoc.pac4.exception.EntityException;
 import edu.uoc.pac4.exception.PlayerException;
 
 public class DarkMage extends Player {
-    public static final double MAX_STEP = 12.0;
+    private static final double MAX_STEP = 12.0;
     public static final int VITALITY = 3;
     public static final int INTELLIGENCE = 5;
     public static final int STRENGTH = 5;
