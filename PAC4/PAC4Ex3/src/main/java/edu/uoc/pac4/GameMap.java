@@ -4,7 +4,6 @@ import edu.uoc.pac4.exception.GameMapException;
 
 import java.util.Hashtable;
 import java.util.Map;
-import java.util.Optional;
 
 public class GameMap {
     public static final int MAX_ENTITIES = 1000;
@@ -122,7 +121,7 @@ public class GameMap {
                 .count();
     }
 
-    public Optional<Entity> findNearestEnemy(Position position) {
+    public Entity findNearestEnemy(Position position) {
         // Use the Stream API to filter entities to only enemies, then find the nearest one
         return entities.values().stream()
                 .filter(entity -> entity instanceof Enemy)
@@ -130,7 +129,8 @@ public class GameMap {
                     double distance1 = entity1.getPosition().euclideanDistance(position);
                     double distance2 = entity2.getPosition().euclideanDistance(position);
                     return Double.compare(distance1, distance2);
-                });
+                })
+                .orElse(null); // Return null if no enemy is found
     }
 
 
