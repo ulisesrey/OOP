@@ -33,7 +33,7 @@ public class Orc extends Enemy implements TransCloneable, Cloneable {
     }
 
     @Override
-    protected Object clone() throws CloneNotSupportedException {
+    public Object clone() throws CloneNotSupportedException {
         Orc clonedOrc = (Orc) super.clone();
         try {
             Position newPosition = new Position(getPosition().getGameMap(), getPosition().getX(), getPosition().getY(), getPosition().getZ());

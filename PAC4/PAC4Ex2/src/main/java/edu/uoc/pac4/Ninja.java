@@ -4,7 +4,7 @@ import edu.uoc.pac4.exception.EntityException;
 import edu.uoc.pac4.exception.PlayerException;
 
 public class Ninja extends Player {
-    private static final double MAX_STEP = 10.0;
+    public static final double MAX_STEP = 10.0;
     public static final int VITALITY = 4;
     public static final int INTELLIGENCE = 6;
     public static final int STRENGTH = 3;
@@ -17,9 +17,7 @@ public class Ninja extends Player {
 
     public Ninja(String name, int level, int maxHP, Position position, int currentGold, int currentExperience,
                  int vitality, int intelligence, int strength, int agility, Empire empire) throws EntityException, PlayerException {
-        super(name, level, maxHP, position, null, vitality, intelligence, strength, agility, empire);
-        setCurrentGold(currentGold);
-        setCurrentExperience(currentExperience);
+        super(name, level, maxHP, position, currentGold, currentExperience, vitality, intelligence, strength, agility, empire);
     }
 
     @Override

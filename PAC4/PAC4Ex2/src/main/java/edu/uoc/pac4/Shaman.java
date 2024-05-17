@@ -17,9 +17,7 @@ public class Shaman extends Player {
 
     public Shaman(String name, int level, int maxHP, Position position, int currentGold, int currentExperience,
                   int vitality, int intelligence, int strength, int agility, Empire empire) throws EntityException, PlayerException {
-        super(name, level, maxHP, position, null, vitality, intelligence, strength, agility, empire);
-        setCurrentGold(currentGold);
-        setCurrentExperience(currentExperience);
+        super(name, level, maxHP, position, currentGold, currentExperience, vitality, intelligence, strength, agility, empire);
     }
 
     @Override
