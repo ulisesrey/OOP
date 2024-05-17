@@ -88,10 +88,4 @@ public abstract class Player extends Entity implements Speakable {
     public String sayName() {
         return getName() + ": ";
     }
-
-    @Override
-    public abstract String battleCry();
-
-    @Override
-    public abstract String deathCry();
 }
