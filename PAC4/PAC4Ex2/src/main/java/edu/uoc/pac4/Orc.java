@@ -13,7 +13,7 @@ public class Orc extends Enemy implements TransCloneable, Cloneable {
     public static final int EXPERIENCE = 488;
     public static final int MIN_DAMAGE = 10;
     public static final int MAX_DAMAGE = 15;
-    private static final double MAX_STEP = = 7.0;
+    private static final double MAX_STEP = 7.0;
 
     public Orc(Position position, Enemy groupLeader) throws EntityException {
         super(NAME, LEVEL, MAX_HP, position, position.getGameMap(), ID);
