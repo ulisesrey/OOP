@@ -1,47 +1,50 @@
 package edu.uoc.pac4;
 
-import java.util.Arrays;
-
 public class DPOOVector<T> {
-    private T[] elems;
+    // Attributes
+    private T[] elements;
     private int size;
 
+    // Constructor
     @SuppressWarnings("unchecked")
     public DPOOVector(int maxElements) {
-        elems = (T[]) new Object[maxElements];
+        elements = (T[]) new Object[maxElements];
         size = 0;
     }
 
+    // Add method
     public boolean add(T elem) {
         if (elem == null) {
             return false;
         }
-        if (size >= elems.length) {
+        if (size >= elements.length) {
             return false;
         }
-        elems[size++] = elem;
+        elements[size++] = elem;
         return true;
     }
 
+    // Size method
     public int size() {
         return size;
     }
 
+    // Get method
     public T get(int index) {
         if (index < 0 || index >= size) {
             return null;
         }
-        return elems[index];
+        return elements[index];
     }
 
-    public boolean remove(int index) {
+    // Remove method
+    public void remove(int index) {
         if (index < 0 || index >= size) {
-            return false;
+            return; // Do nothing if the index is out of the range
         }
         for (int i = index; i < size - 1; i++) {
-            elems[i] = elems[i + 1];
+            elements[i] = elements[i + 1];
         }
-        elems[--size] = null; // Clear the last element
-        return true;
+        elements[--size] = null; // Clear the very last element
     }
 }
