@@ -3,6 +3,7 @@ package edu.uoc.locuocomotive.controller;
 import edu.uoc.locuocomotive.model.*;
 import java.io.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.*;
 
@@ -93,6 +94,7 @@ public class LocUOComotiveController {
         Train train = trains.stream().filter(t -> t.getId() == trainId).findFirst().orElse(null);
         List<Station> routeStations = new ArrayList<>();
         Map<Station, List<Schedule>> schedules = new HashMap<>();
+        LocalDate currentDate = LocalDate.now(); // Use the current date or a specific date if available
 
         for (String stationAndTime : stationsAndTimes) {
             String[] parts = stationAndTime.split(":");
@@ -100,7 +102,9 @@ public class LocUOComotiveController {
             if (station != null) {
                 routeStations.add(station);
                 List<Schedule> scheduleList = schedules.getOrDefault(station, new ArrayList<>());
-                scheduleList.add(new Schedule(LocalTime.parse(parts[1])));
+                LocalTime time = LocalTime.parse(parts[1]);
+                LocalDateTime dateTime = LocalDateTime.of(currentDate, time);
+                scheduleList.add(new Schedule(dateTime, dateTime)); // Use the same dateTime for both departure and arrival for now
                 schedules.put(station, scheduleList);
             }
         }
@@ -168,8 +172,11 @@ public class LocUOComotiveController {
         if (seat == null) {
             throw new Exception("No available seats");
         }
-        Schedule departureSchedule = new Schedule(departureTime);
-        Schedule arrivalSchedule = new Schedule(arrivalTime);
+        LocalDate currentDate = LocalDate.now();
+        LocalDateTime departureDateTime = LocalDateTime.of(currentDate, departureTime);
+        LocalDateTime arrivalDateTime = LocalDateTime.of(currentDate, arrivalTime);
+        Schedule departureSchedule = new Schedule(departureDateTime, departureDateTime);
+        Schedule arrivalSchedule = new Schedule(arrivalDateTime, arrivalDateTime);
         Ticket ticket = new Ticket(passenger, seat, cost, departureSchedule, arrivalSchedule);
         tickets.add(ticket);
     }
@@ -228,8 +235,6 @@ public class LocUOComotiveController {
     }
 
     public int getCurrentStationId() {
-        // This method requires additional context on how the current station is determined
-        // Assuming it's the first station in the routes list for simplicity
         if (routes.isEmpty() || routes.get(0).getStations().isEmpty()) {
             return -1; // Indicating no station available
         }
