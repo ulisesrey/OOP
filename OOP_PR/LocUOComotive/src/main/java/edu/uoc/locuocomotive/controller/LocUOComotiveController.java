@@ -36,7 +36,7 @@ public class LocUOComotiveController {
             String line;
             while ((line = br.readLine()) != null) {
                 String[] parts = line.split("\\|");
-                addStation(Integer.parseInt(parts[0]), parts[1], parts[2], Integer.parseInt(parts[3]), parts[4], parts[5], Integer.parseInt(parts[6]), Integer.parseInt(parts[7]));
+                addStation(String.valueOf(Integer.parseInt(parts[0])), parts[1], parts[2], Integer.parseInt(parts[3]), parts[4], parts[5], Integer.parseInt(parts[6]), Integer.parseInt(parts[7]));
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -84,7 +84,7 @@ public class LocUOComotiveController {
         }
     }
 
-    public void addStation(int id, String name, String city, int openingYear, String type, String image, int positionX, int positionY) {
+    public void addStation(String id, String name, String city, int openingYear, String type, String image, int positionX, int positionY) {
         Station station = new Station(id, name, city, openingYear, StationType.valueOf(type), new Coordinates(positionX, positionY), image);
         stations.add(station);
     }
@@ -96,7 +96,7 @@ public class LocUOComotiveController {
 
         for (String stationAndTime : stationsAndTimes) {
             String[] parts = stationAndTime.split(":");
-            Station station = stations.stream().filter(s -> s.getId() == Integer.parseInt(parts[0])).findFirst().orElse(null);
+            Station station = stations.stream().filter(s -> s.getId().equals(String.valueOf(Integer.parseInt(parts[0])))).findFirst().orElse(null);
             if (station != null) {
                 routeStations.add(station);
                 List<Schedule> scheduleList = schedules.getOrDefault(station, new ArrayList<>());
@@ -112,7 +112,7 @@ public class LocUOComotiveController {
     public void addTrain(int id, String model, int... cars) {
         List<Wagon> wagons = new ArrayList<>();
         for (int seats : cars) {
-            wagons.add(new Wagon(id, WagonClass.THIRD_CLASS, seats)); // Assuming all cars are THIRD_CLASS for simplicity
+            wagons.add(new Wagon(String.valueOf(id), WagonClass.THIRD_CLASS, seats));
         }
         Train train = new Train(id, model, wagons);
         trains.add(train);
@@ -134,7 +134,7 @@ public class LocUOComotiveController {
         List<String> routesInfo = new ArrayList<>();
         for (Route route : routes) {
             for (Station station : route.getStations()) {
-                if (station.getId() == stationId) {
+                if (station.getId().equals(String.valueOf(stationId))) {
                     routesInfo.add(route.toString());
                 }
             }
@@ -159,8 +159,8 @@ public class LocUOComotiveController {
         if (route == null) {
             throw new Exception("Route does not exist");
         }
-        Station originStation = stations.stream().filter(s -> s.getId() == originStationId).findFirst().orElse(null);
-        Station destinationStation = stations.stream().filter(s -> s.getId() == destinationStationId).findFirst().orElse(null);
+        Station originStation = stations.stream().filter(s -> s.getId().equals(String.valueOf(originStationId))).findFirst().orElse(null);
+        Station destinationStation = stations.stream().filter(s -> s.getId().equals(String.valueOf(destinationStationId))).findFirst().orElse(null);
         if (originStation == null || destinationStation == null) {
             throw new Exception("Station does not exist");
         }
@@ -233,6 +233,6 @@ public class LocUOComotiveController {
         if (routes.isEmpty() || routes.get(0).getStations().isEmpty()) {
             return -1; // Indicating no station available
         }
-        return routes.get(0).getStations().get(0).getId();
+        return Integer.parseInt(routes.get(0).getStations().get(0).getId());
     }
 }
