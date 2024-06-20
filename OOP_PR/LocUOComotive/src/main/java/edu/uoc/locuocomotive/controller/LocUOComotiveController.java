@@ -118,7 +118,7 @@ public class LocUOComotiveController {
         for (int seats : cars) {
             List<Seat> seatList = new ArrayList<>();
             for (int i = 0; i < seats; i++) {
-                seatList.add(new Seat()); // Assuming the Seat constructor takes no arguments
+                seatList.add(new Seat(i, SeatType.FIRST_CLASS, true)); // Replace with actual values if available
             }
             wagons.add(new Wagon(String.valueOf(id), WagonClass.THIRD_CLASS, seatList));
         }
