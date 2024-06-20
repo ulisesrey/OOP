@@ -1,0 +1,18 @@
+// Train Travel Management System
+digraph {
+	Station [label=<Station|{<B>Attributes</B>|+id: String<BR/>+name: String<BR/>+city: String<BR/>+openingYear: int<BR/>+type: StationType<BR/>+coordinates: Coordinates<BR/>+imageFilename: String}|{<B>Methods</B>|+toString(): String}> shape=record]
+	Train [label=<Train|{<B>Attributes</B>|+id: String<BR/>+model: String<BR/>+wagons: List<Wagon>}|{<B>Methods</B>|+getAvailableSeat(wagonClass: WagonClass): Seat}> shape=record]
+	Passenger [label=<Passenger|{<B>Attributes</B>|+passport: String<BR/>+firstName: String<BR/>+lastName: String<BR/>+birthDate: LocalDate<BR/>+email: String}|{<B>Methods</B>|+validateEmail(): boolean}> shape=record]
+	Route [label=<Route|{<B>Attributes</B>|+id: String<BR/>+train: Train<BR/>+stations: List<Station><BR/>+schedules: Map<Station, List<Schedule>>}|{<B>Methods</B>|+getSchedule(station: Station): List<Schedule>}> shape=record]
+	Ticket [label=<Ticket|{<B>Attributes</B>|+passenger: Passenger<BR/>+seat: Seat<BR/>+price: double<BR/>+departure: Schedule<BR/>+arrival: Schedule}|{<B>Methods</B>|+calculatePrice(): double}> shape=record]
+	Controller [label=<Controller|{<B>Attributes</B>|+stations: List<Station><BR/>+routes: List<Route><BR/>+trains: List<Train><BR/>+passengers: Map<String, Passenger><BR/>+tickets: List<Ticket>}|{<B>Methods</B>|+loadStations(filename: String): void<BR/>+loadTrains(filename: String): void<BR/>+loadRoutes(filename: String): void<BR/>+buyTicket(passenger: Passenger, route: Route, schedule: Schedule, seatType: SeatType): Ticket}> shape=record]
+	Route -> Train [label="1..1" arrowhead=none]
+	Route -> Station [label="1..1..*" arrowhead=none]
+	Train -> Wagon [label="1..1..*" arrowhead=none]
+	Wagon -> Seat [label="1..1..*" arrowhead=none]
+	Passenger -> Ticket [label="1..1..*" arrowhead=none]
+	Ticket -> Passenger [label="1..1" arrowhead=none]
+	Ticket -> Seat [label="1..1" arrowhead=none]
+	Ticket -> Schedule [label="1..1" arrowhead=none]
+	Schedule -> Station [label="1..1" arrowhead=none]
+}

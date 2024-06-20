@@ -1,0 +1,94 @@
+Based on the document, the project involves the design and implementation of a train travel management application following the MVC pattern. The task is to create a UML class diagram for the application's model.
+Step 2: UML Class Diagram Outline 📊
+
+Key Components:
+
+    Station
+    Train
+    Passenger
+    Route
+    Ticket
+    Controller
+
+UML Class Diagram Structure ✏️
+
+Classes and Relationships:
+
+    Station
+        Attributes:
+            id: String
+            name: String
+            city: String
+            openingYear: int
+            type: StationType
+            coordinates: Coordinates
+            imageFilename: String
+        Methods:
+            toString(): String
+
+    Train
+        Attributes:
+            id: String
+            model: String
+            wagons: List<Wagon>
+        Methods:
+            getAvailableSeat(wagonClass: WagonClass): Seat
+
+    Passenger
+        Attributes:
+            passport: String
+            firstName: String
+            lastName: String
+            birthDate: LocalDate
+            email: String
+        Methods:
+            validateEmail(): boolean
+
+    Route
+        Attributes:
+            id: String
+            train: Train
+            stations: List<Station>
+            schedules: Map<Station, List<Schedule>>
+        Methods:
+            getSchedule(station: Station): List<Schedule>
+
+    Ticket
+        Attributes:
+            passenger: Passenger
+            seat: Seat
+            price: double
+            departure: Schedule
+            arrival: Schedule
+        Methods:
+            calculatePrice(): double
+
+    Controller
+        Attributes:
+            stations: List<Station>
+            routes: List<Route>
+            trains: List<Train>
+            passengers: Map<String, Passenger>
+            tickets: List<Ticket>
+        Methods:
+            loadStations(filename: String): void
+            loadTrains(filename: String): void
+            loadRoutes(filename: String): void
+            buyTicket(passenger: Passenger, route: Route, schedule: Schedule, seatType: SeatType): Ticket
+
+Enumerations and Additional Classes:
+
+    StationType: OVERGROUND, UNDERGROUND, ELEVATED
+    Coordinates: x: double, y: double
+    WagonClass: FIRST_CLASS, SECOND_CLASS, THIRD_CLASS
+    Seat: number: int, type: SeatType
+    Schedule: time: LocalTime, station: Station
+
+Relationships:
+
+    A Station can be part of multiple Routes.
+    A Route has one Train.
+    A Train contains multiple Wagons.
+    A Wagon can have multiple Seats.
+    A Passenger can purchase multiple Tickets.
+    A Ticket references one Passenger, one Seat, and schedules (departure and arrival).
