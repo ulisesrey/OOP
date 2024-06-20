@@ -30,7 +30,10 @@ public class LocUOComotiveController {
     }
 
     private void loadStations(String stationsFile) {
-        InputStream is = getClass().getResourceAsStream("/data/" + stationsFile);
+
+        InputStream is = getClass().getResourceAsStream(stationsFile);
+
+
 
         if (is == null) {
             throw new NullPointerException("Cannot find resource file " + stationsFile);
@@ -226,7 +229,7 @@ public class LocUOComotiveController {
         if (passenger == null) {
             return "Passenger does not exist";
         }
-        return String.format("%s|%s|%s|%s", passenger.getPassport(), passenger.getName(), passenger.getSurname(), passenger.getBirthDate());
+        return String.format("%s|%s|%s|%s|%s", passenger.getPassport(), passenger.getName(), passenger.getSurname(), passenger.getBirthDate(), passenger.getEmail());
     }
 
     public String getTrainInfo(int trainId) {
