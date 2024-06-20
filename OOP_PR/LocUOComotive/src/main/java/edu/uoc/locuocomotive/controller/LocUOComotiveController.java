@@ -78,7 +78,9 @@ public class LocUOComotiveController {
                 for (int i = 2; i < parts.length; i++) {
                     seatsPerCar[i - 2] = Integer.parseInt(parts[i]);
                 }
-                addTrain(Integer.parseInt(parts[0]), parts[1], seatsPerCar);
+                // Assume all seats are of the same type for now
+                SeatType seatType = SeatType.FIRST_CLASS; // Replace with actual SeatType if available
+                addTrain(Integer.parseInt(parts[0]), parts[1], seatType, seatsPerCar);
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -113,14 +115,14 @@ public class LocUOComotiveController {
         routes.add(route);
     }
 
-    public void addTrain(int id, String model, int... cars) {
+    public void addTrain(int id, String model, SeatType seatType, int... cars) {
         List<Wagon> wagons = new ArrayList<>();
         for (int seats : cars) {
             List<Seat> seatList = new ArrayList<>();
             for (int i = 0; i < seats; i++) {
-                seatList.add(new Seat(i, SeatType.FIRST_CLASS, true)); // Replace with actual values if available
+                seatList.add(new Seat(i, seatType, true)); // Use the provided SeatType
             }
-            wagons.add(new Wagon(String.valueOf(id), WagonClass.THIRD_CLASS, seatList));
+            wagons.add(new Wagon(String.valueOf(id), WagonClass.THIRD_CLASS, seatList, seatType)); // Pass SeatType to Wagon constructor
         }
         Train train = new Train(id, model, wagons); // Pass id directly
         trains.add(train);

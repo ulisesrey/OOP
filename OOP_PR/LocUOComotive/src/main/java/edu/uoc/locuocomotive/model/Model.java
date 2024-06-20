@@ -53,9 +53,11 @@ public class Model {
                 String[] values = line.split(",");
                 List<Wagon> wagons = new ArrayList<>();
                 for (String wagonId : values[2].split(";")) {
-                    wagons.add(new Wagon(wagonId));
+                    List<Seat> seatList = new ArrayList<>(); // Placeholder for Seat list
+                    SeatType seatType = SeatType.FIRST_CLASS; // Assume all seats are of the same type for now
+                    wagons.add(new Wagon(wagonId, WagonClass.FIRST_CLASS, seatList, seatType)); // Pass SeatType to Wagon constructor
                 }
-                Train train = new Train(values[0], values[1], wagons);
+                Train train = new Train(Integer.parseInt(values[0]), values[1], wagons); // Convert String to int
                 trains.add(train);
             }
         } catch (IOException e) {
@@ -68,7 +70,7 @@ public class Model {
             String line;
             while ((line = br.readLine()) != null) {
                 String[] values = line.split(",");
-                Train train = trains.stream().filter(t -> t.getId().equals(values[1])).findFirst().orElse(null);
+                Train train = trains.stream().filter(t -> t.getId() == Integer.parseInt(values[1])).findFirst().orElse(null);
                 List<Station> routeStations = new ArrayList<>();
                 for (String stationId : values[2].split(";")) {
                     routeStations.add(stations.stream().filter(s -> s.getId().equals(stationId)).findFirst().orElse(null));
@@ -89,7 +91,7 @@ public class Model {
         Seat seat = getAvailableSeat(route.getTrain(), seatType);
         if (seat != null) {
             double price = calculatePrice(route, seatType);
-            Ticket ticket = new Ticket(passenger, seat, price, schedule.getDeparture(), schedule.getArrival());
+            Ticket ticket = new Ticket(passenger, seat, price, schedule, schedule); // Pass schedule directly
             tickets.add(ticket);
             return ticket;
         } else {
