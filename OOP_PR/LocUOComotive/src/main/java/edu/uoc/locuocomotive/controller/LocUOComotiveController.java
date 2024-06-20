@@ -77,13 +77,11 @@ public class LocUOComotiveController {
             String line;
             while ((line = br.readLine()) != null) {
                 String[] parts = line.split("\\|");
-                int[] seatsPerCar = new int[parts.length - 2];
+                int[] seats = new int[parts.length - 2];
                 for (int i = 2; i < parts.length; i++) {
-                    seatsPerCar[i - 2] = Integer.parseInt(parts[i]);
+                    seats[i - 2] = Integer.parseInt(parts[i]);
                 }
-                // Assume all seats are of the same type for now
-                SeatType seatType = SeatType.FIRST_CLASS; // Replace with actual SeatType if available
-                addTrain(Integer.parseInt(parts[0]), parts[1], seatType, seatsPerCar);
+                addTrain(Integer.parseInt(parts[0]), parts[1], seats);
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -118,12 +116,25 @@ public class LocUOComotiveController {
         routes.add(route);
     }
 
-    public void addTrain(int id, String model, int firstClassSeats, int secondClassSeats, int thirdClassSeats, int... otherParams) {
+    public void addTrain(int id, String model, int... seats) {
         List<Wagon> wagons = new ArrayList<>();
-        wagons.add(createWagon(id, SeatType.FIRST_CLASS, firstClassSeats));
-        wagons.add(createWagon(id, SeatType.SECOND_CLASS, secondClassSeats));
-        wagons.add(createWagon(id, SeatType.THIRD_CLASS, thirdClassSeats));
-
+        for (int i = 0; i < seats.length; i++) {
+            SeatType seatType;
+            switch (i) {
+                case 0:
+                    seatType = SeatType.FIRST_CLASS;
+                    break;
+                case 1:
+                    seatType = SeatType.SECOND_CLASS;
+                    break;
+                case 2:
+                    seatType = SeatType.THIRD_CLASS;
+                    break;
+                default:
+                    seatType = SeatType.THIRD_CLASS; // Default to THIRD_CLASS for additional parameters
+            }
+            wagons.add(createWagon(id, seatType, seats[i]));
+        }
         Train train = new Train(id, model, wagons);
         trains.add(train);
     }
