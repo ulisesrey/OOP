@@ -14,7 +14,7 @@ public class LocUOComotiveController {
     private List<Station> stations;
     private List<Route> routes;
     private List<Train> trains;
-    private Map<String, Passenger> passengers;
+    private Map<String, Passenger> passengers = new HashMap<>();
     private List<Ticket> tickets;
 
     public LocUOComotiveController(String stationsFile, String routesFile, String trainsFile) {
@@ -171,11 +171,12 @@ public class LocUOComotiveController {
         return routesInfo;
     }
 
-    public void addPassenger(String passport, String name, String surname, LocalDate birthdate, String email) throws Exception {
+    public void addPassenger(String passport, String name, String surname, LocalDate birthDate, String email) throws Exception {
         if (passengers.containsKey(passport)) {
             throw new Exception("Passenger already exists");
         }
-        Passenger passenger = new Passenger(passport, name, surname, birthdate, email);
+
+        Passenger passenger = new Passenger(passport, name, surname, birthDate, email);
         passengers.put(passport, passenger);
     }
 
@@ -225,7 +226,7 @@ public class LocUOComotiveController {
         if (passenger == null) {
             return "Passenger does not exist";
         }
-        return passenger.toString();
+        return String.format("%s|%s|%s|%s", passenger.getPassport(), passenger.getName(), passenger.getSurname(), passenger.getBirthDate());
     }
 
     public String getTrainInfo(int trainId) {
