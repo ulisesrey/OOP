@@ -31,7 +31,7 @@ public class LocUOComotiveController {
 
     private void loadStations(String stationsFile) {
 
-        InputStream is = getClass().getResourceAsStream(stationsFile);
+        InputStream is = getClass().getResourceAsStream("/data/" + stationsFile);
 
 
 
@@ -51,7 +51,7 @@ public class LocUOComotiveController {
     }
 
     private void loadRoutes(String routesFile) {
-        InputStream is = getClass().getResourceAsStream(routesFile);
+        InputStream is = getClass().getResourceAsStream("/data/" + routesFile);
 
         if (is == null) {
             throw new NullPointerException("Cannot find resource file " + routesFile);
@@ -70,7 +70,7 @@ public class LocUOComotiveController {
     }
 
     private void loadTrains(String trainsFile) {
-        InputStream is = getClass().getResourceAsStream(trainsFile);
+        InputStream is = getClass().getResourceAsStream("/data/" + trainsFile);
 
         if (is == null) {
             throw new NullPointerException("Cannot find resource file " + trainsFile);
