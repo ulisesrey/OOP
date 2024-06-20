@@ -118,17 +118,22 @@ public class LocUOComotiveController {
         routes.add(route);
     }
 
-    public void addTrain(int id, String model, SeatType seatType, int... cars) {
+    public void addTrain(int id, String model, int firstClassSeats, int secondClassSeats, int thirdClassSeats, int... otherParams) {
         List<Wagon> wagons = new ArrayList<>();
-        for (int seats : cars) {
-            List<Seat> seatList = new ArrayList<>();
-            for (int i = 0; i < seats; i++) {
-                seatList.add(new Seat(i, seatType, true)); // Use the provided SeatType
-            }
-            wagons.add(new Wagon(String.valueOf(id), WagonClass.THIRD_CLASS, seatList, seatType)); // Pass SeatType to Wagon constructor
-        }
-        Train train = new Train(id, model, wagons); // Pass id directly
+        wagons.add(createWagon(id, SeatType.FIRST_CLASS, firstClassSeats));
+        wagons.add(createWagon(id, SeatType.SECOND_CLASS, secondClassSeats));
+        wagons.add(createWagon(id, SeatType.THIRD_CLASS, thirdClassSeats));
+
+        Train train = new Train(id, model, wagons);
         trains.add(train);
+    }
+
+    private Wagon createWagon(int id, SeatType seatType, int seats) {
+        List<Seat> seatList = new ArrayList<>();
+        for (int i = 0; i < seats; i++) {
+            seatList.add(new Seat(i, seatType, true));
+        }
+        return new Wagon(String.valueOf(id), WagonClass.THIRD_CLASS, seatList, seatType);
     }
 
     public List<String> getStationsInfo() {

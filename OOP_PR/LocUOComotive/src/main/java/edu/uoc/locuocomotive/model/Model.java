@@ -34,7 +34,7 @@ public class Model {
             while ((line = br.readLine()) != null) {
                 String[] values = line.split(",");
                 Station station = new Station(
-                        values[0],
+                        Integer.parseInt(values[0]),
                         values[1],
                         values[2],
                         Integer.parseInt(values[3]),
@@ -76,7 +76,7 @@ public class Model {
                 Train train = trains.stream().filter(t -> t.getId() == Integer.parseInt(values[1])).findFirst().orElse(null);
                 List<Station> routeStations = new ArrayList<>();
                 for (String stationId : values[2].split(";")) {
-                    routeStations.add(stations.stream().filter(s -> s.getId().equals(stationId)).findFirst().orElse(null));
+                    routeStations.add(stations.stream().filter(s -> s.getId() == Integer.parseInt(stationId)).findFirst().orElse(null));
                 }
                 Map<Station, List<Schedule>> schedules = new HashMap<>();
                 for (Station station : routeStations) {
