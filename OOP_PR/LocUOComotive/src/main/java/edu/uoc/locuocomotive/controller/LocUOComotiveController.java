@@ -172,9 +172,9 @@ public class LocUOComotiveController {
     }
 
     public void addPassenger(String passport, String name, String surname, LocalDate birthDate, String email) throws Exception {
-        if (passengers.containsKey(passport)) {
-            throw new Exception("Passenger already exists");
-        }
+//        if (passengers.containsKey(passport)) {
+//            throw new Exception("Passenger already exists");
+//        }
 
         Passenger passenger = new Passenger(passport, name, surname, birthDate, email);
         passengers.put(passport, passenger);
