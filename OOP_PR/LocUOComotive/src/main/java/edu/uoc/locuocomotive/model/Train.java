@@ -3,17 +3,17 @@ package edu.uoc.locuocomotive.model;
 import java.util.List;
 
 public class Train {
-    private String id;
+    private int id;
     private String model;
     private List<Wagon> wagons;
 
-    public Train(String id, String model, List<Wagon> wagons) {
+    public Train(int id, String model, List<Wagon> wagons) {
         this.id = id;
         this.model = model;
         this.wagons = wagons;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
