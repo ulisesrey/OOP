@@ -116,9 +116,13 @@ public class LocUOComotiveController {
     public void addTrain(int id, String model, int... cars) {
         List<Wagon> wagons = new ArrayList<>();
         for (int seats : cars) {
-            wagons.add(new Wagon(String.valueOf(id), WagonClass.THIRD_CLASS, seats));
+            List<Seat> seatList = new ArrayList<>();
+            for (int i = 0; i < seats; i++) {
+                seatList.add(new Seat()); // Assuming the Seat constructor takes no arguments
+            }
+            wagons.add(new Wagon(String.valueOf(id), WagonClass.THIRD_CLASS, seatList));
         }
-        Train train = new Train(id, model, wagons);
+        Train train = new Train(String.valueOf(id), model, wagons);
         trains.add(train);
     }
 
