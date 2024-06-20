@@ -1,5 +1,6 @@
 package edu.uoc.locuocomotive.controller;
 
+import edu.uoc.locuocomotive.model.*;
 import java.io.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -219,4 +220,19 @@ public class LocUOComotiveController {
         if (route != null) {
             for (Map.Entry<Station, List<Schedule>> entry : route.getSchedules().entrySet()) {
                 for (Schedule schedule : entry.getValue()) {
-                    departuresInfo.add("Station: " + entry.getKey().getName() + ", Departure
+                    departuresInfo.add("Station: " + entry.getKey().getName() + ", Departure: " + schedule.getDeparture().toString());
+                }
+            }
+        }
+        return departuresInfo;
+    }
+
+    public int getCurrentStationId() {
+        // This method requires additional context on how the current station is determined
+        // Assuming it's the first station in the routes list for simplicity
+        if (routes.isEmpty() || routes.get(0).getStations().isEmpty()) {
+            return -1; // Indicating no station available
+        }
+        return routes.get(0).getStations().get(0).getId();
+    }
+}
