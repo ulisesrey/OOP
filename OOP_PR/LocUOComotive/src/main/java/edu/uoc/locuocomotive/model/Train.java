@@ -12,19 +12,15 @@ public class Train {
         this.model = model;
         this.wagons = wagons;
     }
-
     public int getId() {
         return id;
     }
-
     public String getModel() {
         return model;
     }
-
     public List<Wagon> getWagons() {
         return wagons;
     }
-
     public Seat getAvailableSeat(WagonClass wagonClass) {
         for (Wagon wagon : wagons) {
             if (wagon.getWagonClass() == wagonClass) {
@@ -36,5 +32,9 @@ public class Train {
             }
         }
         return null;
+    }
+    @Override
+    public String toString() {
+        return id + "|" + model + "|" + wagons.size();
     }
 }
