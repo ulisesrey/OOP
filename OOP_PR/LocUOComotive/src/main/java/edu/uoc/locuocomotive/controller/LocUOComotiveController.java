@@ -122,7 +122,7 @@ public class LocUOComotiveController {
             }
             wagons.add(new Wagon(String.valueOf(id), WagonClass.THIRD_CLASS, seatList));
         }
-        Train train = new Train(String.valueOf(id), model, wagons);
+        Train train = new Train(id, model, wagons); // Pass id directly
         trains.add(train);
     }
 
