@@ -39,11 +39,11 @@ public class Passenger {
         return passport;
     }
 
-    public String getFirstName() {
+    public String getName() {
         return firstName;
     }
 
-    public String getLastName() {
+    public String getSurname() {
         return lastName;
     }
 
