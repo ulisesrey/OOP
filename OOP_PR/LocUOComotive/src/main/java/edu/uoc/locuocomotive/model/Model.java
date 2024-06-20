@@ -25,6 +25,9 @@ public class Model {
         this.tickets = new ArrayList<>();
     }
 
+    public void addStation(Station station) {
+        this.stations.add(station);
+    }
     public void loadStations(String filename) {
         try (BufferedReader br = new BufferedReader(new FileReader(filename))) {
             String line;

@@ -1,7 +1,7 @@
 package edu.uoc.locuocomotive.model;
 
 public class Station {
-    private String id;
+    private int id;
     private String name;
     private String city;
     private int openingYear;
@@ -9,7 +9,7 @@ public class Station {
     private Coordinates coordinates;
     private String imageFilename;
 
-    public Station(String id, String name, String city, int openingYear, StationType type, Coordinates coordinates, String imageFilename) {
+    public Station(int id, String name, String city, int openingYear, StationType type, Coordinates coordinates, String imageFilename) {
         this.id = id;
         this.name = name;
         this.city = city;
@@ -19,7 +19,7 @@ public class Station {
         this.imageFilename = imageFilename;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
@@ -46,17 +46,18 @@ public class Station {
     public String getImageFilename() {
         return imageFilename;
     }
-
-    @Override
-    public String toString() {
-        return "Station{" +
-                "id='" + id + '\'' +
-                ", name='" + name + '\'' +
-                ", city='" + city + '\'' +
-                ", openingYear=" + openingYear +
-                ", type=" + type +
-                ", coordinates=" + coordinates +
-                ", imageFilename='" + imageFilename + '\'' +
-                '}';
-    }
 }
+
+//    @Override
+//    public String toString() {
+//        return "Station{" +
+//                "id='" + id + '\'' +
+//                ", name='" + name + '\'' +
+//                ", city='" + city + '\'' +
+//                ", openingYear=" + openingYear +
+//                ", type=" + type +
+//                ", coordinates=" + coordinates +
+//                ", imageFilename='" + imageFilename + '\'' +
+//                '}';
+//    }
+//}

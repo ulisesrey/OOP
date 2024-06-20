@@ -9,6 +9,8 @@ import java.util.*;
 
 public class LocUOComotiveController {
 
+    private Model model;
+
     private List<Station> stations;
     private List<Route> routes;
     private List<Train> trains;
@@ -16,6 +18,7 @@ public class LocUOComotiveController {
     private List<Ticket> tickets;
 
     public LocUOComotiveController(String stationsFile, String routesFile, String trainsFile) {
+        this.model = new Model();
         this.stations = new ArrayList<>();
         this.routes = new ArrayList<>();
         this.trains = new ArrayList<>();
@@ -37,7 +40,7 @@ public class LocUOComotiveController {
             String line;
             while ((line = br.readLine()) != null) {
                 String[] parts = line.split("\\|");
-                addStation(String.valueOf(Integer.parseInt(parts[0])), parts[1], parts[2], Integer.parseInt(parts[3]), parts[4], parts[5], Integer.parseInt(parts[6]), Integer.parseInt(parts[7]));
+                addStation((Integer.parseInt(parts[0])), parts[1], parts[2], Integer.parseInt(parts[3]), parts[4], parts[5], Integer.parseInt(parts[6]), Integer.parseInt(parts[7]));
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -87,9 +90,9 @@ public class LocUOComotiveController {
         }
     }
 
-    public void addStation(String id, String name, String city, int openingYear, String type, String image, int positionX, int positionY) {
-        Station station = new Station(id, name, city, openingYear, StationType.valueOf(type), new Coordinates(positionX, positionY), image);
-        stations.add(station);
+    public void addStation(int id, String name, String city, int year, String type, String image, double latitude, double longitude) {
+        Station station = new Station(id, name, city, year, StationType.valueOf(type), new Coordinates(latitude, longitude), image);
+        model.addStation(station);
     }
 
     public void addRoute(String id, int trainId, String... stationsAndTimes) {
@@ -100,7 +103,7 @@ public class LocUOComotiveController {
 
         for (String stationAndTime : stationsAndTimes) {
             String[] parts = stationAndTime.split(":");
-            Station station = stations.stream().filter(s -> s.getId().equals(String.valueOf(Integer.parseInt(parts[0])))).findFirst().orElse(null);
+            Station station = stations.stream().filter(s -> s.getId() == Integer.parseInt(parts[0])).findFirst().orElse(null);
             if (station != null) {
                 routeStations.add(station);
                 List<Schedule> scheduleList = schedules.getOrDefault(station, new ArrayList<>());
@@ -144,7 +147,7 @@ public class LocUOComotiveController {
         List<String> routesInfo = new ArrayList<>();
         for (Route route : routes) {
             for (Station station : route.getStations()) {
-                if (station.getId().equals(String.valueOf(stationId))) {
+                if (station.getId() == stationId) {
                     routesInfo.add(route.toString());
                 }
             }
@@ -169,8 +172,8 @@ public class LocUOComotiveController {
         if (route == null) {
             throw new Exception("Route does not exist");
         }
-        Station originStation = stations.stream().filter(s -> s.getId().equals(String.valueOf(originStationId))).findFirst().orElse(null);
-        Station destinationStation = stations.stream().filter(s -> s.getId().equals(String.valueOf(destinationStationId))).findFirst().orElse(null);
+        Station originStation = stations.stream().filter(s -> s.getId() == originStationId).findFirst().orElse(null);
+        Station destinationStation = stations.stream().filter(s -> s.getId() == destinationStationId).findFirst().orElse(null);
         if (originStation == null || destinationStation == null) {
             throw new Exception("Station does not exist");
         }
@@ -244,6 +247,6 @@ public class LocUOComotiveController {
         if (routes.isEmpty() || routes.get(0).getStations().isEmpty()) {
             return -1; // Indicating no station available
         }
-        return Integer.parseInt(routes.get(0).getStations().get(0).getId());
+        return routes.get(0).getStations().get(0).getId();
     }
 }
