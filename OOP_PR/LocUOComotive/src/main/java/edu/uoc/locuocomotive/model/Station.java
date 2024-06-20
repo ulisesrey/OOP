@@ -48,16 +48,8 @@ public class Station {
     }
 }
 
-//    @Override
-//    public String toString() {
-//        return "Station{" +
-//                "id='" + id + '\'' +
-//                ", name='" + name + '\'' +
-//                ", city='" + city + '\'' +
-//                ", openingYear=" + openingYear +
-//                ", type=" + type +
-//                ", coordinates=" + coordinates +
-//                ", imageFilename='" + imageFilename + '\'' +
-//                '}';
-//    }
-//}
+@Override
+public String toString() {
+    return "Station ID: " + id + ", Name: " + name + ", City: " + city + ", Opening Year: " + openingYear + ", Type: " + type + ", Coordinates: " + coordinates + ", Image Filename: " + imageFilename;
+}
+}
