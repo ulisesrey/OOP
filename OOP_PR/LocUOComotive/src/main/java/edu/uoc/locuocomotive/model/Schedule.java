@@ -18,6 +18,5 @@ public class Schedule {
     public LocalDateTime getArrival() {
         return arrival;
     }
-
-    // other getters and methods
 }
+

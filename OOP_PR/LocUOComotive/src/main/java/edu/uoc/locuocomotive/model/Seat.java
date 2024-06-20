@@ -11,9 +11,16 @@ public class Seat {
         this.available = available;
     }
 
+    public int getNumber() {
+        return number;
+    }
+
+    public SeatType getType() {
+        return type;
+    }
+
     public boolean isAvailable() {
         return available;
     }
-
-    // other getters and methods
 }
+

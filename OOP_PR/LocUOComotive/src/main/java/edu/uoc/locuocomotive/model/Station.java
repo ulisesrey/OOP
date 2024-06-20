@@ -23,5 +23,40 @@ public class Station {
         return id;
     }
 
-    // other getters and toString() method
+    public String getName() {
+        return name;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public int getOpeningYear() {
+        return openingYear;
+    }
+
+    public StationType getType() {
+        return type;
+    }
+
+    public Coordinates getCoordinates() {
+        return coordinates;
+    }
+
+    public String getImageFilename() {
+        return imageFilename;
+    }
+
+    @Override
+    public String toString() {
+        return "Station{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", city='" + city + '\'' +
+                ", openingYear=" + openingYear +
+                ", type=" + type +
+                ", coordinates=" + coordinates +
+                ", imageFilename='" + imageFilename + '\'' +
+                '}';
+    }
 }

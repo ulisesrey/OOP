@@ -1,6 +1,6 @@
 package edu.uoc.locuocomotive.model;
 
-public class Train import java.util.List;
+import java.util.List;
 
 public class Train {
     private String id;
@@ -17,11 +17,24 @@ public class Train {
         return id;
     }
 
+    public String getModel() {
+        return model;
+    }
+
     public List<Wagon> getWagons() {
         return wagons;
     }
 
-    // other getters and methods
-}
-{
+    public Seat getAvailableSeat(WagonClass wagonClass) {
+        for (Wagon wagon : wagons) {
+            if (wagon.getWagonClass() == wagonClass) {
+                for (Seat seat : wagon.getSeats()) {
+                    if (seat.isAvailable()) {
+                        return seat;
+                    }
+                }
+            }
+        }
+        return null;
+    }
 }

@@ -2,6 +2,8 @@ package edu.uoc.locuocomotive.model;
 
 import java.util.List;
 import java.util.Map;
+import java.util.List;
+import java.util.Map;
 
 public class Route {
     private String id;
@@ -16,9 +18,23 @@ public class Route {
         this.schedules = schedules;
     }
 
+    public String getId() {
+        return id;
+    }
+
     public Train getTrain() {
         return train;
     }
 
-    // other getters and methods
+    public List<Station> getStations() {
+        return stations;
+    }
+
+    public Map<Station, List<Schedule>> getSchedules() {
+        return schedules;
+    }
+
+    public List<Schedule> getSchedule(Station station) {
+        return schedules.get(station);
+    }
 }

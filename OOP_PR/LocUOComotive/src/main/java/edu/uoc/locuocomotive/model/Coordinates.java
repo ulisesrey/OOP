@@ -9,6 +9,13 @@ public class Coordinates {
         this.longitude = longitude;
     }
 
-    // getters and methods
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public double getLongitude() {
+        return longitude;
+    }
 }
+
 
