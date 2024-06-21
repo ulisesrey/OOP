@@ -1,18 +1,19 @@
 package edu.uoc.locuocomotive.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Wagon {
     private String id;
     private WagonClass wagonClass;
-    private List<Seat> seats;
-    private SeatType seatType; // Add this field
+    private int totalSeats;
+    private int availableSeats;
 
-    public Wagon(String id, WagonClass wagonClass, List<Seat> seats, SeatType seatType) {
+    public Wagon(String id, WagonClass wagonClass, int totalSeats, int availableSeats) {
         this.id = id;
         this.wagonClass = wagonClass;
-        this.seats = seats;
-        this.seatType = seatType; // Initialize the field in the constructor
+        this.totalSeats = totalSeats;
+        this.availableSeats = availableSeats;
     }
 
     public String getId() {
@@ -23,11 +24,21 @@ public class Wagon {
         return wagonClass;
     }
 
-    public List<Seat> getSeats() {
-        return seats;
+    public int getTotalSeats() {
+        return totalSeats;
     }
 
-    public SeatType getSeatType() { // Add this getter
-        return seatType;
+    public int getAvailableSeats() {
+        return availableSeats;
+    }
+
+    @Override
+    public String toString() {
+        return id + "|" + wagonClass + "|" + totalSeats + "|" + availableSeats;
+    }
+
+    public static Wagon parseWagon(String id, WagonClass wagonClass, int totalSeats) {
+        int availableSeats = totalSeats; // Assuming all seats are available initially
+        return new Wagon(id, wagonClass, totalSeats, availableSeats);
     }
 }
