@@ -1,16 +1,19 @@
 package edu.uoc.locuocomotive.model;
 
-public class Wagon {
-    private String id;
-    private WagonClass wagonClass;
-    private int totalSeats;
-    private int availableSeats;
+import java.util.List;
 
-    public Wagon(String id, int totalSeats) {
-        this.id = id;
-        this.totalSeats = totalSeats;
-        this.availableSeats = totalSeats;
-        this.wagonClass = determineWagonClass(totalSeats);
+public class Wagon {
+
+    private String id;
+    private final List<Seat> seatList;
+    private WagonClass wagonClass;
+    private SeatType seatType;
+
+    public Wagon(String wagonId, WagonClass wagonClass, List<Seat> seatList, SeatType seatType) {
+        this.id = wagonId;
+        this.seatList = seatList;
+        this.wagonClass = determineWagonClass(wagonClass);
+        this.seatType = determineSeatType(this.wagonClass);
     }
 
     public String getId() {
@@ -19,6 +22,10 @@ public class Wagon {
 
     public WagonClass getWagonClass() {
         return wagonClass;
+    }
+
+    public SeatType getSeatType() {
+        return seatType;
     }
 
     public int getTotalSeats() {
@@ -41,6 +48,19 @@ public class Wagon {
             return WagonClass.SECOND_CLASS;
         } else {
             return WagonClass.THIRD_CLASS;
+        }
+    }
+
+    private static SeatType determineSeatType(WagonClass wagonClass) {
+        switch (wagonClass) {
+            case FIRST_CLASS:
+                return SeatType.FIRST_CLASS;
+            case SECOND_CLASS:
+                return SeatType.SECOND_CLASS;
+            case THIRD_CLASS:
+                return SeatType.THIRD_CLASS;
+            default:
+                return SeatType.SECOND_CLASS; // Default to second class if undefined
         }
     }
 
