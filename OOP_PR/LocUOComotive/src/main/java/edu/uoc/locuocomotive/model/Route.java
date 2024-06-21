@@ -79,14 +79,6 @@ public class Route {
             return stationId;
         }
 
-        public int getId() {
-            return this.stationId;
-        }
-
-        public int getTrainId() {
-            return trainId;
-        }
-
         public String getDepartureTime() {
             return departureTime;
         }
