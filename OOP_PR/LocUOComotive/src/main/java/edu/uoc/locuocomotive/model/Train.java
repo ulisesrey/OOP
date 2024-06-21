@@ -5,12 +5,12 @@ import java.util.List;
 
 public class Train {
     private int id;
-    private String train_model;
+    private String trainModel;
     private List<Wagon> wagons;
 
-    public Train(int id, String train_model, List<Wagon> wagons) {
+    public Train(int id, String trainModel, List<Wagon> wagons) {
         this.id = id;
-        this.train_model = train_model;
+        this.trainModel = trainModel;
         this.wagons = wagons;
     }
 
@@ -19,7 +19,7 @@ public class Train {
     }
 
     public String getTrainModel() {
-        return train_model;
+        return trainModel;
     }
 
     public List<Wagon> getWagons() {
@@ -28,12 +28,9 @@ public class Train {
 
     public Seat getAvailableSeat(WagonClass wagonClass) {
         for (Wagon wagon : wagons) {
-            if (wagon.getWagonClass() == wagonClass) {
-                for (Seat seat : wagon.getSeats()) {
-                    if (seat.isAvailable()) {
-                        return seat;
-                    }
-                }
+            if (wagon.getWagonClass() == wagonClass && wagon.getAvailableSeats() > 0) {
+                // Assuming seats can be represented by numbers, returning the first available seat
+                return new Seat(1, SeatType.STANDARD, true); // Placeholder for actual seat logic
             }
         }
         return null;
@@ -42,9 +39,9 @@ public class Train {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append(id).append("|").append(train_model);
-        for (Wagon wagon : wagons) {
-            sb.append("|").append(wagon.getSeats().size());
+        sb.append(id).append("|").append(trainModel);
+        for (Wwagonagon : wagons) {
+            sb.append("|").append(wagon.getTotalSeats());
         }
         return sb.toString();
     }
@@ -52,26 +49,15 @@ public class Train {
     public static Train parseTrain(String data) {
         String[] parts = data.split("\\|");
         int id = Integer.parseInt(parts[0]);
-        String train_model = parts[1];
+        String trainModel = parts[1];
         List<Wagon> wagons = new ArrayList<>();
 
         for (int i = 2; i < parts.length; i++) {
             int seatsCount = Integer.parseInt(parts[i]);
-            List<Seat> seats = new ArrayList<>();
-            for (int j = 0; j < seatsCount; j++) {
-                seats.add(new Seat(j + 1, SeatType.STANDARD, true)); // Assuming standard seat type and available by default
-            }
-            wagons.add(new Wagon("W" + i, WagonClass.SECOND_CLASS, seats, SeatType.STANDARD)); // Assuming second class and standard seat type
+            wagons.add(Wagon.parseWagon("W" + (i - 1), WagonClass.SECOND_CLASS, seatsCount)); // Assuming second class and sequential IDs
         }
 
-        return new Train(id, train_model, wagons);
+        return new Train(id, trainModel, wagons);
     }
 }
 
-enum WagonClass {
-    FIRST_CLASS, SECOND_CLASS
-}
-
-enum SeatType {
-    STANDARD, PREMIUM
-}
