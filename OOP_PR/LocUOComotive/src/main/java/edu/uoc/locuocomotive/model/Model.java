@@ -67,17 +67,7 @@ public class Model {
         try (BufferedReader br = new BufferedReader(new FileReader(filename))) {
             String line;
             while ((line = br.readLine()) != null) {
-                String[] values = line.split(",");
-                Train train = trains.stream().filter(t -> t.getId() == Integer.parseInt(values[1])).findFirst().orElse(null);
-                List<Station> routeStations = new ArrayList<>();
-                for (String stationId : values[2].split(";")) {
-                    routeStations.add(stations.stream().filter(s -> s.getId() == Integer.parseInt(stationId)).findFirst().orElse(null));
-                }
-                Map<Station, List<Schedule>> schedules = new HashMap<>();
-                for (Station station : routeStations) {
-                    schedules.put(station, new ArrayList<>());  // Add schedule loading logic if available
-                }
-                Route route = new Route(values[0], train, routeStations, schedules);
+                Route route = Route.parseRoute(line);
                 routes.add(route);
             }
         } catch (IOException e) {
@@ -86,7 +76,7 @@ public class Model {
     }
 
     public Ticket buyTicket(Passenger passenger, Route route, Schedule schedule, SeatType seatType) {
-        Seat seat = getAvailableSeat(route.getTrainId(), seatType);
+        Seat seat = getAvailableSeat(route.getTrain(), seatType);
         if (seat != null) {
             double price = calculatePrice(route, seatType);
             Ticket ticket = new Ticket(passenger, seat, price, schedule, schedule); // Pass schedule directly

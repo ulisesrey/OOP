@@ -27,7 +27,7 @@ public class Wagon {
         return seatList.size();
     }
 
-    public int getAvailableSeats() {
+    public int getSeats() {
         // Assuming all seats are available initially
         return (int) seatList.stream().filter(Seat::isAvailable).count();
     }

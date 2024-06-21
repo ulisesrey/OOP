@@ -344,6 +344,6 @@ public class LocUOComotiveController {
         if (routes.isEmpty() || routes.get(0).getStations().isEmpty()) {
             return -1; // Indicating no station available
         }
-        return routes.get(0).getStations().get(0).getId();
+        return routes.get(0).getStations().get(0).getStationId();
     }
 }
