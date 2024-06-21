@@ -26,15 +26,6 @@ public class Train {
         return wagons;
     }
 
-    public Seat getAvailableSeat(WagonClass wagonClass) {
-        for (Wagon wagon : wagons) {
-            if (wagon.getWagonClass() == wagonClass && wagon.getAvailableSeats() > 0) {
-                // Assuming seats can be represented by numbers, returning the first available seat
-                return new Seat(1, SeatType.STANDARD, true); // Placeholder for actual seat logic
-            }
-        }
-        return null;
-    }
 
     @Override
     public String toString() {
