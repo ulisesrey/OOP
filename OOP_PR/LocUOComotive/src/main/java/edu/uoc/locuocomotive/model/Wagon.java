@@ -29,14 +29,18 @@ public class Wagon {
         return availableSeats;
     }
 
+    @Override
+    public String toString() {
+        return id + "|" + wagonClass + "|" + totalSeats + "|" + availableSeats;
+    }
 
     private static WagonClass determineWagonClass(int totalSeats) {
-        if (totalSeats < 10) {
+        if (totalSeats < 20) {
             return WagonClass.FIRST_CLASS;
-        } else if (totalSeats > 50) {
-            return WagonClass.THIRD_CLASS;
-        } else {
+        } else if (totalSeats < 50) {
             return WagonClass.SECOND_CLASS;
+        } else {
+            return WagonClass.THIRD_CLASS;
         }
     }
 
