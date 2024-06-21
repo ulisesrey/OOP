@@ -67,9 +67,8 @@ public class LocUOComotiveController {
         try (BufferedReader br = new BufferedReader(new InputStreamReader(is))) {
             String line;
             while ((line = br.readLine()) != null) {
-                String[] parts = line.split("=");
-                String[] parts2 = parts[0].split("\\|");
-                addRoute(parts2[0], Integer.parseInt(parts2[1]), parts[1].split("\\|"));
+                Route route = Route.parseRoute(line);
+                routes.add(route);
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -105,56 +104,43 @@ public class LocUOComotiveController {
 
     public void addRoute(String id, int trainId, String... stationsAndTimes) {
         Train train = trains.stream().filter(t -> t.getId() == trainId).findFirst().orElse(null);
-        List<Station> routeStations = new ArrayList<>();
-        Map<Station, List<Schedule>> schedules = new HashMap<>();
-        LocalDate currentDate = LocalDate.now(); // Use the current date or a specific date if available
-
-        for (String stationAndTime : stationsAndTimes) {
-            String[] parts = stationAndTime.split(":");
-            Station station = stations.stream().filter(s -> s.getId() == Integer.parseInt(parts[0])).findFirst().orElse(null);
-            if (station != null) {
-                routeStations.add(station);
-                List<Schedule> scheduleList = schedules.getOrDefault(station, new ArrayList<>());
-                LocalTime time = LocalTime.parse(parts[1]);
-                LocalDateTime dateTime = LocalDateTime.of(currentDate, time);
-                scheduleList.add(new Schedule(dateTime, dateTime)); // Use the same dateTime for both departure and arrival for now
-                schedules.put(station, scheduleList);
-            }
+        if (train == null) {
+            throw new IllegalArgumentException("Train with ID " + trainId + " not found");
         }
 
-        Route route = new Route(id, train, routeStations, schedules);
+        List<Route.StationSchedule> stationSchedules = new ArrayList<>();
+
+        for (String stationAndTime : stationsAndTimes) {
+            String[] parts = stationAndTime.split("\\[|\\]|,");
+            int stationId = Integer.parseInt(parts[0]);
+            String arrivalTime = parts[1];
+            String departureTime = parts[2];
+
+            Station station = stations.stream().filter(s -> s.getId() == stationId).findFirst().orElse(null);
+            if (station == null) {
+                throw new IllegalArgumentException("Station with ID " + stationId + " not found");
+            }
+
+            stationSchedules.add(new Route.StationSchedule(stationId, arrivalTime, departureTime));
+        }
+
+        Route route = new Route(id, trainId, stationSchedules);
         routes.add(route);
     }
 
-    public void addTrain(int id, String model, int... seats) {
+
+    public void addTrain(int id, String model, int[] totalSeats) {
         List<Wagon> wagons = new ArrayList<>();
-        for (int i = 0; i < seats.length; i++) {
-            SeatType seatType;
-            switch (i) {
-                case 0:
-                    seatType = SeatType.FIRST_CLASS;
-                    break;
-                case 1:
-                    seatType = SeatType.SECOND_CLASS;
-                    break;
-                case 2:
-                    seatType = SeatType.THIRD_CLASS;
-                    break;
-                default:
-                    seatType = SeatType.THIRD_CLASS; // Default to THIRD_CLASS for additional parameters
-            }
-            wagons.add(createWagon(id, seatType, seats[i]));
+        for (int i = 0; i < totalSeats.length; i++) {
+            Wagon wagon = createWagon(id, totalSeats[i]);
+            wagons.add(wagon);
         }
         Train train = new Train(id, model, wagons);
         trains.add(train);
     }
 
-    private Wagon createWagon(int id, SeatType seatType, int seats) {
-        List<Seat> seatList = new ArrayList<>();
-        for (int i = 0; i < seats; i++) {
-            seatList.add(new Seat(i, seatType, true));
-        }
-        return new Wagon(String.valueOf(id), WagonClass.THIRD_CLASS, seatList, seatType);
+    private Wagon createWagon(int id, int totalSeats) {
+        return new Wagon(String.valueOf(id), totalSeats);
     }
 
     public List<String> getStationsInfo() {
@@ -172,14 +158,16 @@ public class LocUOComotiveController {
     public List<String> getRoutesByStation(int stationId) {
         List<String> routesInfo = new ArrayList<>();
         for (Route route : routes) {
-            for (Station station : route.getStations()) {
-                if (station.getId() == stationId) {
+            for (Route.StationSchedule schedule : route.getStationSchedules()) {
+                if (schedule.getStationId() == stationId) {
                     routesInfo.add(route.toString());
+                    break;  // Once we find the station in the route, we can break the inner loop
                 }
             }
         }
         return routesInfo;
     }
+
 
     public void addPassenger(String passport, String name, String surname, LocalDate birthDate, String email) throws Exception {
 //        if (passengers.containsKey(passport)) {
@@ -190,7 +178,7 @@ public class LocUOComotiveController {
         passengers.put(passport, passenger);
     }
 
-    public void createTicket(String passport, String routeId, LocalTime departureTime, LocalTime arrivalTime, double cost, int originStationId, int destinationStationId, String selectedSeatType) throws Exception {
+    public void createTicket(String passport, String routeId, LocalTime departureTime, LocalTime arrivalTime, double cost, int originStationId, int destinationStationId, String selectedWagonClass) throws Exception {
         Passenger passenger = passengers.get(passport);
         if (passenger == null) {
             throw new Exception("Passenger does not exist");
@@ -204,7 +192,7 @@ public class LocUOComotiveController {
         if (originStation == null || destinationStation == null) {
             throw new Exception("Station does not exist");
         }
-        Seat seat = route.getTrain().getAvailableSeat(WagonClass.valueOf(selectedSeatType));
+        Seat seat = route.getTrainId().getAvailableSeat(WagonClass.valueOf(selectedWagonClass));
         if (seat == null) {
             throw new Exception("No available seats");
         }
