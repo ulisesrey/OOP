@@ -30,11 +30,7 @@ public class LocUOComotiveController {
     }
 
     private void loadStations(String stationsFile) {
-
         InputStream is = getClass().getResourceAsStream("/data/" + stationsFile);
-
-
-
         if (is == null) {
             throw new NullPointerException("Cannot find resource file " + stationsFile);
         }
@@ -43,12 +39,23 @@ public class LocUOComotiveController {
             String line;
             while ((line = br.readLine()) != null) {
                 String[] parts = line.split("\\|");
-                addStation((Integer.parseInt(parts[0])), parts[1], parts[2], Integer.parseInt(parts[3]), parts[4], parts[5], Integer.parseInt(parts[6]), Integer.parseInt(parts[7]));
+                Station station = new Station(
+                        Integer.parseInt(parts[0]),
+                        parts[1],
+                        parts[2],
+                        Integer.parseInt(parts[3]),
+                        StationType.valueOf(parts[4]),
+                        parts[5],
+                        Integer.parseInt(parts[6]),
+                        Integer.parseInt(parts[7])
+                );
+                stations.add(station);
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
 
     private void loadRoutes(String routesFile) {
         InputStream is = getClass().getResourceAsStream("/data/" + routesFile);
@@ -91,8 +98,8 @@ public class LocUOComotiveController {
         }
     }
 
-    public void addStation(int id, String name, String city, int year, String type, String image, double latitude, double longitude) {
-        Station station = new Station(id, name, city, year, StationType.valueOf(type), new Coordinates(latitude, longitude), image);
+    public void addStation(int id, String name, String city, int year, String type, String image, int latitude, int longitude) {
+        Station station = new Station(id, name, city, year, StationType.valueOf(type), image, latitude, longitude);
         model.addStation(station);
     }
 
