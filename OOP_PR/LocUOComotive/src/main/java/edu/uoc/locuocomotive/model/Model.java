@@ -39,9 +39,11 @@ public class Model {
                         values[2],
                         Integer.parseInt(values[3]),
                         StationType.valueOf(values[4]),
-                        new Coordinates(Double.parseDouble(values[5]), Double.parseDouble(values[6])),
-                        values[7]
+                        values[5], // filename
+                        Integer.parseInt(values[6]), // x coordinate
+                        Integer.parseInt(values[7])  // y coordinate
                 );
+
                 stations.add(station);
             }
         } catch (IOException e) {

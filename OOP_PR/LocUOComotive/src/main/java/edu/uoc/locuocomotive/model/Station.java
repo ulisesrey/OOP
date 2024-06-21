@@ -6,19 +6,20 @@ public class Station {
     private String city;
     private int openingYear;
     private StationType type;
-    private double coordinates_x;
-    private double coordinates_y;
     private String imageFilename;
+    private int coordinates_x;
+    private int coordinates_y;
 
-    public Station(int id, String name, String city, int openingYear, StationType type, double coordinates_x, double coordinates_y, String imageFilename) {
+
+    public Station(int id, String name, String city, int openingYear, StationType type, String imageFilename, int coordinates_x, int coordinates_y) {
         this.id = id;
         this.name = name;
         this.city = city;
         this.openingYear = openingYear;
         this.type = type;
+        this.imageFilename = imageFilename;
         this.coordinates_x = coordinates_x;
         this.coordinates_y = coordinates_y;
-        this.imageFilename = imageFilename;
     }
 
     public int getId() {
