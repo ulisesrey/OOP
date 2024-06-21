@@ -1,17 +1,18 @@
 package edu.uoc.locuocomotive.model;
 
 import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Schedule {
     private LocalTime departure;
     private LocalTime arrival;
+    private int stationId; // Added stationId field
 
-    public Schedule(LocalTime departure, LocalTime arrival) {
+    public Schedule(LocalTime departure, LocalTime arrival, int stationId) { // Modified constructor
         this.departure = departure;
         this.arrival = arrival;
+        this.stationId = stationId; // Set stationId
     }
 
     public LocalTime getDeparture() {
@@ -23,11 +24,10 @@ public class Schedule {
     }
 
     public List<LocalTime> getTimes() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
-        List<LocalTime> times = new ArrayList<>();
-        times.add(LocalTime.parse(departureTime, formatter));
-        times.add(LocalTime.parse(arrivalTime, formatter));
-        return times;
+        return Arrays.asList(departure, arrival);
+    }
+
+    public int getStationId() { // Added getStationId method
+        return stationId;
     }
 }
-
