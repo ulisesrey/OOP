@@ -55,14 +55,7 @@ public class Model {
         try (BufferedReader br = new BufferedReader(new FileReader(filename))) {
             String line;
             while ((line = br.readLine()) != null) {
-                String[] values = line.split(",");
-                List<Wagon> wagons = new ArrayList<>();
-                for (String wagonId : values[2].split(";")) {
-                    List<Seat> seatList = new ArrayList<>(); // Placeholder for Seat list
-                    SeatType seatType = SeatType.FIRST_CLASS; // Assume all seats are of the same type for now
-                    wagons.add(new Wagon(wagonId, WagonClass.FIRST_CLASS, seatList, seatType)); // Pass SeatType to Wagon constructor
-                }
-                Train train = new Train(Integer.parseInt(values[0]), values[1], wagons); // Convert String to int
+                Train train = Train.parseTrain(line);
                 trains.add(train);
             }
         } catch (IOException e) {
@@ -93,7 +86,7 @@ public class Model {
     }
 
     public Ticket buyTicket(Passenger passenger, Route route, Schedule schedule, SeatType seatType) {
-        Seat seat = getAvailableSeat(route.getTrain(), seatType);
+        Seat seat = getAvailableSeat(route.getTrainId(), seatType);
         if (seat != null) {
             double price = calculatePrice(route, seatType);
             Ticket ticket = new Ticket(passenger, seat, price, schedule, schedule); // Pass schedule directly

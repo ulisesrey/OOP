@@ -136,7 +136,24 @@ public class LocUOComotiveController {
     public void addTrain(int id, String model, int... cars) {
         List<Wagon> wagons = new ArrayList<>();
         for (int i = 0; i < cars.length; i++) {
-            Wagon wagon = new Wagon(String.valueOf(id) + "-" + (i+1), cars[i]);
+            int seatsCount = cars[i];
+
+            // Create the wagon first
+            String wagonId = String.valueOf(id) + "-" + (i + 1);
+            Wagon wagon = new Wagon(wagonId, seatsCount);
+
+            List<Seat> seatList = new ArrayList<>();
+            WagonClass wagonClass = Wagon.determineWagonClass(seatsCount);
+            SeatType seatType = Wagon.determineSeatType(wagonClass);
+
+            for (int j = 0; j < seatsCount; j++) {
+                // Pass the wagonId to the Seat constructor
+                seatList.add(new Seat(j + 1, seatType, true, wagonId));
+            }
+
+            // Add the seats to the wagon
+            wagon.setSeats(seatList);
+
             wagons.add(wagon);
         }
         Train train = new Train(id, model, wagons);

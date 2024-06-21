@@ -1,5 +1,7 @@
 package edu.uoc.locuocomotive.model;
 
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,12 +20,24 @@ public class Route {
         return id;
     }
 
+    public List<StationSchedule> getStations() {
+        return this.stationSchedules;
+    }
+
     public int getTrainId() {
         return trainId;
     }
 
+    public Train getTrain() {
+        return Train.getTrainById(this.trainId);
+    }
+
     public List<StationSchedule> getStationSchedules() {
         return stationSchedules;
+    }
+
+    public int getDestinationStationId() {
+        return stationSchedules.get(stationSchedules.size() - 1).getStationId();
     }
 
     @Override
@@ -39,10 +53,11 @@ public class Route {
     public static Route parseRoute(String data) {
         String[] parts = data.split("\\|");
         String id = parts[0];
-        int trainId = Integer.parseInt(parts[1]);
+        String[] trainAndStations = parts[1].split("=");
+        int trainId = Integer.parseInt(trainAndStations[0]);
 
         List<StationSchedule> stationSchedules = new ArrayList<>();
-        for (int i = 2; i < parts.length; i++) {
+        for (int i = 1; i < parts.length; i++) {
             stationSchedules.add(StationSchedule.parseSchedule(parts[i]));
         }
 
@@ -51,30 +66,46 @@ public class Route {
 
     public static class StationSchedule {
         private int stationId;
-        private String arrivalTime;
         private String departureTime;
+        private String arrivalTime;
 
-        public StationSchedule(int stationId, String arrivalTime, String departureTime) {
+        public StationSchedule(int stationId, String departureTime, String arrivalTime) {
             this.stationId = stationId;
-            this.arrivalTime = arrivalTime;
             this.departureTime = departureTime;
+            this.arrivalTime = arrivalTime;
         }
 
         public int getStationId() {
             return stationId;
         }
 
-        public String getArrivalTime() {
-            return arrivalTime;
+        public int getId() {
+            return this.stationId;
+        }
+
+        public int getTrainId() {
+            return trainId;
         }
 
         public String getDepartureTime() {
             return departureTime;
         }
 
+        public String getArrivalTime() {
+            return arrivalTime;
+        }
+
+        public List<LocalTime> getTimes() {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
+            List<LocalTime> times = new ArrayList<>();
+            times.add(LocalTime.parse(departureTime, formatter));
+            times.add(LocalTime.parse(arrivalTime, formatter));
+            return times;
+        }
+
         @Override
         public String toString() {
-            return stationId + "[" + arrivalTime + "," + departureTime + "]";
+            return stationId + "[" + departureTime + "," + arrivalTime + "]";
         }
 
         public static StationSchedule parseSchedule(String data) {
@@ -83,10 +114,10 @@ public class Route {
 
             String times = data.substring(data.indexOf('[') + 1, data.indexOf(']'));
             String[] timeParts = times.split(",");
-            String arrivalTime = timeParts[0];
-            String departureTime = timeParts[1];
+            String departureTime = timeParts[0];
+            String arrivalTime = timeParts[1];
 
-            return new StationSchedule(stationId, arrivalTime, departureTime);
+            return new StationSchedule(stationId, departureTime, arrivalTime);
         }
     }
 }

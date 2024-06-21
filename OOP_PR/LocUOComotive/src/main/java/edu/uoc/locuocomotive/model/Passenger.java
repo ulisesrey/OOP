@@ -5,11 +5,11 @@ import java.util.Objects;
 import java.util.regex.Pattern;
 
 public class Passenger {
-    private final String passport;
-    private final String firstName;
-    private final String lastName;
-    private final LocalDate birthDate;
-    private final String email;
+    private String passport;
+    private String firstName;
+    private String lastName;
+    private LocalDate birthDate;
+    private String email;
 
     public Passenger(String passport, String firstName, String lastName, LocalDate birthDate, String email) {
         if (passport == null || passport.isEmpty()) {
@@ -53,6 +53,29 @@ public class Passenger {
 
     public String getEmail() {
         return email;
+    }
+
+    public void setPassport(String passport) {
+        this.passport = passport;
+    }
+
+    public void setName(String name) {
+        this.firstName = name;
+    }
+
+    public void setSurname(String surname) {
+        this.lastName = surname;
+    }
+
+    public void setBirthDate(LocalDate birthDate) {
+        this.birthDate = birthDate;
+    }
+
+    public void setEmail(String email) {
+        if (email != null && !validateEmail(email)) {
+            throw new IllegalArgumentException("Invalid email format");
+        }
+        this.email = email;
     }
 
     private boolean validateEmail(String email) {

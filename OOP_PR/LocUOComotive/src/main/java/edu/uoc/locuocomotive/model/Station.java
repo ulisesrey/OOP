@@ -1,5 +1,7 @@
 package edu.uoc.locuocomotive.model;
 
+import java.util.List;
+
 public class Station {
     private int id;
     private String name;
@@ -57,5 +59,23 @@ public class Station {
     @Override
     public String toString() {
         return id + "|" + name + "|" + city + "|" + openingYear + "|" + type + "|" + imageFilename + "|" + coordinates_x + "|" + coordinates_y;
+    }
+
+    public static class StationSchedule {
+        private int stationId;
+        private List<Schedule> schedules;
+
+        public StationSchedule(int stationId, List<Schedule> schedules) {
+            this.stationId = stationId;
+            this.schedules = schedules;
+        }
+
+        public int getStationId() {
+            return this.stationId;
+        }
+
+        public List<Schedule> getSchedules() {
+            return this.schedules;
+        }
     }
 }
