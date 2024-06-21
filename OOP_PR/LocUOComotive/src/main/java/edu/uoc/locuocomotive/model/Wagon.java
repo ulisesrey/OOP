@@ -1,6 +1,8 @@
 package edu.uoc.locuocomotive.model;
 
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class Wagon {
     private String id;
@@ -27,9 +29,9 @@ public class Wagon {
         return seatList.size();
     }
 
-    public int getSeats() {
+    public List<Seat> getSeats() {
         // Assuming all seats are available initially
-        return (int) seatList.stream().filter(Seat::isAvailable).count();
+        return seatList.stream().filter(Seat::isAvailable).collect(Collectors.toList());
     }
 
     public List<Seat> getSeatList() {
