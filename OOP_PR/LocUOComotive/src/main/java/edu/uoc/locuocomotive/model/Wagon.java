@@ -1,19 +1,16 @@
 package edu.uoc.locuocomotive.model;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class Wagon {
     private String id;
     private WagonClass wagonClass;
     private int totalSeats;
     private int availableSeats;
 
-    public Wagon(String id, WagonClass wagonClass, int totalSeats, int availableSeats) {
+    public Wagon(String id, int totalSeats) {
         this.id = id;
-        this.wagonClass = wagonClass;
         this.totalSeats = totalSeats;
-        this.availableSeats = availableSeats;
+        this.availableSeats = totalSeats;
+        this.wagonClass = determineWagonClass(totalSeats);
     }
 
     public String getId() {
@@ -32,13 +29,18 @@ public class Wagon {
         return availableSeats;
     }
 
-    @Override
-    public String toString() {
-        return id + "|" + wagonClass + "|" + totalSeats + "|" + availableSeats;
+
+    private static WagonClass determineWagonClass(int totalSeats) {
+        if (totalSeats < 10) {
+            return WagonClass.FIRST_CLASS;
+        } else if (totalSeats > 50) {
+            return WagonClass.THIRD_CLASS;
+        } else {
+            return WagonClass.SECOND_CLASS;
+        }
     }
 
-    public static Wagon parseWagon(String id, WagonClass wagonClass, int totalSeats) {
-        int availableSeats = totalSeats; // Assuming all seats are available initially
-        return new Wagon(id, wagonClass, totalSeats, availableSeats);
+    public static Wagon parseWagon(String id, int totalSeats) {
+        return new Wagon(id, totalSeats);
     }
 }

@@ -40,7 +40,7 @@ public class Train {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append(id).append("|").append(trainModel);
-        for (Wwagonagon : wagons) {
+        for (Wagon wagon : wagons) {
             sb.append("|").append(wagon.getTotalSeats());
         }
         return sb.toString();
@@ -54,10 +54,9 @@ public class Train {
 
         for (int i = 2; i < parts.length; i++) {
             int seatsCount = Integer.parseInt(parts[i]);
-            wagons.add(Wagon.parseWagon("W" + (i - 1), WagonClass.SECOND_CLASS, seatsCount)); // Assuming second class and sequential IDs
+            wagons.add(Wagon.parseWagon("W" + (i - 1), seatsCount));
         }
 
         return new Train(id, trainModel, wagons);
     }
 }
-
