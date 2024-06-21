@@ -1,21 +1,21 @@
 package edu.uoc.locuocomotive.model;
 
-import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 public class Schedule {
-    private LocalDateTime departure;
-    private LocalDateTime arrival;
+    private LocalTime departure;
+    private LocalTime arrival;
 
-    public Schedule(LocalDateTime departure, LocalDateTime arrival) {
+    public Schedule(LocalTime departure, LocalTime arrival) {
         this.departure = departure;
         this.arrival = arrival;
     }
 
-    public LocalDateTime getDeparture() {
+    public LocalTime getDeparture() {
         return departure;
     }
 
-    public LocalDateTime getArrival() {
+    public LocalTime getArrival() {
         return arrival;
     }
 }

@@ -19,6 +19,12 @@ public class Ticket {
         this.arrival = arrival;
     }
 
+    private Route route;
+
+    public Route getRoute() {
+        return this.route;
+    }
+
     public Passenger getPassenger() {
         return passenger;
     }
@@ -31,8 +37,20 @@ public class Ticket {
         return price;
     }
 
-    public Schedule getDeparture() {
-        return departure;
+    public Schedule getArrivalSchedule() {
+        return this.arrival;
+    }
+
+    public int getArrivalStationId() {
+        return this.departure.getStationId();
+    }
+
+    public Schedule getDepartureSchedule() {
+        return this.departure;
+    }
+
+    public int getDepartureStationId() {
+        return this.departure.getStationId();
     }
 
     public Schedule getArrival() {
@@ -43,4 +61,6 @@ public class Ticket {
         // Implement price calculation logic here
         return price;
     }
+
+
 }

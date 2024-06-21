@@ -11,8 +11,12 @@ public class Seat {
         this.available = available;
     }
 
-    public int getNumber() {
-        return number;
+    public int getSeatNumber() {
+        return this.number;
+    }
+
+    public String getWagonId() {
+        return this.wagon.getId();
     }
 
     public SeatType getType() {
