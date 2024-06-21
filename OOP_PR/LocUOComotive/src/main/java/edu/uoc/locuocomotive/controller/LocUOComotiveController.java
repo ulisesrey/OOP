@@ -5,7 +5,9 @@ import java.io.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.temporal.ChronoUnit;
 import java.util.*;
+
 
 public class LocUOComotiveController {
 
@@ -97,9 +99,9 @@ public class LocUOComotiveController {
         }
     }
 
-    public void addStation(int id, String name, String city, int year, String type, String image, int latitude, int longitude) {
-        Station station = new Station(id, name, city, year, StationType.valueOf(type), image, latitude, longitude);
-        model.addStation(station);
+    public void addStation(int id, String name, String city, int openingYear, String type, String image, int positionX, int positionY) {
+        Station station = new Station(id, name, city, openingYear, StationType.valueOf(type), image, positionX, positionY);
+        stations.add(station);
     }
 
     public void addRoute(String id, int trainId, String... stationsAndTimes) {
@@ -113,15 +115,16 @@ public class LocUOComotiveController {
         for (String stationAndTime : stationsAndTimes) {
             String[] parts = stationAndTime.split("\\[|\\]|,");
             int stationId = Integer.parseInt(parts[0]);
-            String arrivalTime = parts[1];
-            String departureTime = parts[2];
+            String[] times = parts[1].split(",");
 
             Station station = stations.stream().filter(s -> s.getId() == stationId).findFirst().orElse(null);
             if (station == null) {
                 throw new IllegalArgumentException("Station with ID " + stationId + " not found");
             }
 
-            stationSchedules.add(new Route.StationSchedule(stationId, arrivalTime, departureTime));
+            for (String time : times) {
+                stationSchedules.add(new Route.StationSchedule(stationId, time, time));
+            }
         }
 
         Route route = new Route(id, trainId, stationSchedules);
@@ -129,10 +132,10 @@ public class LocUOComotiveController {
     }
 
 
-    public void addTrain(int id, String model, int[] totalSeats) {
+    public void addTrain(int id, String model, int... cars) {
         List<Wagon> wagons = new ArrayList<>();
-        for (int i = 0; i < totalSeats.length; i++) {
-            Wagon wagon = createWagon(id, totalSeats[i]);
+        for (int i = 0; i < cars.length; i++) {
+            Wagon wagon = new Wagon(String.valueOf(id) + "-" + (i+1), cars[i]);
             wagons.add(wagon);
         }
         Train train = new Train(id, model, wagons);
@@ -160,25 +163,58 @@ public class LocUOComotiveController {
         for (Route route : routes) {
             for (Route.StationSchedule schedule : route.getStationSchedules()) {
                 if (schedule.getStationId() == stationId) {
-                    routesInfo.add(route.toString());
-                    break;  // Once we find the station in the route, we can break the inner loop
+                    String departureTime = schedule.getDepartureTime();
+                    String arrivalTime = schedule.getArrivalTime();
+                    String routeId = route.getId();
+                    double ticketCost = calculateTicketCost(departureTime, arrivalTime);
+                    int departureStationId = schedule.getStationId();
+                    int arrivalStationId = route.getDestinationStationId();
+                    Station departureStation = findStationById(departureStationId);
+                    Station arrivalStation = findStationById(arrivalStationId);
+
+                    String routeInfo = String.format("%s|%s|%s|%.2f|%d|%d|%s|%s",
+                            departureTime, arrivalTime, routeId, ticketCost, departureStationId, arrivalStationId,
+                            departureStation != null ? departureStation.getName() : "Unknown Station",
+                            arrivalStation != null ? arrivalStation.getName() : "Unknown Station");
+                    routesInfo.add(routeInfo);
                 }
             }
         }
+        routesInfo.sort(Comparator.comparing(s -> s.split("\\|")[0]));
         return routesInfo;
     }
 
-
-    public void addPassenger(String passport, String name, String surname, LocalDate birthDate, String email) throws Exception {
-//        if (passengers.containsKey(passport)) {
-//            throw new Exception("Passenger already exists");
-//        }
-
-        Passenger passenger = new Passenger(passport, name, surname, birthDate, email);
-        passengers.put(passport, passenger);
+    private double calculateTicketCost(String departureTime, String arrivalTime) {
+        LocalTime departure = LocalTime.parse(departureTime);
+        LocalTime arrival = LocalTime.parse(arrivalTime);
+        long hours = ChronoUnit.HOURS.between(departure, arrival);
+        return hours * 30.0;
     }
 
-    public void createTicket(String passport, String routeId, LocalTime departureTime, LocalTime arrivalTime, double cost, int originStationId, int destinationStationId, String selectedWagonClass) throws Exception {
+    private Station findStationById(int stationId) {
+        return stations.stream()
+                .filter(station -> station.getId() == stationId)
+                .findFirst()
+                .orElse(null);
+    }
+
+
+    public void addPassenger(String passport, String name, String surname, LocalDate birthdate, String email) throws Exception {
+        Passenger existingPassenger = passengers.get(passport);
+        if (existingPassenger != null) {
+            // Update existing passenger's details
+            existingPassenger.setName(name);
+            existingPassenger.setSurname(surname);
+            existingPassenger.setBirthDate(birthdate);
+            existingPassenger.setEmail(email);
+        } else {
+            // Create new passenger and add to map
+            Passenger newPassenger = new Passenger(passport, name, surname, birthdate, email);
+            passengers.put(passport, newPassenger);
+        }
+    }
+
+    public void createTicket(String passport, String routeId, LocalTime departureTime, LocalTime arrivalTime, double cost, int originStationId, int destinationStationId, String selectedSeatType) throws Exception {
         Passenger passenger = passengers.get(passport);
         if (passenger == null) {
             throw new Exception("Passenger does not exist");
@@ -192,15 +228,12 @@ public class LocUOComotiveController {
         if (originStation == null || destinationStation == null) {
             throw new Exception("Station does not exist");
         }
-        Seat seat = route.getTrainId().getAvailableSeat(WagonClass.valueOf(selectedWagonClass));
+        Seat seat = route.getTrain().getAvailableSeat(SeatType.valueOf(selectedSeatType));
         if (seat == null) {
             throw new Exception("No available seats");
         }
-        LocalDate currentDate = LocalDate.now();
-        LocalDateTime departureDateTime = LocalDateTime.of(currentDate, departureTime);
-        LocalDateTime arrivalDateTime = LocalDateTime.of(currentDate, arrivalTime);
-        Schedule departureSchedule = new Schedule(departureDateTime, departureDateTime);
-        Schedule arrivalSchedule = new Schedule(arrivalDateTime, arrivalDateTime);
+        Schedule departureSchedule = new Schedule(departureTime, departureTime);
+        Schedule arrivalSchedule = new Schedule(arrivalTime, arrivalTime);
         Ticket ticket = new Ticket(passenger, seat, cost, departureSchedule, arrivalSchedule);
         tickets.add(ticket);
     }
@@ -214,7 +247,17 @@ public class LocUOComotiveController {
     public List<String> getAllTickets() {
         List<String> ticketInfo = new ArrayList<>();
         for (Ticket ticket : tickets) {
-            ticketInfo.add(ticket.toString());
+            String routeId = ticket.getRoute().getId();
+            String departureTime = ticket.getDepartureSchedule().getDepartureTime().toString();
+            String departureStationName = findStationById(ticket.getDepartureStationId()).getName();
+            String arrivalTime = ticket.getArrivalSchedule().getArrivalTime().toString();
+            String arrivalStationName = findStationById(ticket.getArrivalStationId()).getName();
+            String carNumberSeatNumber = ticket.getSeat().getCarNumber() + "-" + ticket.getSeat().getSeatNumber();
+            double ticketCost = ticket.getCost();
+
+            String ticketStr = String.format("%s|%s|%s|%s|%s|%s|%.2f",
+                    routeId, departureTime, departureStationName, arrivalTime, arrivalStationName, carNumberSeatNumber, ticketCost);
+            ticketInfo.add(ticketStr);
         }
         return ticketInfo;
     }
@@ -222,24 +265,42 @@ public class LocUOComotiveController {
     public String getPassengerInfo(String passport) {
         Passenger passenger = passengers.get(passport);
         if (passenger == null) {
-            return "Passenger does not exist";
+            return "";
         }
-        return String.format("%s|%s|%s|%s|%s", passenger.getPassport(), passenger.getName(), passenger.getSurname(), passenger.getBirthDate(), passenger.getEmail());
+        return String.format("%s|%s|%s|%s|%s",
+                passenger.getPassport(),
+                passenger.getName(),
+                passenger.getSurname(),
+                passenger.getBirthDate(),
+                passenger.getEmail());
     }
 
     public String getTrainInfo(int trainId) {
         Train train = trains.stream().filter(t -> t.getId() == trainId).findFirst().orElse(null);
         if (train == null) {
-            return "Train does not exist";
+            return "";
         }
-        return train.toString();
+        return String.format("%d|%s|%d",
+                train.getId(),
+                train.getTrainModel(),
+                train.getWagons().size());
     }
 
     public List<String> getPassengerTickets(String passport) {
         List<String> passengerTickets = new ArrayList<>();
         for (Ticket ticket : tickets) {
             if (ticket.getPassenger().getPassport().equals(passport)) {
-                passengerTickets.add(ticket.toString());
+                String routeId = ticket.getRoute().getId();
+                String departureTime = ticket.getDepartureSchedule().getDepartureTime().toString();
+                String departureStationName = findStationById(ticket.getDepartureStationId()).getName();
+                String arrivalTime = ticket.getArrivalSchedule().getArrivalTime().toString();
+                String arrivalStationName = findStationById(ticket.getArrivalStationId()).getName();
+                String carNumberSeatNumber = ticket.getSeat().getCarNumber() + "-" + ticket.getSeat().getSeatNumber();
+                double ticketCost = ticket.getCost();
+
+                String ticketStr = String.format("%s|%s|%s|%s|%s|%s|%.2f",
+                        routeId, departureTime, departureStationName, arrivalTime, arrivalStationName, carNumberSeatNumber, ticketCost);
+                passengerTickets.add(ticketStr);
             }
         }
         return passengerTickets;
@@ -249,10 +310,12 @@ public class LocUOComotiveController {
         List<String> departuresInfo = new ArrayList<>();
         Route route = routes.stream().filter(r -> r.getId().equals(routeId)).findFirst().orElse(null);
         if (route != null) {
-            for (Map.Entry<Station, List<Schedule>> entry : route.getSchedules().entrySet()) {
-                for (Schedule schedule : entry.getValue()) {
-                    departuresInfo.add("Station: " + entry.getKey().getName() + ", Departure: " + schedule.getDeparture().toString());
-                }
+            for (Route.StationSchedule schedule : route.getStationSchedules()) {
+                int stationId = schedule.getStationId();
+                List<String> times = schedule.getTimes().stream().map(LocalTime::toString).collect(Collectors.toList());
+                String timesStr = String.join(", ", times);
+                String scheduleStr = String.format("%d|[%s]", stationId, timesStr);
+                departuresInfo.add(scheduleStr);
             }
         }
         return departuresInfo;
