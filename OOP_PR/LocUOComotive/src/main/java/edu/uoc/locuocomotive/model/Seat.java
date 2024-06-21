@@ -2,12 +2,12 @@ package edu.uoc.locuocomotive.model;
 
 public class Seat {
     private int number;
-    private SeatType type;
+    private Wagon wagon;
     private boolean available;
 
-    public Seat(int number, SeatType type, boolean available) {
+    public Seat(int number, Wagon wagon, boolean available) {
         this.number = number;
-        this.type = type;
+        this.wagon = wagon;
         this.available = available;
     }
 
@@ -16,11 +16,10 @@ public class Seat {
     }
 
     public SeatType getType() {
-        return type;
+        return wagon.getSeatType();
     }
 
     public boolean isAvailable() {
         return available;
     }
 }
-
