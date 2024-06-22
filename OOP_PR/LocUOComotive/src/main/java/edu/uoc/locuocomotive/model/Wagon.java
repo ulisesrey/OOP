@@ -1,8 +1,8 @@
 package edu.uoc.locuocomotive.model;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class Wagon {
     private String id;
@@ -30,7 +30,6 @@ public class Wagon {
     }
 
     public List<Seat> getSeats() {
-        // Assuming all seats are available initially
         return seatList.stream().filter(Seat::isAvailable).collect(Collectors.toList());
     }
 
@@ -66,7 +65,7 @@ public class Wagon {
             case THIRD_CLASS:
                 return SeatType.THIRD_CLASS;
             default:
-                return SeatType.SECOND_CLASS; // Default to second class if undefined
+                return SeatType.SECOND_CLASS;
         }
     }
 
@@ -74,7 +73,7 @@ public class Wagon {
         List<Seat> seats = new ArrayList<>();
         SeatType seatType = determineSeatType(determineWagonClass(totalSeats));
         for (int i = 0; i < totalSeats; i++) {
-            seats.add(new Seat(i + 1, seatType, true));
+            seats.add(new Seat(i + 1, seatType, true, id));
         }
         return seats;
     }
@@ -84,5 +83,11 @@ public class Wagon {
     }
 
     public void setSeats(List<Seat> seatList) {
+        this.seatList.clear();
+        this.seatList.addAll(seatList);
+    }
+
+    public int getAvailableSeats() {
+        return (int) seatList.stream().filter(Seat::isAvailable).count();
     }
 }
