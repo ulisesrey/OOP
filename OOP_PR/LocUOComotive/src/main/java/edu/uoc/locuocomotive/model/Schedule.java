@@ -7,12 +7,14 @@ import java.util.List;
 public class Schedule {
     private LocalTime departure;
     private LocalTime arrival;
-    private int stationId; // Added stationId field
+    private int originStationId; // Added originStationId field
+    private int destinationStationId; // Added destinationStationId field
 
-    public Schedule(LocalTime departure, LocalTime arrival, int stationId) { // Modified constructor
+    public Schedule(LocalTime departure, LocalTime arrival, int originStationId, int destinationStationId) { // Modified constructor
         this.departure = departure;
         this.arrival = arrival;
-        this.stationId = stationId; // Set stationId
+        this.originStationId = originStationId; // Set originStationId
+        this.destinationStationId = destinationStationId; // Set destinationStationId
     }
 
     public LocalTime getDeparture() {
@@ -27,7 +29,11 @@ public class Schedule {
         return Arrays.asList(departure, arrival);
     }
 
-    public int getStationId() { // Added getStationId method
-        return stationId;
+    public int getOriginStationId() { // Added getOriginStationId method
+        return originStationId;
+    }
+
+    public int getDestinationStationId() { // Added getDestinationStationId method
+        return destinationStationId;
     }
 }
