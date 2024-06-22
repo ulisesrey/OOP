@@ -17,11 +17,11 @@ public class Schedule {
         this.destinationStationId = destinationStationId; // Set destinationStationId
     }
 
-    public LocalTime getDeparture() {
+    public LocalTime getDepartureTime() {
         return departure;
     }
 
-    public LocalTime getArrival() {
+    public LocalTime getArrivalTime() {
         return arrival;
     }
 

@@ -79,7 +79,7 @@ public class Model {
         Seat seat = getAvailableSeat(route.getTrain(), seatType);
         if (seat != null) {
             double price = calculatePrice(route, seatType);
-            Ticket ticket = new Ticket(passenger, seat, price, schedule, schedule); // Pass schedule directly
+            Ticket ticket = new Ticket(passenger, seat, price, schedule); // Pass schedule directly
             tickets.add(ticket);
             return ticket;
         } else {

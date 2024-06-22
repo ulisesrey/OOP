@@ -1,22 +1,18 @@
 package edu.uoc.locuocomotive.model;
 
-import java.time.LocalDateTime;
-
-import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 public class Ticket {
     private Passenger passenger;
     private Seat seat;
     private double price;
-    private Schedule departure;
-    private Schedule arrival;
+    private Schedule schedule; // Changed from departure and arrival Schedule objects to one Schedule object
 
-    public Ticket(Passenger passenger, Seat seat, double price, Schedule departure, Schedule arrival) {
+    public Ticket(Passenger passenger, Seat seat, double price, Schedule schedule) { // Modified constructor
         this.passenger = passenger;
         this.seat = seat;
         this.price = price;
-        this.departure = departure;
-        this.arrival = arrival;
+        this.schedule = schedule; // Set schedule
     }
 
     private Route route;
@@ -37,30 +33,26 @@ public class Ticket {
         return price;
     }
 
-    public Schedule getArrivalSchedule() {
-        return this.arrival;
+    public LocalTime getArrivalTime() { // New method to get the Schedule object
+        return this.schedule.getArrivalTime();
+    }
+    public LocalTime getDepartureTime() { // New method to get the Schedule object
+        return this.schedule.getDepartureTime();
+    }
+    public int getDepartureStationId() {
+        return this.schedule.getOriginStationId();
     }
 
     public int getArrivalStationId() {
-        return this.departure.getStationId();
+        return this.schedule.getDestinationStationId();
     }
 
-    public Schedule getDepartureSchedule() {
-        return this.departure;
-    }
-
-    public int getDepartureStationId() {
-        return this.departure.getStationId();
-    }
-
-    public Schedule getArrival() {
-        return arrival;
+    public String getCarNumberSeatNumber() {
+        return this.seat.getWagonId() + "-" + this.seat.getSeatNumber();
     }
 
     public double calculatePrice() {
         // Implement price calculation logic here
         return price;
     }
-
-
 }
