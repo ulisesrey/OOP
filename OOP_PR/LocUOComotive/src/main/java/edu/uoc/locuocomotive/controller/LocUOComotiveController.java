@@ -61,6 +61,7 @@ public class LocUOComotiveController {
 
 
     private void loadRoutes(String routesFile) {
+        // Get the file from the resources folder
         InputStream is = getClass().getResourceAsStream("/data/" + routesFile);
 
         if (is == null) {
@@ -70,8 +71,12 @@ public class LocUOComotiveController {
         try (BufferedReader br = new BufferedReader(new InputStreamReader(is))) {
             String line;
             while ((line = br.readLine()) != null) {
-                Route route = Route.parseRoute(line);
-                routes.add(route);
+                // Split by character :
+                String[] parts = line.split("=");
+                String[] parts2 = parts[0].split("\\|");
+
+                // Create the route and add it to the list of routes
+                addRoute(parts2[0], Integer.parseInt(parts2[1]), parts[1].split("\\|"));
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -79,6 +84,7 @@ public class LocUOComotiveController {
     }
 
     private void loadTrains(String trainsFile) {
+        // Get the file from the resources folder
         InputStream is = getClass().getResourceAsStream("/data/" + trainsFile);
 
         if (is == null) {
@@ -89,11 +95,14 @@ public class LocUOComotiveController {
             String line;
             while ((line = br.readLine()) != null) {
                 String[] parts = line.split("\\|");
-                int[] seats = new int[parts.length - 2];
+
+                int[] seatsPerCar = new int[parts.length - 2];
+
                 for (int i = 2; i < parts.length; i++) {
-                    seats[i - 2] = Integer.parseInt(parts[i]);
+                    seatsPerCar[i - 2] = Integer.parseInt(parts[i]);
                 }
-                addTrain(Integer.parseInt(parts[0]), parts[1], seats);
+
+                addTrain(Integer.parseInt(parts[0]), parts[1], seatsPerCar);
             }
         } catch (IOException e) {
             e.printStackTrace();
