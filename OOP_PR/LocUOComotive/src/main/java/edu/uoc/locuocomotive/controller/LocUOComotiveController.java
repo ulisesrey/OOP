@@ -251,9 +251,8 @@ public class LocUOComotiveController {
             throw new Exception("No available seats");
         }
 
-        Schedule departureSchedule = new Schedule(departureTime, departureTime);
-        Schedule arrivalSchedule = new Schedule(arrivalTime, arrivalTime);
-        Ticket ticket = new Ticket(passenger, seat, cost, departureSchedule, arrivalSchedule);
+        Schedule schedule = new Schedule(arrivalTime, arrivalTime, originStationId, destinationStationId);
+        Ticket ticket = new Ticket(passenger, seat, cost, schedule);
         tickets.add(ticket);
     }
 
@@ -267,9 +266,9 @@ public class LocUOComotiveController {
         List<String> ticketInfo = new ArrayList<>();
         for (Ticket ticket : tickets) {
             String routeId = ticket.getRoute().getId();
-            String departureTime = ticket.getDepartureSchedule().toString();
+            String departureTime = ticket.getDepartureTime().toString();
             String departureStationName = findStationById(ticket.getDepartureStationId()).getName();
-            String arrivalTime = ticket.getArrivalSchedule().toString();
+            String arrivalTime = ticket.getArrivalTime().toString();
             String arrivalStationName = findStationById(ticket.getArrivalStationId()).getName();
             String carNumberSeatNumber = ticket.getSeat().getWagonId() + "-" + ticket.getSeat().getSeatNumber();
             double ticketCost = ticket.calculatePrice();
@@ -310,9 +309,9 @@ public class LocUOComotiveController {
         for (Ticket ticket : tickets) {
             if (ticket.getPassenger().getPassport().equals(passport)) {
                 String routeId = ticket.getRoute().getId();
-                String departureTime = ticket.getDepartureSchedule().toString();
+                String departureTime = ticket.getDepartureTime().toString();
                 String departureStationName = findStationById(ticket.getDepartureStationId()).getName();
-                String arrivalTime = ticket.getArrivalSchedule().toString();
+                String arrivalTime = ticket.getArrivalTime().toString();
                 String arrivalStationName = findStationById(ticket.getArrivalStationId()).getName();
                 String carNumberSeatNumber = ticket.getSeat().getWagonId() + "-" + ticket.getSeat().getSeatNumber();
                 double ticketCost = ticket.calculatePrice();
