@@ -6,6 +6,7 @@ import java.io.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.*;
+import java.util.regex.Pattern;
 
 public class LocUOComotiveController {
 
@@ -140,7 +141,34 @@ public class LocUOComotiveController {
         return routesInfo;
     }
 
+    private boolean validateEmail(String email) {
+        if (email == null || email.isEmpty()) {
+            return true; // Email is optional
+        }
+        String emailRegex = "^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,3}$";
+        Pattern pattern = Pattern.compile(emailRegex);
+        return pattern.matcher(email).matches();
+    }
+
     public void addPassenger(String passport, String name, String surName, LocalDate birthDate, String email) throws Exception {
+        if (passport == null || passport.isEmpty()) {
+            throw new Exception("Passport cannot be null or empty");
+        }
+
+        if (name == null || name.isEmpty()) {
+            throw new Exception("Name cannot be null or empty");
+        }
+
+        if (surName == null || surName.isEmpty()) {
+            throw new Exception("Surname cannot be null or empty");
+        }
+
+        if (birthDate == null) {
+            throw new Exception("Birthdate cannot be null");
+        }
+        if (!validateEmail(email)) {
+            throw new Exception("Email is not valid");
+        }
         Passenger existingPassenger = passengersMap.get(passport);
         if (existingPassenger != null) {
             // Update existing passenger's details

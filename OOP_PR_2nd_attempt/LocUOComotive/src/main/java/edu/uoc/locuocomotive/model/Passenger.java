@@ -37,7 +37,7 @@ public class Passenger {
 
     @Override
     public String toString() {
-        return passport + "|" + name  + "|" + surName + "|" + birthDate + email;
+        return passport + "|" + name  + "|" + surName + "|" + birthDate +"|"+ email;
     }
 
 //    public String getPassport() {
