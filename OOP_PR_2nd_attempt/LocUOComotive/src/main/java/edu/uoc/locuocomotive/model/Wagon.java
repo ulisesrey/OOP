@@ -36,4 +36,20 @@ public class Wagon { // referred as Car too
     public int getNumberOfSeats() {
         return numberOfSeats;
     }
+
+    public int AvailableSeats() {
+        return availableSeats;
+    }
+
+    public String getFirstAvailableSeat(){
+        return "C" + this.getId() + "S" + (this.getNumberOfSeats() - this.AvailableSeats());
+    }
+
+    public void decreaseAvailableSeats() {
+        if (this.availableSeats > 0) {
+            this.availableSeats--;
+        } else {
+            throw new IllegalStateException("No available seats left in this wagon.");
+        }
+    }
 }

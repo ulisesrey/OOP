@@ -38,8 +38,8 @@ public class Train {
         return model;
     }
 
-    public int[] getWagons() {
-        return cars;
+    public List<Wagon> getWagons() {
+        return wagons;
     }
     @Override
     public String toString() {
