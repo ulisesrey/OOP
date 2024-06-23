@@ -5,7 +5,7 @@ public class Wagon { // referred as Car too
     public Train train;
     public String wagonClass;
     public int numberOfSeats;
-    public int availableSeats;
+    public int availableSeats; // might not be needed here, might go into Controller
 
     public Wagon(int id, Train train, int numberOfSeats) {
         this.id = id;
@@ -21,5 +21,19 @@ public class Wagon { // referred as Car too
             this.wagonClass = "Third class";
         }
     }
-    
+
+    public int getId() {
+        return id;
+    }
+
+    public Train getTrain() {
+        return train;
+    }
+
+    public String getWagonClass() {
+        return wagonClass;
+    }
+    public int getNumberOfSeats() {
+        return numberOfSeats;
+    }
 }
