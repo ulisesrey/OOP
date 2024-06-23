@@ -11,8 +11,20 @@ public class Route {
         this.StationsAndTimes = StationsAndTimes;
     }
 
-    public int getDepartureStationId() {
+    public int[] getDepartureStationIds(){
+        int[] stationIds = new int[StationsAndTimes.length];
+        for (int i = 0; i < StationsAndTimes.length; i++) {
+            stationIds[i] = Integer.parseInt(StationsAndTimes[i].split("|")[0]);
+        }
+        return stationIds;
+    }
+    public int getFirstDepartureStationId() {
         int stationId = Integer.parseInt(StationsAndTimes[0].split("|")[0]);
+        return stationId;
+    }
+
+    public int getLastDestinationStationId() { // Not sure this works.
+        int stationId =Integer.parseInt(StationsAndTimes[0].split("|")[-1]);
         return stationId;
     }
     @Override

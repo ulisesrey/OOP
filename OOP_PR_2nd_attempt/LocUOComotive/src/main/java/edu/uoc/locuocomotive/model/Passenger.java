@@ -15,4 +15,37 @@ public class Passenger {
         this.birthDate = birthDate;
         this.email = email;
     }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+    public void setSurName(String surName) {
+        this.surName = surName;
+    }
+
+    public void setBirthDate(LocalDate birthDate) {
+        this.birthDate = birthDate;
+    }
+
+    public void setEmail(String email) {
+        // THis should check for email string to be proper.
+        this.email = email;
+
+//    public String getPassport() {
+//        return passport;
+//    }
+//
+//    // Write the setters
+//    public String setName() {
+//        this.name = name;}
+//    public String setSurname() {
+//        this.surName = surName;}
+//    }
+//    public LocalDate setBirthDate() {
+//        this.birthDate = birthDate;}
+//    }
+//    public String setEmail() {
+//        this.email = email;}
+//    }
+
 }

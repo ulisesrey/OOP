@@ -1,5 +1,7 @@
 package edu.uoc.locuocomotive.model;
 
+import java.util.List;
+
 public class Station {
     public int id;
     public String name;
@@ -67,6 +69,20 @@ public class Station {
     }
     public int getPositionY() {
         return this.positionY;
+    }
+
+    public List<String> getRoutes(){
+        List<String> result = new ArrayList<>();
+        for (Route route : routes) {
+            for (String stationSchedule : route.getStationSchedules()) {
+                String[] parts = stationSchedule.split("=");
+                if (Integer.parseInt(parts[0]) == stationId) {
+                    result.add(route.getId());
+                    break;
+                }
+            }
+        }
+        return result;
     }
 
     @Override

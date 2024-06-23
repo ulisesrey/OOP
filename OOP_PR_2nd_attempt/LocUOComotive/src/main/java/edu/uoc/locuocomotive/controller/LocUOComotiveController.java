@@ -12,7 +12,7 @@ public class LocUOComotiveController {
     private List<Station> stations;
     private List<Route> routes;
     private List<Train> trains;
-    private Map<String, Passenger> passengers = new HashMap<>();
+    private Map<String, Passenger> passengersMap = new HashMap<>();
     private List<Ticket> tickets;
 
     public LocUOComotiveController(String stationsFile, String routesFile, String trainsFile) {
@@ -20,7 +20,7 @@ public class LocUOComotiveController {
         this.stations = new ArrayList<>();
         this.routes = new ArrayList<>();
         this.trains = new ArrayList<>();
-        this.passengers = new HashMap<>();
+        this.passengersMap = new HashMap<>();
         this.tickets = new ArrayList<>();
         loadStations(stationsFile);
         loadRoutes(routesFile);
@@ -123,16 +123,44 @@ public class LocUOComotiveController {
         return new String[]{"FIRST_CLASS", "SECOND_CLASS", "THIRD_CLASS"};
     }
 
-    public List<String> getRoutesByStation(int stationId) {
-        List<String> result = new ArrayList<>();
+    // This is for the special test
+//    public List<String> getRoutesByStation(int stationId) {
+//        List<String> result = new ArrayList<>();
+//        for (Route route : routes) {
+//            int[] routeStations = route.getDepartureStationIds();
+//            for (station in routeStations) {
+//                if (station == stationId) {
+//                    result.add(route.getId());
+//                    break;
+//                }
+//
+//            }
+//            for (String stationSchedule : route.getDepartureStationId()) {
+//                String[] parts = stationSchedule.split("=");
+//                if (Integer.parseInt(parts[0]) == stationId) {
+//                    result.add(route.getId());
+//                    break;
+//                }
+//            }
+//        }
+//
+//        return result;
+//    }
 
-        return result;
+    public void addPassenger(String passport, String name, String surName, LocalDate birthDate, String email) throws Exception {
+        Passenger existingPassenger = passengersMap.get(passport);
+        if (existingPassenger != null) {
+            // Update existing passenger's details
+            existingPassenger.setName(name);
+            existingPassenger.setSurName(surName);
+            existingPassenger.setBirthDate(birthDate);
+            existingPassenger.setEmail(email);
+        } else {
+            // Create new passenger and add to map
+            Passenger newPassenger = new Passenger(passport, name, surName, birthDate, email);
+            passengers.put(passport, newPassenger);
+        }
     }
-
-    public void addPassenger(String passport, String name, String surname, LocalDate birthdate, String email) throws Exception {
-        //TODO
-    }
-
     public void createTicket(String passport, String routeId, LocalTime departureTime, LocalTime arrivalTime, double cost, int originStationId, int destinationStationId, String selectedSeatType) throws Exception {
         //TODO
     }
