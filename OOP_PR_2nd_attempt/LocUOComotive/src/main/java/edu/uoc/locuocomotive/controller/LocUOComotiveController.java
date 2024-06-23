@@ -1,5 +1,7 @@
 package edu.uoc.locuocomotive.controller;
 
+import edu.uoc.locuocomotive.model.*;
+
 import java.io.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -7,10 +9,22 @@ import java.util.*;
 
 public class LocUOComotiveController {
 
-    //TODO: Define the attributes
+    private List<Station> stations;
+    private List<Route> routes;
+    private List<Train> trains;
+    private Map<String, Passenger> passengers = new HashMap<>();
+    private List<Ticket> tickets;
 
     public LocUOComotiveController(String stationsFile, String routesFile, String trainsFile) {
         //TODO: Implement the constructor
+        this.stations = new ArrayList<>();
+        this.routes = new ArrayList<>();
+        this.trains = new ArrayList<>();
+        this.passengers = new HashMap<>();
+        this.tickets = new ArrayList<>();
+        loadStations(stationsFile);
+        loadRoutes(routesFile);
+        loadTrains(trainsFile);
     }
 
     private void loadStations(String stationsFile) {
@@ -84,27 +98,35 @@ public class LocUOComotiveController {
     }
 
     public void addStation(int id, String name, String city, int openingYear, String type, String image, int positionX, int positionY) {
-        //TODO
+        stations.add(new Station(id, name, city, openingYear, type, image, positionX, positionY));
     }
 
     public void addRoute(String id, int trainId, String... stationsAndTimes) {
-        //TODO
+        routes.add(new Route(id, trainId, stationsAndTimes));
     }
 
     public void addTrain(int id, String model, int... cars) {
-        //TODO
+        trains.add(new Train(id, model, cars));
     }
 
     public List<String> getStationsInfo() {
-        //TODO
+        List<String> result = new ArrayList<>();
+        for (Station station : stations) {
+            result.add(
+                    station.toString()
+            );
+        }
+        return result;
     }
 
     public String[] getSeatTypes() {
-        //TODO
+        return new String[]{"FIRST_CLASS", "SECOND_CLASS", "THIRD_CLASS"};
     }
 
     public List<String> getRoutesByStation(int stationId) {
-        //TODO
+        List<String> result = new ArrayList<>();
+
+        return result;
     }
 
     public void addPassenger(String passport, String name, String surname, LocalDate birthdate, String email) throws Exception {
