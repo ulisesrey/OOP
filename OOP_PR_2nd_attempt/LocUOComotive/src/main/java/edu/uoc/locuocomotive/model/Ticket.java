@@ -4,7 +4,7 @@ import java.time.LocalTime;
 
 public class Ticket {
     public String Passport;
-    public int RouteId;
+    public String RouteId;
     public LocalTime DepartureTime;
     public LocalTime ArrivalTime;
     public double Cost;
@@ -12,7 +12,7 @@ public class Ticket {
     public int destinationStationId;
     public String SeatType;
 
-    public Ticket(String Passport, int RouteId, LocalTime DepartureTime, LocalTime ArrivalTime, double Cost, int originStationId, int destinationStationId, String SeatType) {
+    public Ticket(String Passport, String RouteId, LocalTime DepartureTime, LocalTime ArrivalTime, double Cost, int originStationId, int destinationStationId, String SeatType) {
         this.Passport = Passport;
         this.RouteId = RouteId;
         this.DepartureTime = DepartureTime;

@@ -158,11 +158,11 @@ public class LocUOComotiveController {
         } else {
             // Create new passenger and add to map
             Passenger newPassenger = new Passenger(passport, name, surName, birthDate, email);
-            passengers.put(passport, newPassenger);
+            passengersMap.put(passport, newPassenger);
         }
     }
     public void createTicket(String passport, String routeId, LocalTime departureTime, LocalTime arrivalTime, double cost, int originStationId, int destinationStationId, String selectedSeatType) throws Exception {
-        //TODO
+        tickets.add(new Ticket(passport, routeId, departureTime, arrivalTime, cost, originStationId, destinationStationId, selectedSeatType));
     }
 
     public void buyTicket(String passport, String name, String surname, LocalDate birthdate, String email,
