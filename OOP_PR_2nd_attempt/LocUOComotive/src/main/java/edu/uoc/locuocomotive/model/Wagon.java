@@ -21,12 +21,5 @@ public class Wagon { // referred as Car too
             this.wagonClass = "Third class";
         }
     }
-
-    public void buyTicket() {
-        if (availableSeats > 0) {
-            availableSeats = availableSeats - 1;
-        } else {
-            throw new IllegalStateException("No available seats in this wagon");
-        }
-    }
+    
 }
