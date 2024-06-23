@@ -124,28 +124,21 @@ public class LocUOComotiveController {
     }
 
     // This is for the special test
-//    public List<String> getRoutesByStation(int stationId) {
-//        List<String> result = new ArrayList<>();
-//        for (Route route : routes) {
-//            int[] routeStations = route.getDepartureStationIds();
-//            for (station in routeStations) {
-//                if (station == stationId) {
-//                    result.add(route.getId());
-//                    break;
-//                }
-//
-//            }
-//            for (String stationSchedule : route.getDepartureStationId()) {
-//                String[] parts = stationSchedule.split("=");
-//                if (Integer.parseInt(parts[0]) == stationId) {
-//                    result.add(route.getId());
-//                    break;
-//                }
-//            }
-//        }
-//
-//        return result;
-//    }
+    public List<String> getRoutesByStation(int stationId) {
+        List<String> routesInfo = new ArrayList<>();
+        for (Route route : routes) {
+            if (route.getFirstDepartureStationId() == stationId) {
+                String[] stationsAndTimes = route.getStationsAndTimes();
+                for (String stationAndTime : stationsAndTimes) {
+                    String[] parts = stationAndTime.split("\\|");
+                    String stationIdStr = parts[0];
+                    String times = parts[1];
+                    routesInfo.add(route.getId() + "|" + stationIdStr + "|" + times);
+                }
+            }
+        }
+        return routesInfo;
+    }
 
     public void addPassenger(String passport, String name, String surName, LocalDate birthDate, String email) throws Exception {
         Passenger existingPassenger = passengersMap.get(passport);
