@@ -183,6 +183,28 @@ public class LocUOComotiveController {
         }
     }
     public void createTicket(String passport, String routeId, LocalTime departureTime, LocalTime arrivalTime, double cost, int originStationId, int destinationStationId, String selectedSeatType) throws Exception {
+        Route route = findRouteById(routeId);
+        if (route == null) {
+            throw new Exception("Route not found");
+        }
+
+        Train train = findTrainById(route.getTrainId());
+        if (train == null) {
+            throw new Exception("Train not found");
+        }
+
+        int carNumber = 0;
+        int seatNumber = 0;
+
+//        for (Wagon wagon : train.getWagons()) {
+//            if (wagon.getAvailableSeats() > 0) {
+//                carNumber = wagon.getId();
+//                seatNumber = wagon.getNumberOfSeats() - wagon.getAvailableSeats() + 1;
+//                wagon.buyTicket();
+//                break;
+//            }
+//        }
+
         tickets.add(new Ticket(passport, routeId, departureTime, arrivalTime, cost, originStationId, destinationStationId, selectedSeatType));
         // TODO: A més, és el mètode encarregat d'actualitzar l'estació en la qual es troba el passatger, viatjant a l'estació destinació i buidant el tren d'altres passatgers. En cas que sorgeixi qualsevol error, s'ha de llançar una excepció.
     }
@@ -262,7 +284,26 @@ public class LocUOComotiveController {
     }
 
     public int getCurrentStationId() {
-            return 1;
+            return 1; // default is 1, Barcelona
+    }
+
+    // Extra methods
+    private Route findRouteById(String routeId) {
+        for (Route route : routes) {
+            if (route.getId().equals(routeId)) {
+                return route;
+            }
+        }
+        return null;
+    }
+
+    private Train findTrainById(int trainId) {
+        for (Train train : trains) {
+            if (train.id == trainId) {
+                return train;
+            }
+        }
+        return null;
     }
 
 }

@@ -15,6 +15,17 @@ public class Train {
         return this;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public String getModel() {
+        return model;
+    }
+
+    public int[] getCars() {
+        return cars;
+    }
     @Override
     public String toString() {
         // return id, model and number of cars
