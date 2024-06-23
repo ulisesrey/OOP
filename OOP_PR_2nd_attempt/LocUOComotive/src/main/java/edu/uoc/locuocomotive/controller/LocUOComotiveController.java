@@ -248,9 +248,9 @@ public class LocUOComotiveController {
                 for (String stationAndTime : stationsAndTimes) {
                     String[] parts = stationAndTime.split("\\[");
                     String stationId = parts[0];
-                    String times = parts[1].replace("]", "");
+                    String[] times = parts[1].replace("]", "").split(",");
 
-                    result.add(stationId + "|[" + times + "]");
+                    result.add(stationId + "|[" + times[0] + ", " +times[1]+ "]");
                 }
 
                 // We've found the route, no need to continue the loop
