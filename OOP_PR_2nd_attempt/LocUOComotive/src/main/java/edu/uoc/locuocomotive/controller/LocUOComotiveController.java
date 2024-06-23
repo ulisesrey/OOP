@@ -163,19 +163,35 @@ public class LocUOComotiveController {
     }
     public void createTicket(String passport, String routeId, LocalTime departureTime, LocalTime arrivalTime, double cost, int originStationId, int destinationStationId, String selectedSeatType) throws Exception {
         tickets.add(new Ticket(passport, routeId, departureTime, arrivalTime, cost, originStationId, destinationStationId, selectedSeatType));
+        // TODO: A més, és el mètode encarregat d'actualitzar l'estació en la qual es troba el passatger, viatjant a l'estació destinació i buidant el tren d'altres passatgers. En cas que sorgeixi qualsevol error, s'ha de llançar una excepció.
     }
 
-    public void buyTicket(String passport, String name, String surname, LocalDate birthdate, String email,
+    public void buyTicket(String passport, String name, String surName, LocalDate birthDate, String email,
                             String routeId, LocalTime departureTime, LocalTime arrivalTime, double cost, int originStationId, int destinationStationId, String selectedSeatType) throws Exception {
-        //TODO
+
+        // create a passenger using addPassenger method
+        addPassenger(passport, name, surName, birthDate, email);
+        // create a ticket using createTicket method
+        createTicket(passport, routeId, departureTime, arrivalTime, cost, originStationId, destinationStationId, selectedSeatType);
+
+
     }
 
     public List<String> getAllTickets() {
-        //TODO
+        List<String> result = new ArrayList<>();
+        for (Ticket ticket : tickets) {
+            result.add(ticket.toString());
+        }
+        return result;
     }
 
     public String getPassengerInfo(String passport) {
-        //TODO
+        Passenger passenger = passengersMap.get(passport);
+        if (passenger != null) {
+            return passenger.toString();
+        } else {
+            return "Passenger not found";
+        }
     }
 
     public String getTrainInfo(int trainId) {
