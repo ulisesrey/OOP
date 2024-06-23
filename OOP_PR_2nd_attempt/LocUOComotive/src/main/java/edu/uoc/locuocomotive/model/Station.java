@@ -71,19 +71,19 @@ public class Station {
         return this.positionY;
     }
 
-    public List<String> getRoutes(){
-        List<String> result = new ArrayList<>();
-        for (Route route : routes) {
-            for (String stationSchedule : route.getStationSchedules()) {
-                String[] parts = stationSchedule.split("=");
-                if (Integer.parseInt(parts[0]) == stationId) {
-                    result.add(route.getId());
-                    break;
-                }
-            }
-        }
-        return result;
-    }
+//    public List<String> getRoutes(){
+//        List<String> result = new ArrayList<>();
+//        for (Route route : routes) {
+//            for (String stationSchedule : route.getStationSchedules()) {
+//                String[] parts = stationSchedule.split("=");
+//                if (Integer.parseInt(parts[0]) == stationId) {
+//                    result.add(route.getId());
+//                    break;
+//                }
+//            }
+//        }
+//        return result;
+//    }
 
     @Override
     public String toString() {

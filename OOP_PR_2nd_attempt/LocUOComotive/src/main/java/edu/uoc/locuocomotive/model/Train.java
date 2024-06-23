@@ -10,4 +10,15 @@ public class Train {
         this.model = model;
         this.cars = cars;
     }
+
+    public Train getTrainById(int id) {
+        return this;
+    }
+
+    @Override
+    public String toString() {
+        // return id, model and number of cars
+        return id + "|" + model + "|" + cars.length;
+
+    }
 }

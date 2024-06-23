@@ -1,5 +1,7 @@
 package edu.uoc.locuocomotive.model;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Passenger {
     private String passport;
@@ -30,6 +32,13 @@ public class Passenger {
     public void setEmail(String email) {
         // THis should check for email string to be proper.
         this.email = email;
+    }
+
+
+    @Override
+    public String toString() {
+        return passport + "|" + name  + "|" + surName + "|" + birthDate + email;
+    }
 
 //    public String getPassport() {
 //        return passport;

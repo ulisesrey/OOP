@@ -195,19 +195,53 @@ public class LocUOComotiveController {
     }
 
     public String getTrainInfo(int trainId) {
-        //TODO
+        for (Train train : trains) {
+            if (train.id == trainId) {
+                return train.toString();
+            }
+        }
+        return ""; // Return an empty string if no train with the given id is found
     }
 
     public List<String> getPassengerTickets(String passport) {
-        //TODO
+        // Should have this format:
+        // routeId|departureTime|departureStationName| arrivalTime|arrivalStationName|carNumber-seatNumber|ticketCost
+        //loop through all the tickets that match the field passport and return them as a list of strings
+        List<String> result;
+        result = new ArrayList<>();
+        for (Ticket ticket : tickets) {
+            if (ticket.getPassport().equals(passport)) {
+                result.add(ticket.toString());
+            }
+        }
+        return result;
     }
 
     public List<String> getRouteDeparturesInfo(String routeId) {
-        //TODO
+        List<String> result = new ArrayList<>();
+        for (Route route : routes) {
+            if (route.getId().equals(routeId)) {
+                String[] stationsAndTimes = route.getStationsAndTimes();
+
+                // Format each station and time and add it to the result list
+                for (String stationAndTime : stationsAndTimes) {
+                    String[] parts = stationAndTime.split("\\[");
+                    String stationId = parts[0];
+                    String times = parts[1].replace("]", "");
+
+                    result.add(stationId + "|[" + times + "]");
+                }
+
+                // We've found the route, no need to continue the loop
+                break;
+            }
+        }
+
+        return result;
     }
 
     public int getCurrentStationId() {
-        //TODO
+            return 1;
     }
 
 }

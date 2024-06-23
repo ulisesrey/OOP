@@ -11,6 +11,18 @@ public class Route {
         this.StationsAndTimes = StationsAndTimes;
     }
 
+
+    public String getId() {
+        return id;
+    }
+
+    public int getTrainId() {
+        return trainId;
+    }
+
+    public String[] getStationsAndTimes() {
+        return StationsAndTimes;
+    }
     public int[] getDepartureStationIds(){
         int[] stationIds = new int[StationsAndTimes.length];
         for (int i = 0; i < StationsAndTimes.length; i++) {
