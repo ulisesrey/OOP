@@ -3,23 +3,22 @@ package edu.uoc.locuocomotive.model;
 import java.time.LocalTime;
 
 public class Ticket {
-    public String Passport;
-    public String RouteId;
-    public LocalTime DepartureTime;
-    public LocalTime ArrivalTime;
-    public double Cost;
-    public String originStationName;
-    public String destinationStationName;
-    public String seatType;
-
-    public String seatNumber;
+    private String passport;
+    private String routeId;
+    private LocalTime departureTime;
+    private LocalTime arrivalTime;
+    private double cost;
+    private String originStationName;
+    private String destinationStationName;
+    private String seatType;
+    private String seatNumber;
 
     public Ticket(String Passport, String RouteId, LocalTime DepartureTime, LocalTime ArrivalTime, double Cost, String originStationName, String destinationStationName, String seatType, String seatNumber) {
-        this.Passport = Passport;
-        this.RouteId = RouteId;
-        this.DepartureTime = DepartureTime;
-        this.ArrivalTime = ArrivalTime;
-        this.Cost = Cost;
+        this.passport = Passport;
+        this.routeId = RouteId;
+        this.departureTime = DepartureTime;
+        this.arrivalTime = ArrivalTime;
+        this.cost = Cost;
         this.originStationName = originStationName;
         this.destinationStationName = destinationStationName;
         this.seatType = seatType;
@@ -27,22 +26,22 @@ public class Ticket {
     }
 
 public String getPassport(){
-        return Passport;
+        return passport;
     }
     public LocalTime getDepartureTime() {
-        return DepartureTime;
+        return departureTime;
     }
     public LocalTime getArrivalTime() {
-        return ArrivalTime;
+        return arrivalTime;
     }
     public String getRouteId() {
-        return RouteId;
+        return routeId;
     }
     public String getSeatType() {
         return seatType;
     }
     public double getCost() {
-        return Cost;
+        return cost;
     }
 
     public String getOriginStation() {
@@ -51,14 +50,14 @@ public String getPassport(){
     public String getDestinationStation() {
         return destinationStationName;
     }
-    public int getCarNumber() {
-        return 0;
+    public String getSeatNumber() {
+        return seatNumber;
     }
 
 
 
     @Override
     public String toString() {
-        return RouteId + "|" + DepartureTime + "|" + originStationName +"|" + ArrivalTime + "|" + destinationStationName + "|" + seatNumber + "|" + Cost; //Car and Seat number missing!
+        return routeId + "|" + departureTime + "|" + originStationName +"|" + arrivalTime + "|" + destinationStationName + "|" + seatNumber + "|" + cost; //Car and Seat number missing!
     }
 }
