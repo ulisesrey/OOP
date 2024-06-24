@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Train {
-    public int id;
-    public String model;
-    public int[] cars;
-    public List<Wagon> wagons; // = new ArrayList<Wagon>();
+    private int id;
+    private String model;
+    private int[] cars;
+    private List<Wagon> wagons;
 
     public Train(int id, String model, int[] cars) {
         this.id = id;

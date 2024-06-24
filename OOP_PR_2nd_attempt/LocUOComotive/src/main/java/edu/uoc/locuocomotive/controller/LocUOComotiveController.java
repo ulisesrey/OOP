@@ -261,7 +261,7 @@ public class LocUOComotiveController {
 
     public String getTrainInfo(int trainId) {
         for (Train train : trains) {
-            if (train.id == trainId) {
+            if (train.getId() == trainId) {
                 return train.toString();
             }
         }
