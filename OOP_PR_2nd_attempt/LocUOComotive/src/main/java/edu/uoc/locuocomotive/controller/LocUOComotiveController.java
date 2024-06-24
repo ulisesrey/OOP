@@ -189,15 +189,8 @@ public class LocUOComotiveController {
     public void createTicket(String passport, String routeId, LocalTime departureTime, LocalTime arrivalTime, double cost, int originStationId, int destinationStationId, String selectedSeatType) throws Exception {
         Route route = findRouteById(routeId);
 
-
-        if (route == null) {
-            throw new Exception("Route not found");
-        }
-
         Train train = findTrainById(route.getTrainId());
-        if (train == null) {
-            throw new Exception("Train not found");
-        }
+
 
         Station originStation = findStationById(originStationId);
         String originStationName = originStation.getName();
@@ -323,25 +316,24 @@ public class LocUOComotiveController {
                 return route;
             }
         }
-        return null;
+        throw new NoSuchElementException("No route found with ID: " + routeId);
     }
 
     private Train findTrainById(int trainId) {
         for (Train train : trains) {
-            if (train.id == trainId) {
+            if (train.getId() == trainId) {
                 return train;
             }
         }
-        return null;
+        throw new NoSuchElementException("No train found with ID: " + trainId);
     }
     private Station findStationById(int stationId) {
         for (Station station : stations) {
             if (station.getId() == stationId) {
                 return station;
-
             }
         }
-        return null;
+        throw new NoSuchElementException("No station found with ID: " + stationId);
     }
 
 }
