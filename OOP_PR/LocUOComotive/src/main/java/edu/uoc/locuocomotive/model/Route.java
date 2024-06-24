@@ -8,9 +8,9 @@ import java.util.List;
 public class Route {
     private String id;
     private int trainId;
-    private List<StationSchedule> stationSchedules;
+    private String[] stationSchedules;
 
-    public Route(String id, int trainId, List<StationSchedule> stationSchedules) {
+    public Route(String id, int trainId, String[] stationSchedules) {
         this.id = id;
         this.trainId = trainId;
         this.stationSchedules = stationSchedules;
@@ -20,9 +20,9 @@ public class Route {
         return id;
     }
 
-    public List<StationSchedule> getStations() {
-        return this.stationSchedules;
-    }
+//    public List<StationSchedule> getStations() {
+//        return this.stationSchedules;
+//    }
 
     public int getTrainId() {
         return trainId;
@@ -32,8 +32,8 @@ public class Route {
         return Train.getTrainById(this.trainId);
     }
 
-    public List<StationSchedule> getStationSchedules() {
-        return stationSchedules;
+    public String[] getStationSchedules() {
+        return this.stationSchedules;
     }
 
     public int getDestinationStationId() {

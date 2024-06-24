@@ -115,29 +115,7 @@ public class LocUOComotiveController {
     }
 
     public void addRoute(String id, int trainId, String... stationsAndTimes) {
-        Train train = trains.stream().filter(t -> t.getId() == trainId).findFirst().orElse(null);
-        if (train == null) {
-            throw new IllegalArgumentException("Train with ID " + trainId + " not found");
-        }
-
-        List<Route.StationSchedule> stationSchedules = new ArrayList<>();
-
-        for (String stationAndTime : stationsAndTimes) {
-            String[] parts = stationAndTime.split("\\[|\\]|,");
-            int stationId = Integer.parseInt(parts[0]);
-            String[] times = parts[1].split(",");
-
-            Station station = stations.stream().filter(s -> s.getId() == stationId).findFirst().orElse(null);
-            if (station == null) {
-                throw new IllegalArgumentException("Station with ID " + stationId + " not found");
-            }
-
-            for (String time : times) {
-                stationSchedules.add(new Route.StationSchedule(stationId, time, time));
-            }
-        }
-
-        Route route = new Route(id, trainId, stationSchedules);
+        Route route = new Route(id, trainId, stationsAndTimes);
         routes.add(route);
     }
 
@@ -337,12 +315,12 @@ public class LocUOComotiveController {
         List<String> departuresInfo = new ArrayList<>();
         Route route = routes.stream().filter(r -> r.getId().equals(routeId)).findFirst().orElse(null);
         if (route != null) {
-            for (Route.StationSchedule schedule : route.getStationSchedules()) {
-                int stationId = schedule.getStationId();
-                List<String> times = schedule.getTimes().stream().map(LocalTime::toString).collect(Collectors.toList());
-                String timesStr = String.join(", ", times);
-                String scheduleStr = String.format("%d|[%s]", stationId, timesStr);
-                departuresInfo.add(scheduleStr);
+            for (String scheduleStr : route.getStationSchedules()) {
+                String[] parts = scheduleStr.split("\\[|\\]|,");
+                int stationId = Integer.parseInt(parts[0]);
+                String timesStr = parts[1] + ", " + parts[2];
+                String scheduleInfo = String.format("%d|[%s]", stationId, timesStr);
+                departuresInfo.add(scheduleInfo);
             }
         }
         return departuresInfo;
