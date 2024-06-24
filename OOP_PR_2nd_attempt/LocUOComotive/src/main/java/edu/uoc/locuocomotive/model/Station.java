@@ -3,14 +3,14 @@ package edu.uoc.locuocomotive.model;
 import java.util.List;
 
 public class Station {
-    public int id;
-    public String name;
-    public String city;
-    public int openingYear;
-    public String type;
-    public String image;
-    public int positionX;
-    public int positionY;
+    private int id;
+    private String name;
+    private String city;
+    private int openingYear;
+    private String type;
+    private String image;
+    private int positionX;
+    private int positionY;
 
     public Station(int id, String name, String city, int openingYear, String type, String image, int positionX, int positionY) {
         this.id = id;
@@ -70,20 +70,6 @@ public class Station {
     public int getPositionY() {
         return this.positionY;
     }
-
-//    public List<String> getRoutes(){
-//        List<String> result = new ArrayList<>();
-//        for (Route route : routes) {
-//            for (String stationSchedule : route.getStationSchedules()) {
-//                String[] parts = stationSchedule.split("=");
-//                if (Integer.parseInt(parts[0]) == stationId) {
-//                    result.add(route.getId());
-//                    break;
-//                }
-//            }
-//        }
-//        return result;
-//    }
 
     @Override
     public String toString() {
