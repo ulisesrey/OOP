@@ -11,7 +11,7 @@
            text="Credits"/>
 
     <Label alignment="TOP_CENTER" layoutX="97.0" layoutY="147.0" prefHeight="300.0" prefWidth="459.0"
-           styleClass="credits-text" text="This game was made by DPOO Team with love." textAlignment="CENTER">
+           styleClass="credits-text" text="This game was made by Ulises Rey (urey@uoc.edu), with love." textAlignment="CENTER">
         Read these instructions very carefully!!
     </Label>
     <Button layoutX="315" layoutY="365" onMouseClicked="#backMain" styleClass="btn" text="Back"
