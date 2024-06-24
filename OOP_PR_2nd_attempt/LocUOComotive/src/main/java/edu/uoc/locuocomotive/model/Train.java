@@ -47,7 +47,7 @@ public class Train {
         String seatNumber = null;
         for (Wagon wagon : wagons) {
             // Reset number of available seats to numberOfSeats
-            wagon.availableSeats = wagon.numberOfSeats;
+            wagon.setAvailableSeats(wagon.getNumberOfSeats());
         }
     }
 
