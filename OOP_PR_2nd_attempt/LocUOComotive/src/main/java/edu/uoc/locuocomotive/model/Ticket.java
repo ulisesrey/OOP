@@ -8,19 +8,22 @@ public class Ticket {
     public LocalTime DepartureTime;
     public LocalTime ArrivalTime;
     public double Cost;
-    public int originStationId;
-    public int destinationStationId;
-    public String SeatType;
+    public String originStationName;
+    public String destinationStationName;
+    public String seatType;
 
-    public Ticket(String Passport, String RouteId, LocalTime DepartureTime, LocalTime ArrivalTime, double Cost, int originStationId, int destinationStationId, String SeatType) {
+    public String seatNumber;
+
+    public Ticket(String Passport, String RouteId, LocalTime DepartureTime, LocalTime ArrivalTime, double Cost, String originStationName, String destinationStationName, String seatType, String seatNumber) {
         this.Passport = Passport;
         this.RouteId = RouteId;
         this.DepartureTime = DepartureTime;
         this.ArrivalTime = ArrivalTime;
         this.Cost = Cost;
-        this.originStationId = originStationId;
-        this.destinationStationId = destinationStationId;
-        this.SeatType = SeatType;
+        this.originStationName = originStationName;
+        this.destinationStationName = destinationStationName;
+        this.seatType = seatType;
+        this.seatNumber = seatNumber;
     }
 
 public String getPassport(){
@@ -36,27 +39,26 @@ public String getPassport(){
         return RouteId;
     }
     public String getSeatType() {
-        return SeatType;
+        return seatType;
     }
     public double getCost() {
         return Cost;
     }
 
-    public int getOriginStationId() {
-        return originStationId;
+    public String getOriginStation() {
+        return originStationName;
     }
-    public int getDestinationStationId() {
-        return destinationStationId;
+    public String getDestinationStation() {
+        return destinationStationName;
     }
     public int getCarNumber() {
         return 0;
     }
-    public int getSeatNumber() {
-        return 0;
-    }
+
+
 
     @Override
     public String toString() {
-        return RouteId + "|" + DepartureTime + "|" + originStationId +"|" + ArrivalTime + "|" + destinationStationId + "|" + Cost; //Car and Seat number missing!
+        return RouteId + "|" + DepartureTime + "|" + originStationName +"|" + ArrivalTime + "|" + destinationStationName + "|" + seatNumber + "|" + Cost; //Car and Seat number missing!
     }
 }

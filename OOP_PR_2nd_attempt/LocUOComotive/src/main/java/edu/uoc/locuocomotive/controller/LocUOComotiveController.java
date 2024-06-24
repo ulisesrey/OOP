@@ -16,6 +16,8 @@ public class LocUOComotiveController {
     private Map<String, Passenger> passengersMap = new HashMap<>();
     private List<Ticket> tickets;
 
+    private int currentStation;
+
     public LocUOComotiveController(String stationsFile, String routesFile, String trainsFile) {
         //TODO: Implement the constructor
         this.stations = new ArrayList<>();
@@ -26,7 +28,9 @@ public class LocUOComotiveController {
         loadStations(stationsFile);
         loadRoutes(routesFile);
         loadTrains(trainsFile);
+        this.currentStation=1;
     }
+
 
     private void loadStations(String stationsFile) {
         // Get the file from the resources folder
@@ -184,6 +188,8 @@ public class LocUOComotiveController {
     }
     public void createTicket(String passport, String routeId, LocalTime departureTime, LocalTime arrivalTime, double cost, int originStationId, int destinationStationId, String selectedSeatType) throws Exception {
         Route route = findRouteById(routeId);
+
+
         if (route == null) {
             throw new Exception("Route not found");
         }
@@ -193,20 +199,41 @@ public class LocUOComotiveController {
             throw new Exception("Train not found");
         }
 
-        int carNumber = 0;
-        int seatNumber = 0;
+        Station originStation = findStationById(originStationId);
+        String originStationName = originStation.getName();
+        Station destinationStation = findStationById(destinationStationId);
+        String destinationStationName = destinationStation.getName();
 
-//        for (Wagon wagon : train.getWagons()) {
-//            if (wagon.getAvailableSeats() > 0) {
-//                carNumber = wagon.getId();
-//                seatNumber = wagon.getNumberOfSeats() - wagon.getAvailableSeats() + 1;
-//                wagon.buyTicket();
-//                break;
-//            }
-//        }
+        List<Wagon> wagons = train.getWagons();
+        String seatNumber = null;
+        for (Wagon wagon : wagons) {
+            // Skip if the wagon is a restaurant
+            if (wagon.isRestaurant()) {
+                continue;
+            }else {
+                if (wagon.getWagonClass().equals(selectedSeatType)) {
+                    seatNumber = wagon.getFirstAvailableSeat();
+                    wagon.decreaseAvailableSeats();
+                    break;
+                }
+            }
 
-        tickets.add(new Ticket(passport, routeId, departureTime, arrivalTime, cost, originStationId, destinationStationId, selectedSeatType));
-        // TODO: A més, és el mètode encarregat d'actualitzar l'estació en la qual es troba el passatger, viatjant a l'estació destinació i buidant el tren d'altres passatgers. En cas que sorgeixi qualsevol error, s'ha de llançar una excepció.
+        }
+        if (seatNumber == null) {
+            throw new Exception("Seat not found. No Seats available for this Route and this Class.");
+        }
+
+
+
+
+
+        tickets.add(new Ticket(passport, routeId, departureTime, arrivalTime, cost, originStationName, destinationStationName, selectedSeatType, seatNumber));
+        // i buidant el tren d'altres passatgers. En cas que sorgeixi qualsevol error, s'ha de llançar una excepció.
+        // Sets the new currentStation as the destination Station
+        this.currentStation = destinationStationId;
+        // Empty the train of passengers
+        train.emptyTrain();
+
     }
 
     public void buyTicket(String passport, String name, String surName, LocalDate birthDate, String email,
@@ -221,6 +248,8 @@ public class LocUOComotiveController {
     }
 
     public List<String> getAllTickets() {
+
+
         List<String> result = new ArrayList<>();
         for (Ticket ticket : tickets) {
             result.add(ticket.toString());
@@ -284,7 +313,7 @@ public class LocUOComotiveController {
     }
 
     public int getCurrentStationId() {
-            return 1; // default is 1, Barcelona
+            return currentStation; // default is 1, Barcelona
     }
 
     // Extra methods
@@ -301,6 +330,15 @@ public class LocUOComotiveController {
         for (Train train : trains) {
             if (train.id == trainId) {
                 return train;
+            }
+        }
+        return null;
+    }
+    private Station findStationById(int stationId) {
+        for (Station station : stations) {
+            if (station.getId() == stationId) {
+                return station;
+
             }
         }
         return null;

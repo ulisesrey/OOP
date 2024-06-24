@@ -1,11 +1,16 @@
 package edu.uoc.locuocomotive.model;
 
-public class Wagon { // referred as Car too
+public class Wagon {
+    ; // referred as Car too
     public int id;
     public Train train;
     public String wagonClass;
     public int numberOfSeats;
     public int availableSeats; // might not be needed here, might go into Controller
+    private final String FirstAvailableSeat;
+
+    public boolean restaurant;
+
 
     public Wagon(int id, Train train, int numberOfSeats) {
         this.id = id;
@@ -13,13 +18,16 @@ public class Wagon { // referred as Car too
         this.numberOfSeats = numberOfSeats;
         this.availableSeats = numberOfSeats;
 
-        if (numberOfSeats < 10) {
-            this.wagonClass = "First class";
+        if (numberOfSeats < 20) {
+            this.wagonClass = "FIRST_CLASS";
         } else if (numberOfSeats < 50) {
-            this.wagonClass = "Second class";
+            this.wagonClass = "SECOND_CLASS";
         } else {
-            this.wagonClass = "Third class";
+            this.wagonClass = "THIRD_CLASS";
         }
+        this.FirstAvailableSeat = getFirstAvailableSeat();
+
+        this.restaurant = (numberOfSeats == 0);
     }
 
     public int getId() {
@@ -29,6 +37,8 @@ public class Wagon { // referred as Car too
     public Train getTrain() {
         return train;
     }
+
+
 
     public String getWagonClass() {
         return wagonClass;
@@ -41,8 +51,11 @@ public class Wagon { // referred as Car too
         return availableSeats;
     }
 
+    public boolean isRestaurant(){
+        return restaurant;
+    }
     public String getFirstAvailableSeat(){
-        return "C" + this.getId() + "S" + (this.getNumberOfSeats() - this.AvailableSeats());
+        return "C" + this.getId() + "-" + (this.getNumberOfSeats() - this.AvailableSeats()+1);
     }
 
     public void decreaseAvailableSeats() {

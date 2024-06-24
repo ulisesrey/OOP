@@ -41,6 +41,16 @@ public class Train {
     public List<Wagon> getWagons() {
         return wagons;
     }
+
+    public void emptyTrain(){
+        List<Wagon> wagons = this.getWagons();
+        String seatNumber = null;
+        for (Wagon wagon : wagons) {
+            // Reset number of available seats to numberOfSeats
+            wagon.availableSeats = wagon.numberOfSeats;
+        }
+    }
+
     @Override
     public String toString() {
         // return id, model and number of cars
