@@ -1,0 +1,140 @@
+<mxfile host="Electron" modified="2024-06-24T14:19:13.456Z" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/24.6.1 Chrome/124.0.6367.207 Electron/30.0.6 Safari/537.36" version="24.6.1" etag="0ldRjN8lxU2rJtVoZyn1" type="device">
+  <diagram id="xFu-U3NYkl0iLfJINw86" name="Page-1">
+    <mxGraphModel dx="2391" dy="1027" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="850" pageHeight="1100" background="none" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="node2" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;b&gt;LocUOComotiveController&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;/&gt;&lt;p style=&quot;margin:0 0 0 4px;line-height:1.6;&quot;&gt;+ LocUOComotiveController(String, String, String): &lt;/p&gt;&lt;hr size=&quot;1&quot;/&gt;&lt;p style=&quot;margin:0 0 0 4px;line-height:1.6;&quot;&gt;+ getRoutesByStation(int): List&amp;lt;String&amp;gt;&lt;br/&gt;- findTrainById(int): Train&lt;br/&gt;+ getPassengerInfo(String): String&lt;br/&gt;- loadStations(String): void&lt;br/&gt;- loadRoutes(String): void&lt;br/&gt;+ createTicket(String, String, LocalTime, LocalTime, double, int, int, String): void&lt;br/&gt;+ getRouteDeparturesInfo(String): List&amp;lt;String&amp;gt;&lt;br/&gt;+ addTrain(int, String, int[]): void&lt;br/&gt;- validateEmail(String): boolean&lt;br/&gt;- loadTrains(String): void&lt;br/&gt;+ buyTicket(String, String, String, LocalDate, String, String, LocalTime, LocalTime, double, int, int, String): void&lt;br/&gt;+ addPassenger(String, String, String, LocalDate, String): void&lt;br/&gt;- findStationById(int): Station&lt;br/&gt;+ getTrainInfo(int): String&lt;br/&gt;+ addStation(int, String, String, int, String, String, int, int): void&lt;br/&gt;+ getPassengerTickets(String): List&amp;lt;String&amp;gt;&lt;br/&gt;- findRouteById(String): Route&lt;br/&gt;+ addRoute(String, int, String[]): void&lt;/p&gt;&lt;hr size=&quot;1&quot;/&gt;&lt;p style=&quot;margin:0 0 0 4px;line-height:1.6;&quot;&gt; currentStationId: int&lt;br/&gt; allTickets: List&amp;lt;String&amp;gt;&lt;br/&gt; seatTypes: String[]&lt;br/&gt; stationsInfo: List&amp;lt;String&amp;gt;&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=14;fontFamily=Helvetica;html=1;rounded=0;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;" parent="1" vertex="1">
+          <mxGeometry x="-142" y="1764" width="415" height="595" as="geometry" />
+        </mxCell>
+        <mxCell id="node0" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;b&gt;Passenger&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;/&gt;&lt;p style=&quot;margin:0 0 0 4px;line-height:1.6;&quot;&gt;+ Passenger(String, String, String, LocalDate, String): &lt;/p&gt;&lt;hr size=&quot;1&quot;/&gt;&lt;p style=&quot;margin:0 0 0 4px;line-height:1.6;&quot;&gt;- surName: String&lt;br/&gt;- email: String&lt;br/&gt;- name: String&lt;br/&gt;- passport: String&lt;br/&gt;- birthDate: LocalDate&lt;/p&gt;&lt;hr size=&quot;1&quot;/&gt;&lt;p style=&quot;margin:0 0 0 4px;line-height:1.6;&quot;&gt;+ toString(): String&lt;/p&gt;&lt;hr size=&quot;1&quot;/&gt;&lt;p style=&quot;margin:0 0 0 4px;line-height:1.6;&quot;&gt; name: String&lt;br/&gt; passport: String&lt;br/&gt; birthDate: LocalDate&lt;br/&gt; email: String&lt;br/&gt; surName: String&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=14;fontFamily=Helvetica;html=1;rounded=0;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;" parent="1" vertex="1">
+          <mxGeometry x="1162" y="1305" width="365" height="333" as="geometry" />
+        </mxCell>
+        <mxCell id="node5" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;b&gt;Route&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;/&gt;&lt;p style=&quot;margin:0 0 0 4px;line-height:1.6;&quot;&gt;+ Route(String, int, String[]): &lt;/p&gt;&lt;hr size=&quot;1&quot;/&gt;&lt;p style=&quot;margin:0 0 0 4px;line-height:1.6;&quot;&gt;- id: String&lt;br/&gt;- StationsAndTimes: String[]&lt;br/&gt;- trainId: int&lt;/p&gt;&lt;hr size=&quot;1&quot;/&gt;&lt;p style=&quot;margin:0 0 0 4px;line-height:1.6;&quot;&gt;+ toString(): String&lt;/p&gt;&lt;hr size=&quot;1&quot;/&gt;&lt;p style=&quot;margin:0 0 0 4px;line-height:1.6;&quot;&gt; StationsAndTimes: String[]&lt;br/&gt; firstDepartureStationId: int&lt;br/&gt; trainId: int&lt;br/&gt; id: String&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=14;fontFamily=Helvetica;html=1;rounded=0;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;" parent="1" vertex="1">
+          <mxGeometry x="-515" y="1440" width="213" height="261" as="geometry" />
+        </mxCell>
+        <mxCell id="node4" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;b&gt;Station&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;/&gt;&lt;p style=&quot;margin:0 0 0 4px;line-height:1.6;&quot;&gt;+ Station(int, String, String, int, String, String, int, int): &lt;/p&gt;&lt;hr size=&quot;1&quot;/&gt;&lt;p style=&quot;margin:0 0 0 4px;line-height:1.6;&quot;&gt;- city: String&lt;br/&gt;- image: String&lt;br/&gt;- name: String&lt;br/&gt;- positionX: int&lt;br/&gt;- positionY: int&lt;br/&gt;- openingYear: int&lt;br/&gt;- type: String&lt;br/&gt;- id: int&lt;/p&gt;&lt;hr size=&quot;1&quot;/&gt;&lt;p style=&quot;margin:0 0 0 4px;line-height:1.6;&quot;&gt;+ setPositionX(int): int&lt;br/&gt;+ setType(String): String&lt;br/&gt;+ toString(): String&lt;br/&gt;+ setOpeningYear(int): int&lt;br/&gt;+ setImage(String): String&lt;br/&gt;+ setName(String): String&lt;br/&gt;+ setId(int): int&lt;br/&gt;+ setCity(String): String&lt;br/&gt;+ setPositionY(int): int&lt;/p&gt;&lt;hr size=&quot;1&quot;/&gt;&lt;p style=&quot;margin:0 0 0 4px;line-height:1.6;&quot;&gt; name: String&lt;br/&gt; image: String&lt;br/&gt; type: String&lt;br/&gt; city: String&lt;br/&gt; positionY: int&lt;br/&gt; openingYear: int&lt;br/&gt; positionX: int&lt;br/&gt; id: int&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=14;fontFamily=Helvetica;html=1;rounded=0;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;" parent="1" vertex="1">
+          <mxGeometry x="-118" y="969" width="367" height="669" as="geometry" />
+        </mxCell>
+        <mxCell id="node3" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;b&gt;Ticket&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;/&gt;&lt;p style=&quot;margin:0 0 0 4px;line-height:1.6;&quot;&gt;+ Ticket(String, String, LocalTime, LocalTime, double, String, String, String, String): &lt;/p&gt;&lt;hr size=&quot;1&quot;/&gt;&lt;p style=&quot;margin:0 0 0 4px;line-height:1.6;&quot;&gt;- routeId: String&lt;br/&gt;- departureTime: LocalTime&lt;br/&gt;- cost: double&lt;br/&gt;- passport: String&lt;br/&gt;- arrivalTime: LocalTime&lt;br/&gt;- seatType: String&lt;br/&gt;- seatNumber: String&lt;/p&gt;&lt;hr size=&quot;1&quot;/&gt;&lt;p style=&quot;margin:0 0 0 4px;line-height:1.6;&quot;&gt;+ toString(): String&lt;/p&gt;&lt;hr size=&quot;1&quot;/&gt;&lt;p style=&quot;margin:0 0 0 4px;line-height:1.6;&quot;&gt; originStation: String&lt;br/&gt; routeId: String&lt;br/&gt; destinationStation: String&lt;br/&gt; seatNumber: String&lt;br/&gt; departureTime: LocalTime&lt;br/&gt; seatType: String&lt;br/&gt; cost: double&lt;br/&gt; passport: String&lt;br/&gt; arrivalTime: LocalTime&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=14;fontFamily=Helvetica;html=1;rounded=0;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;" parent="1" vertex="1">
+          <mxGeometry x="358" y="1140" width="390" height="498" as="geometry" />
+        </mxCell>
+        <mxCell id="node1" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;b&gt;Train&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;/&gt;&lt;p style=&quot;margin:0 0 0 4px;line-height:1.6;&quot;&gt;+ Train(int, String, int[]): &lt;/p&gt;&lt;hr size=&quot;1&quot;/&gt;&lt;p style=&quot;margin:0 0 0 4px;line-height:1.6;&quot;&gt;- model: String&lt;br/&gt;- id: int&lt;br/&gt;- wagons: List&amp;lt;Wagon&amp;gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;/&gt;&lt;p style=&quot;margin:0 0 0 4px;line-height:1.6;&quot;&gt;+ emptyTrain(): void&lt;br/&gt;+ toString(): String&lt;br/&gt;+ getTrainById(int): Train&lt;br/&gt;- createWagons(): void&lt;/p&gt;&lt;hr size=&quot;1&quot;/&gt;&lt;p style=&quot;margin:0 0 0 4px;line-height:1.6;&quot;&gt; wagons: List&amp;lt;Wagon&amp;gt;&lt;br/&gt; model: String&lt;br/&gt; id: int&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=14;fontFamily=Helvetica;html=1;rounded=0;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;" parent="1" vertex="1">
+          <mxGeometry x="825" y="1317" width="187" height="309" as="geometry" />
+        </mxCell>
+        <mxCell id="node6" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;b&gt;Wagon&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;/&gt;&lt;p style=&quot;margin:0 0 0 4px;line-height:1.6;&quot;&gt;+ Wagon(int, Train, int): &lt;/p&gt;&lt;hr size=&quot;1&quot;/&gt;&lt;p style=&quot;margin:0 0 0 4px;line-height:1.6;&quot;&gt;- wagonClass: String&lt;br/&gt;- availableSeats: int&lt;br/&gt;- train: Train&lt;br/&gt;- restaurant: boolean&lt;br/&gt;- FirstAvailableSeat: String&lt;br/&gt;- id: int&lt;br/&gt;- numberOfSeats: int&lt;/p&gt;&lt;hr size=&quot;1&quot;/&gt;&lt;p style=&quot;margin:0 0 0 4px;line-height:1.6;&quot;&gt;+ decreaseAvailableSeats(): void&lt;/p&gt;&lt;hr size=&quot;1&quot;/&gt;&lt;p style=&quot;margin:0 0 0 4px;line-height:1.6;&quot;&gt; numberOfSeats: int&lt;br/&gt; availableSeats: int&lt;br/&gt; restaurant: boolean&lt;br/&gt; FirstAvailableSeat: String&lt;br/&gt; train: Train&lt;br/&gt; wagonClass: String&lt;br/&gt; id: int&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=14;fontFamily=Helvetica;html=1;rounded=0;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;" parent="1" vertex="1">
+          <mxGeometry x="789" y="622" width="236" height="429" as="geometry" />
+        </mxCell>
+        <mxCell id="edge5" value="" style="html=1;rounded=1;edgeStyle=orthogonalEdgeStyle;dashed=0;startArrow=diamondThinstartSize=12;endArrow=openThin;endSize=12;exitX=0.500;exitY=0.000;exitDx=0;exitDy=0;entryX=0.500;entryY=1.000;entryDx=0;entryDy=0;labelBackgroundColor=none;fontColor=default;" parent="1" source="node2" target="node0" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="65" y="1701" />
+              <mxPoint x="1344" y="1701" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="label30" value="1" style="edgeLabel;resizable=0;html=1;align=left;verticalAlign=top;labelBackgroundColor=none;" parent="edge5" vertex="1" connectable="0">
+          <mxGeometry x="315" y="1683" as="geometry" />
+        </mxCell>
+        <mxCell id="label34" value="*" style="edgeLabel;resizable=0;html=1;align=left;verticalAlign=top;labelBackgroundColor=none;" parent="edge5" vertex="1" connectable="0">
+          <mxGeometry x="1334" y="1649" as="geometry" />
+        </mxCell>
+        <mxCell id="label35" value="passengersMap" style="edgeLabel;resizable=0;html=1;align=left;verticalAlign=top;labelBackgroundColor=none;" parent="edge5" vertex="1" connectable="0">
+          <mxGeometry x="1344" y="1649" as="geometry" />
+        </mxCell>
+        <mxCell id="edge3" value="" style="html=1;rounded=1;edgeStyle=orthogonalEdgeStyle;dashed=0;startArrow=diamondThinstartSize=12;endArrow=openThin;endSize=12;exitX=0.500;exitY=0.000;exitDx=0;exitDy=0;entryX=1.000;entryY=1.000;entryDx=0;entryDy=0;labelBackgroundColor=none;fontColor=default;" parent="1" source="node2" target="node5" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="65" y="1701" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="label18" value="1" style="edgeLabel;resizable=0;html=1;align=left;verticalAlign=top;labelBackgroundColor=none;" parent="edge3" vertex="1" connectable="0">
+          <mxGeometry x="-208" y="1683" as="geometry" />
+        </mxCell>
+        <mxCell id="label22" value="*" style="edgeLabel;resizable=0;html=1;align=left;verticalAlign=top;labelBackgroundColor=none;" parent="edge3" vertex="1" connectable="0">
+          <mxGeometry x="-274" y="1697" as="geometry" />
+        </mxCell>
+        <mxCell id="label23" value="routes" style="edgeLabel;resizable=0;html=1;align=left;verticalAlign=top;labelBackgroundColor=none;" parent="edge3" vertex="1" connectable="0">
+          <mxGeometry x="-275" y="1672" as="geometry" />
+        </mxCell>
+        <mxCell id="edge1" value="" style="html=1;rounded=1;edgeStyle=orthogonalEdgeStyle;dashed=0;startArrow=diamondThinstartSize=12;endArrow=openThin;endSize=12;exitX=0.500;exitY=0.000;exitDx=0;exitDy=0;entryX=0.500;entryY=1.000;entryDx=0;entryDy=0;labelBackgroundColor=none;fontColor=default;" parent="1" source="node2" target="node4" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="label6" value="1" style="edgeLabel;resizable=0;html=1;align=left;verticalAlign=top;labelBackgroundColor=none;" parent="edge1" vertex="1" connectable="0">
+          <mxGeometry x="53" y="1740" as="geometry" />
+        </mxCell>
+        <mxCell id="label10" value="*" style="edgeLabel;resizable=0;html=1;align=left;verticalAlign=top;labelBackgroundColor=none;" parent="edge1" vertex="1" connectable="0">
+          <mxGeometry x="55" y="1643" as="geometry" />
+        </mxCell>
+        <mxCell id="label11" value="stations" style="edgeLabel;resizable=0;html=1;align=left;verticalAlign=top;labelBackgroundColor=none;" parent="edge1" vertex="1" connectable="0">
+          <mxGeometry x="65" y="1643" as="geometry" />
+        </mxCell>
+        <mxCell id="edge6" value="" style="html=1;rounded=1;edgeStyle=orthogonalEdgeStyle;dashed=0;startArrow=diamondThinstartSize=12;endArrow=openThin;endSize=12;exitX=0.500;exitY=0.000;exitDx=0;exitDy=0;entryX=0.500;entryY=1.000;entryDx=0;entryDy=0;labelBackgroundColor=none;fontColor=default;" parent="1" source="node2" target="node3" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="65" y="1701" />
+              <mxPoint x="553" y="1701" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="label36" value="1" style="edgeLabel;resizable=0;html=1;align=left;verticalAlign=top;labelBackgroundColor=none;" parent="edge6" vertex="1" connectable="0">
+          <mxGeometry x="254" y="1683" as="geometry" />
+        </mxCell>
+        <mxCell id="label40" value="*" style="edgeLabel;resizable=0;html=1;align=left;verticalAlign=top;labelBackgroundColor=none;" parent="edge6" vertex="1" connectable="0">
+          <mxGeometry x="353" y="1683" as="geometry" />
+        </mxCell>
+        <mxCell id="label41" value="tickets" style="edgeLabel;resizable=0;html=1;align=left;verticalAlign=top;labelBackgroundColor=none;" parent="edge6" vertex="1" connectable="0">
+          <mxGeometry x="553" y="1692" as="geometry" />
+        </mxCell>
+        <mxCell id="edge0" value="" style="html=1;rounded=1;edgeStyle=orthogonalEdgeStyle;dashed=0;startArrow=diamondThinstartSize=12;endArrow=openThin;endSize=12;exitX=0.500;exitY=0.000;exitDx=0;exitDy=0;entryX=0.500;entryY=1.000;entryDx=0;entryDy=0;labelBackgroundColor=none;fontColor=default;" parent="1" source="node2" target="node1" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="65" y="1701" />
+              <mxPoint x="919" y="1701" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="label0" value="1" style="edgeLabel;resizable=0;html=1;align=left;verticalAlign=top;labelBackgroundColor=none;" parent="edge0" vertex="1" connectable="0">
+          <mxGeometry x="230" y="1683" as="geometry" />
+        </mxCell>
+        <mxCell id="label4" value="*" style="edgeLabel;resizable=0;html=1;align=left;verticalAlign=top;labelBackgroundColor=none;" parent="edge0" vertex="1" connectable="0">
+          <mxGeometry x="909" y="1631" as="geometry" />
+        </mxCell>
+        <mxCell id="label5" value="trains" style="edgeLabel;resizable=0;html=1;align=left;verticalAlign=top;labelBackgroundColor=none;" parent="edge0" vertex="1" connectable="0">
+          <mxGeometry x="919" y="1631" as="geometry" />
+        </mxCell>
+        <mxCell id="edge4" value="" style="html=1;rounded=1;edgeStyle=orthogonalEdgeStyle;dashed=0;startArrow=diamondThinstartSize=12;endArrow=openThin;endSize=12;exitX=0.750;exitY=0.000;exitDx=0;exitDy=0;entryX=0.750;entryY=1.000;entryDx=0;entryDy=0;labelBackgroundColor=none;fontColor=default;" parent="1" source="node1" target="node6" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="label24" value="1" style="edgeLabel;resizable=0;html=1;align=left;verticalAlign=top;labelBackgroundColor=none;" parent="edge4" vertex="1" connectable="0">
+          <mxGeometry x="954" y="1270" as="geometry" />
+        </mxCell>
+        <mxCell id="label28" value="*" style="edgeLabel;resizable=0;html=1;align=left;verticalAlign=top;labelBackgroundColor=none;" parent="edge4" vertex="1" connectable="0">
+          <mxGeometry x="956" y="1067" as="geometry" />
+        </mxCell>
+        <mxCell id="label29" value="wagons" style="edgeLabel;resizable=0;html=1;align=left;verticalAlign=top;labelBackgroundColor=none;" parent="edge4" vertex="1" connectable="0">
+          <mxGeometry x="966" y="1056" as="geometry" />
+        </mxCell>
+        <mxCell id="edge2" value="" style="html=1;rounded=1;edgeStyle=orthogonalEdgeStyle;dashed=0;startArrow=diamondThinstartSize=12;endArrow=openThin;endSize=12;exitX=0.354;exitY=1.000;exitDx=0;exitDy=0;entryX=0.250;entryY=0.000;entryDx=0;entryDy=0;labelBackgroundColor=none;fontColor=default;" parent="1" source="node6" target="node1" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="label12" value="1" style="edgeLabel;resizable=0;html=1;align=left;verticalAlign=top;labelBackgroundColor=none;" parent="edge2" vertex="1" connectable="0">
+          <mxGeometry x="860" y="1056" as="geometry" />
+        </mxCell>
+        <mxCell id="label16" value="1" style="edgeLabel;resizable=0;html=1;align=left;verticalAlign=top;labelBackgroundColor=none;" parent="edge2" vertex="1" connectable="0">
+          <mxGeometry x="860" y="1270" as="geometry" />
+        </mxCell>
+        <mxCell id="label17" value="train" style="edgeLabel;resizable=0;html=1;align=left;verticalAlign=top;labelBackgroundColor=none;" parent="edge2" vertex="1" connectable="0">
+          <mxGeometry x="872" y="1270" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
