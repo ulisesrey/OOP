@@ -132,13 +132,14 @@ public class LocUOComotiveController {
     public List<String> getRoutesByStation(int stationId) {
         List<String> routesInfo = new ArrayList<>();
         for (Route route : routes) {
+            // TODO: Get cost, stationsIds and names
             if (route.getFirstDepartureStationId() == stationId) {
                 String[] stationsAndTimes = route.getStationsAndTimes();
                 for (String stationAndTime : stationsAndTimes) {
-                    String[] parts = stationAndTime.split("\\|");
+                    String[] parts = stationAndTime.split("\\[");
                     String stationIdStr = parts[0];
-                    String times = parts[1];
-                    routesInfo.add(route.getId() + "|" + stationIdStr + "|" + times);
+                    String[] times = parts[1].replace("]", "").split(",");
+                    routesInfo.add(times[0] + "-" + times[1] +  "|" + route.getId()); // + "|" + cost + "|" + originStationId + "|" + "|" + destinationStationId + "|" + originStationName + "|" + destinationStationName);
                 }
             }
         }

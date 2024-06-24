@@ -335,13 +335,23 @@ public class PlayViewController {
         TableColumn<String, String> destinationStationColumn = new TableColumn<>("Destination");
         destinationStationColumn.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().split("\\|")[4]));
 
-        //TODO
+        // New column for Car-Seat
+        TableColumn<String, String> carSeatColumn = new TableColumn<>("Car-Seat");
+        carSeatColumn.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().split("\\|")[5]));
+
+        // New column for Cost
+        TableColumn<String, String> costColumn = new TableColumn<>("Cost");
+        costColumn.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().split("\\|")[6]));
+
 
         ticketTable.getColumns().add(routeColumn);
         ticketTable.getColumns().add(originTimeColumn);
         ticketTable.getColumns().add(originStationColumn);
         ticketTable.getColumns().add(destinationTimeColumn);
         ticketTable.getColumns().add(destinationStationColumn);
+        ticketTable.getColumns().add(carSeatColumn); // Add Car-Seat column to the table
+        ticketTable.getColumns().add(costColumn); // Add Cost column to the table
+
 
         List<String> tickets = controller.getAllTickets();
         ticketTable.getItems().addAll(tickets);
